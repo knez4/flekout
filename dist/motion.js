@@ -1,0 +1,47 @@
+const journey=document.querySelector('.journey');
+const portal=document.querySelector('.portal');
+const zoom=document.querySelector('#letter-zoom');
+const meta=document.querySelector('.intro-meta');
+const cue=document.querySelector('.scroll-cue');
+const photo=document.querySelector('.photograph');
+const shade=document.querySelector('.shade');
+const copy=document.querySelector('.reveal-copy');
+const wipe=document.querySelector('.wipe');
+const header=document.querySelector('header');
+const progress=document.querySelector('.progress i');
+const reduced=window.matchMedia('(prefers-reduced-motion: reduce)');
+const clamp=(v)=>Math.min(1,Math.max(0,v));
+const range=(v,a,b)=>clamp((v-a)/(b-a));
+const ease=v=>v*v*(3-2*v);
+let queued=false;
+function render(){
+ queued=false;
+ const rect=journey.getBoundingClientRect();
+ const p=clamp(-rect.top/Math.max(1,journey.offsetHeight-window.innerHeight));
+ const reduce=reduced.matches;
+ header.classList.toggle('on-photo',reduce?rect.bottom>90:p>.35&&p<.91&&rect.bottom>90);
+ header.classList.toggle('on-content',rect.bottom<=90);
+ if(reduce)return;
+ const z=ease(range(p,.015,.60));
+ const scale=Math.exp(z*Math.log(28));
+ zoom.setAttribute('transform',`translate(720 450) scale(${scale}) translate(-720 -450)`);
+ portal.style.opacity=1-ease(range(p,.39,.56));
+ const intro=1-range(p,0,.14);
+ meta.style.opacity=intro;cue.style.opacity=intro;
+ photo.style.transform=`scale(${1.12-.12*ease(range(p,0,.73))})`;
+ shade.style.opacity=ease(range(p,.42,.64));
+ const reveal=ease(range(p,.52,.67));
+ copy.style.opacity=reveal*(1-range(p,.81,.89));
+ copy.style.visibility=reveal>0?'visible':'hidden';
+ copy.style.transform=`translateY(${-40-10*reveal}%)`;
+ wipe.style.transform=`translateY(${102*(1-ease(range(p,.84,1)))}%)`;
+ progress.style.width=`${p*100}%`;
+}
+function schedule(){if(!queued){queued=true;requestAnimationFrame(render)}}
+addEventListener('scroll',schedule,{passive:true});addEventListener('resize',schedule);reduced.addEventListener('change',schedule);render();
+const dialog=document.querySelector('#contact-dialog');
+document.querySelector('#open-contact').addEventListener('click',()=>dialog.showModal());
+dialog.querySelector('.close').addEventListener('click',()=>dialog.close());
+dialog.querySelector('.dialog-done').addEventListener('click',()=>dialog.close());
+dialog.addEventListener('click',event=>{if(event.target===dialog){const r=dialog.getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)dialog.close()}});
+document.querySelector('#replay').addEventListener('click',()=>window.scrollTo({top:0,behavior:reduced.matches?'instant':'smooth'}));
