@@ -3,17 +3,15 @@
 <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f7f8fa"><meta name="description" content="Flekout Clean — mašinsko pranje i čišćenje tvrdih i mekih podloga u Beogradu."><title>FLEKOUT — Bez fleke.</title><link rel="stylesheet" href="style.css"><script src="motion.js" defer></script></head>
 <body>
 <a class="skip" href="#usluge">Pređi na usluge</a>
-<header><a href="#pocetak" class="brand" aria-label="Flekout početna">FLEKOUT<span class="dot">.</span></a><a class="contact" href="#kontakt">Hajde da pričamo <span>↗</span></a></header>
+<header><a href="#pocetak" class="brand" aria-label="Flekout početna">FLEKOUT.</a><nav aria-label="Glavna navigacija"><a href="#usluge">Naše usluge</a><a href="#kontakt">Kontakt ↗</a></nav></header>
 <main>
 <section class="journey" id="pocetak" aria-label="Flekout — Čistoća kroz pokret">
 <div class="stage">
-<div class="photograph" role="img" aria-label="Ilustrativni kadar mašinskog čišćenja kamene podloge"></div><div class="shade"></div>
-<svg class="portal" viewBox="0 0 1440 900" preserveAspectRatio="none" aria-hidden="true"><defs><mask id="letter-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="1440" height="900"><rect width="1440" height="900" fill="white"/><g id="letter-zoom"><text x="720" y="525" text-anchor="middle" textLength="1340" lengthAdjust="spacingAndGlyphs" fill="black" font-family="Arial Black,Arial,sans-serif" font-weight="900" font-size="280">FLEKOUT</text></g></mask></defs><rect width="1440" height="900" fill="#f7f8fa" mask="url(#letter-mask)"/></svg>
-<div class="intro-meta"><p>Mašinsko pranje i čišćenje<span>Beograd</span></p><p class="issue">Čistoća kroz pokret / 01</p></div>
+<video id="cleaning-video" autoplay muted loop playsinline preload="auto" poster="cleaning-poster.jpg" aria-label="Ilustrativni snimak mašinskog čišćenja"><source src="cleaning-preview.mp4" type="video/mp4"></video>
+<svg class="portal" aria-hidden="true"><defs><text id="word" text-anchor="middle" font-family="Arial Black,Arial,sans-serif" font-weight="900" lengthAdjust="spacingAndGlyphs">FLEKOUT</text><mask id="letter-mask" maskUnits="userSpaceOnUse"><rect class="canvas" fill="white"/><use href="#word" fill="black"/></mask><clipPath id="swept"><rect id="swept-rect"/></clipPath><clipPath id="unswept"><rect id="unswept-rect"/></clipPath></defs><rect class="canvas" fill="white" mask="url(#letter-mask)" clip-path="url(#swept)"/><use href="#word" fill="white" clip-path="url(#unswept)"/></svg>
+<div class="intro-meta"><p>Mašinsko pranje i čišćenje</p><p>Beograd</p></div>
 <h1 class="sr-only">Flekout Clean — mašinsko pranje i čišćenje u Beogradu</h1>
-<div class="scroll-cue"><span class="scroll-line"></span>Skroluj. Otkrij razliku.</div>
-<div class="reveal-copy"><span class="eyebrow">TEMELJNOST U SVAKOM POTEZU</span><h2>Bez fleke<span>.</span></h2><p>Pravi pristup svakoj podlozi.</p></div>
-<div class="wipe"></div><div class="progress" aria-hidden="true"><i></i></div>
+<div class="hero-bottom"><a href="#usluge" class="scroll-cue">Čistoća kroz pokret <span>↓</span></a><button id="video-toggle" aria-label="Pauziraj video">Pauziraj video Ⅱ</button></div>
 </div>
 </section>
 <section class="services" id="usluge"><div class="section-top"><span class="eyebrow">01 / ŠTA RADIMO</span><span class="small">Za firme, lokale i stambene zajednice.</span></div><h2>Čisto. Do detalja<span>.</span></h2>
