@@ -3,20 +3,33 @@
 <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f7f8fa"><meta name="description" content="Flekout Clean — mašinsko pranje i čišćenje tvrdih i mekih podloga u Beogradu."><title>FLEKOUT — Bez fleke.</title><link rel="stylesheet" href="style.css"><script src="motion.js" defer></script></head>
 <body>
 <a class="skip" href="#usluge">Pređi na usluge</a>
-<header><a href="#pocetak" class="brand" aria-label="Flekout početna">FLEKOUT.</a><nav aria-label="Glavna navigacija"><a href="#usluge">Naše usluge</a><a href="#kontakt">Kontakt ↗</a></nav></header>
+<header><a href="#pocetak" class="brand" aria-label="Flekout početna"><img src="logo-black.png" width="140" height="31" alt="FLEKOUT"></a><nav aria-label="Glavna navigacija"><a href="#usluge">Naše usluge</a><a href="#kontakt">Kontakt ↗</a></nav></header>
 <main>
 <section class="journey" id="pocetak" aria-label="Flekout — Čistoća kroz pokret">
 <div class="stage">
 <video id="cleaning-video" autoplay muted loop playsinline preload="auto" poster="cleaning-poster.jpg" aria-label="Ilustrativni snimak mašinskog čišćenja"><source src="cleaning-preview.mp4" type="video/mp4"></video>
-<svg class="portal" aria-hidden="true"><defs><text id="word" text-anchor="middle" font-family="Arial Black,Arial,sans-serif" font-weight="900" lengthAdjust="spacingAndGlyphs">FLEKOUT</text><mask id="letter-mask" maskUnits="userSpaceOnUse"><rect class="canvas" fill="white"/><use href="#word" fill="black"/></mask><clipPath id="swept"><rect id="swept-rect"/></clipPath><clipPath id="unswept"><rect id="unswept-rect"/></clipPath></defs><rect class="canvas" fill="white" mask="url(#letter-mask)" clip-path="url(#swept)"/><use href="#word" fill="white" clip-path="url(#unswept)"/></svg>
+<svg class="portal" aria-hidden="true"><defs><filter id="pure-black" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0"/></filter><mask id="letter-mask" maskUnits="userSpaceOnUse" style="mask-type:luminance"><rect class="canvas" fill="white"/><image class="hero-logo" href="logo-black.png" filter="url(#pure-black)"/></mask><clipPath id="swept"><rect id="swept-rect"/></clipPath><clipPath id="unswept"><rect id="unswept-rect"/></clipPath></defs><rect class="canvas" fill="white" mask="url(#letter-mask)" clip-path="url(#swept)"/><image class="hero-logo" href="logo-white.png" clip-path="url(#unswept)"/></svg>
 <div class="intro-meta"><p>Mašinsko pranje i čišćenje</p><p>Beograd</p></div>
 <h1 class="sr-only">Flekout Clean — mašinsko pranje i čišćenje u Beogradu</h1>
 <div class="hero-bottom"><a href="#usluge" class="scroll-cue">Čistoća kroz pokret <span>↓</span></a><button id="video-toggle" aria-label="Pauziraj video">Pauziraj video Ⅱ</button></div>
 </div>
 </section>
-<section class="services" id="usluge"><div class="section-top"><span class="eyebrow">01 / ŠTA RADIMO</span><span class="small">Za firme, lokale i stambene zajednice.</span></div><h2>Čisto. Do detalja<span>.</span></h2>
-<div class="service-list"><details><summary><span class="number">01</span><span>Tvrde podloge</span><span class="plus">+</span></summary><div class="detail-content"><p>Mašinsko pranje tvrdih podloga, uz procenu površine i stepena zaprljanosti.</p><a href="#kontakt">Razgovarajmo o tvom prostoru ↗</a></div></details><details><summary><span class="number">02</span><span>Meke podloge</span><span class="plus">+</span></summary><div class="detail-content"><p>Pranje mekih podloga. Postupak i obim rada dogovaramo prema materijalu i potrebama prostora.</p><a href="#kontakt">Zatraži procenu ↗</a></div></details></div>
-<div class="service-note"><span>Svaki prostor je drugačiji.</span><p>Procena zavisi od kvadrature, zaprljanosti, lokacije i hitnosti termina.</p></div>
+<section class="services" id="usluge" aria-labelledby="services-title">
+<div class="section-top"><span class="eyebrow"><i></i> 01 / NAŠE USLUGE</span><span class="small">Za tvoj dom. Za tvoj posao.</span></div>
+<div class="services-heading"><h2 id="services-title">Šta želiš da<br><span>očistimo?</span></h2><p>Od jedne površine do celog prostora.<br>Izaberi odakle počinjemo.</p></div>
+<div class="service-explorer">
+<div class="service-choices" role="tablist" aria-label="Izaberi uslugu" aria-orientation="vertical">
+<button class="service-tab" id="tab-floors" role="tab" aria-selected="true" aria-controls="service-panel" data-service="0"><span class="tab-number">01</span><span>Podovi<small>Mašinsko pranje tvrdih podloga</small></span><span class="tab-arrow" aria-hidden="true">↗</span></button>
+<button class="service-tab" id="tab-furniture" role="tab" aria-selected="false" aria-controls="service-panel" tabindex="-1" data-service="1"><span class="tab-number">02</span><span>Nameštaj i tepisi<small>Dubinsko pranje mekih površina</small></span><span class="tab-arrow" aria-hidden="true">↗</span></button>
+<button class="service-tab" id="tab-glass" role="tab" aria-selected="false" aria-controls="service-panel" tabindex="-1" data-service="2"><span class="tab-number">03</span><span>Staklene površine<small>Prozori, izlozi i staklene pregrade</small></span><span class="tab-arrow" aria-hidden="true">↗</span></button>
+<button class="service-tab" id="tab-space" role="tab" aria-selected="false" aria-controls="service-panel" tabindex="-1" data-service="3"><span class="tab-number">04</span><span>Ceo prostor<small>Domovi, firme i zgrade</small></span><span class="tab-arrow" aria-hidden="true">↗</span></button>
+<p class="explorer-hint">Tvoja površina. Naš sledeći potez. <span>↗</span></p>
+</div>
+<div class="service-panel" id="service-panel" role="tabpanel" aria-labelledby="tab-floors" tabindex="0">
+<div class="service-photo"><img id="service-image" src="service-floors.jpg" width="1400" height="1050" alt="Mašinsko čišćenje poda u svetloj kancelariji" loading="lazy"><span class="photo-label">FLEKOUT / NEGA PROSTORA</span><span class="photo-count" aria-hidden="true">01 / 04</span></div>
+<div class="service-caption"><div><h3 id="service-title">Čistoća od poda.</h3><p id="service-description">Mašinsko pranje tvrdih podloga, sa postupkom prilagođenim površini i stepenu zaprljanosti.</p></div><a href="#kontakt" class="service-cta" aria-label="Zatraži procenu za podove">Zatraži procenu <span aria-hidden="true">↗</span></a></div>
+</div></div>
+<div class="service-note"><span>Nisi siguran šta je potrebno?</span><p>Opiši nam prostor. Zajedno ćemo odrediti obim čišćenja.</p><a href="#kontakt">Hajde da pogledamo ↗</a></div>
 </section>
 <section class="closing" id="kontakt"><span class="eyebrow">02 / SLEDEĆI POTEZ JE TVOJ</span><h2>Tvoj prostor.<br>Naš sledeći<br><span>potez.</span></h2><button class="talk" id="open-contact">Hajde da pričamo <span>↗</span></button><footer><a class="brand" href="#pocetak">FLEKOUT.</a><span>Mašinsko pranje i čišćenje · Beograd</span><button id="replay">Ponovi iskustvo ↑</button></footer></section>
 </main>
