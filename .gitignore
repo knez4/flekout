@@ -2,9 +2,11 @@
 *.tar.gz
 backups/
 
-# Konfiguracija hostinga sadrži identifikator naloga — drži se van javnog repoa.
-# Ako ti treba u repou, obriši ovu liniju.
-.openai/
+# NAPOMENA: .openai/hosting.json je OSTAO u repou jer je bio praćen od ranije,
+# pa ga .gitignore ne hvata. Sadrži project_id (identifikator, ne ključ) i
+# putanju do dist/. Ako hoćeš da ga skineš sa javnog repoa:
+#   git rm --cached .openai/hosting.json
+# pa dodaj ".openai/" ovde. Imaj u vidu da id ostaje u istoriji commita.
 
 # Izvoz logotipa u zip-u je duplikat onoga što već stoji kao PNG u brand/logos/
 brand/*.zip
