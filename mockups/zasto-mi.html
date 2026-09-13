@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="sr-Latn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FLEKOUT — mokap: Zašto mi</title>
+<!--
+  MOKAP, NIJE DEO SAJTA.
+  Samostalan fajl za dogovor o izgledu sekcije 03 "Zašto Flekout".
+  Kad se sekcija ugradi u dist/, ovaj fajl se briše.
+
+  Svi brojevi u sadržaju (48 sati, 12 godina, hiljadu prostora) su PLACEHOLDER
+  i moraju se potvrditi sa klijentom. Ovo je sekcija poverenja — izmišljen
+  podatak ovde ruši i sve ostalo na sajtu.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1b2226;
+  --muted:#5f686d;
+  --grey:#828b91;
+  --plate:#eceff1;
+  --line:#e6e8e9;
+  --blue:#168ccd;
+  --cut-ratio:.3014;          /* nagib nav-a: 22px na 73px = 16.8° */
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:#fff;color:var(--ink);
+  font-family:Manrope,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+
+/* ── traka za odlučivanje — NE pripada dizajnu ─────────────────────────── */
+.bar{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;flex-wrap:wrap;
+  gap:10px 26px;align-items:center;padding:12px 20px;background:#11181d;color:#cfdde5;
+  font-size:12px;letter-spacing:.02em}
+.bar strong{color:#fff;font-weight:600;letter-spacing:.08em;font-size:10px;text-transform:uppercase}
+.bar label{display:flex;gap:7px;align-items:center;color:#8ba4b2}
+.bar button{font:inherit;background:#1d2a32;color:#cfdde5;border:1px solid #2f414c;
+  padding:5px 11px;cursor:pointer}
+.bar button[aria-pressed=true]{background:var(--blue);border-color:var(--blue);color:#fff}
+.bar .spacer{flex:1}
+
+.pad{height:200px}                 /* prostor da se sekcija ulovi skrolom */
+.pad.after{height:120vh;background:#f5f7f8;
+  display:grid;place-items:center;color:#9aa3a8;font-size:12px;letter-spacing:.12em}
+
+/* ── SEKCIJA 03 ────────────────────────────────────────────────────────── */
+.why{padding:110px 6vw 120px;background:#fff}
+.why-inner{max-width:1560px;margin:0 auto}
+
+.eyebrow{display:block;font-size:14px;font-weight:600;letter-spacing:.07em;color:var(--ink)}
+
+.why h2{margin:40px 0 0;font-weight:500;line-height:1.06;letter-spacing:-.05em;
+  max-width:18ch}
+.h2-lead{display:block;color:var(--grey);font-size:clamp(24px,2.4vw,34px);
+  letter-spacing:-.04em;margin-bottom:.12em}
+.h2-punch{display:block;color:var(--ink);font-size:clamp(36px,3.8vw,56px)}
+
+.facts{list-style:none;margin:64px 0 0;padding:0;border-bottom:1px solid var(--line)}
+.fact{display:grid;grid-template-columns:minmax(240px,32%) minmax(0,1fr);
+  gap:clamp(24px,4vw,72px);align-items:center;
+  padding:34px 0;border-top:1px solid var(--line)}
+
+/* levo — krupna oznaka, ispod ploče */
+.fact-wrap{position:relative;overflow:hidden;
+  margin:-18px -40px -18px -18px;padding:18px 40px 18px 18px}
+.fact-label{font-size:clamp(32px,3.2vw,46px);font-weight:500;letter-spacing:-.04em;
+  color:var(--ink);white-space:nowrap}
+
+/* Ploča: kosa leva ivica je ona koja briše.
+   Sečivo je izvedeno kao dva sloja — plava ploča i siva preko nje, pomerena za
+   3px. Duž kose ivice ostane tačno 3px plavog. Gradijentom ne može, jer
+   gradijent ne prati kosinu nego ugao svoje ose. */
+.plate{position:absolute;inset:0;--cut:calc(var(--wrap-h,90px) * var(--cut-ratio));
+  clip-path:polygon(0 0,100% 0,100% 100%,var(--cut) 100%);
+  background:var(--blue);
+  transform:translateX(0);
+  transition:transform .55s cubic-bezier(.22,1,.36,1)}
+.plate i{position:absolute;inset:0 0 0 3px;background:var(--plate);
+  clip-path:polygon(0 0,100% 0,100% 100%,var(--cut) 100%)}
+.no-blade .plate{background:var(--plate)}
+.fact.is-clean .plate{transform:translateX(102%)}
+
+/* Ploča uz tekst umesto preko cele kolone — četiri jednake sive ploče umeju da
+   podsete na skeleton koji se učitava, pa je vredelo videti i uže. */
+.hug .fact-wrap{width:max-content;max-width:100%}
+
+/* desno — rečenica */
+.fact-text{font-size:17px;line-height:1.7;color:var(--muted);max-width:46ch;margin:0;
+  opacity:0;transform:translateY(12px);
+  transition:opacity .4s ease,transform .4s cubic-bezier(.22,1,.36,1);
+  transition-delay:.12s}
+.fact.is-clean .fact-text{opacity:1;transform:none}
+
+@media(prefers-reduced-motion:reduce){
+  .plate{display:none}
+  .fact-text{opacity:1;transform:none;transition:none}
+}
+
+@media(max-width:800px){
+  .why{padding:72px 6vw 80px}
+  .why h2{margin-top:28px}
+  .facts{margin-top:40px}
+  .fact{grid-template-columns:1fr;gap:12px;align-items:start;padding:24px 0}
+  .fact-label{font-size:clamp(28px,7vw,36px);white-space:normal}
+  .fact-wrap{margin:-12px -24px -12px -12px;padding:12px 24px 12px 12px}
+  .fact-text{font-size:15px;line-height:1.7;max-width:none}
+}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <strong>Mokap</strong>
+  <label>Naslov
+    <button data-copy="0" aria-pressed="true">1</button>
+    <button data-copy="1" aria-pressed="false">2</button>
+    <button data-copy="2" aria-pressed="false">3</button>
+  </label>
+  <label>Krupno
+    <button data-set="labels" aria-pressed="true">oznake</button>
+    <button data-set="numbers" aria-pressed="false">brojevi</button>
+  </label>
+  <label>Sečivo
+    <button data-blade="1" aria-pressed="true">da</button>
+    <button data-blade="0" aria-pressed="false">ne</button>
+  </label>
+  <label>Redova
+    <button data-rows="4" aria-pressed="true">4</button>
+    <button data-rows="5" aria-pressed="false">5</button>
+  </label>
+  <label>Ploča
+    <button data-hug="0" aria-pressed="true">kolona</button>
+    <button data-hug="1" aria-pressed="false">uz tekst</button>
+  </label>
+  <span class="spacer"></span>
+  <button id="replay">Ponovi brisanje</button>
+</div>
+
+<div class="pad"></div>
+
+<section class="why">
+  <div class="why-inner">
+    <span class="eyebrow">03 / ZAŠTO FLEKOUT</span>
+    <h2><span class="h2-lead"></span><span class="h2-punch"></span></h2>
+    <ul class="facts"></ul>
+  </div>
+</section>
+
+<div class="pad after">SLEDI 04 / PROCES</div>
+
+<script>
+const COPY = [
+  ['Razlika nije u trudu.', 'Razlika je u opremi.'],
+  ['Bez prideva.',          'Evo činjenica.'],
+  ['Trud imaju svi.',       'Mi imamo i mašine.']
+];
+
+/* Oznake — preporučena varijanta. Krupni slot je uvek kratak, pa su redovi
+   vizuelno ujednačeni, a tvrd podatak stoji na početku rečenice. */
+const LABELS = [
+  ['Oprema',      'Podoperač, ekstrakciona mašina i perač pod pritiskom. Ne improvizujemo.'],
+  ['Odziv',       '48 sati — toliko nam treba da izađemo na procenu.'],
+  ['Odgovornost', 'Osigurani smo i dajemo garanciju na svaku uslugu.'],
+  ['Ista ekipa',  'Isti ljudi svaki put. Znaš ko ti ulazi u prostor.'],
+  ['Iskustvo',    'Dvanaest godina na terenu i preko hiljadu očišćenih prostora.']
+];
+
+/* Brojevi — varijanta. Namerno je ostavljena da se vidi problem: forma tera
+   sadržaj. "Osigurani smo" nema svoj broj, pa se gubi ili se izmišlja metrika. */
+const NUMBERS = [
+  ['3 mašine', 'Podoperač, ekstrakciona mašina i perač pod pritiskom.'],
+  ['48 h',     'Toliko nam treba da izađemo na procenu.'],
+  ['0 din',    'Izlazak i procena ne koštaju ništa.'],
+  ['1 ekipa',  'Isti ljudi svaki put. Znaš ko ti ulazi u prostor.'],
+  ['12 god.',  'Iskustva na terenu.']
+];
+
+const list = document.querySelector('.facts');
+const state = { copy: 0, set: 'labels', blade: 1, rows: 4, hug: 0 };
+let observer;
+
+function render() {
+  document.querySelector('.h2-lead').textContent  = COPY[state.copy][0];
+  document.querySelector('.h2-punch').textContent = COPY[state.copy][1];
+  document.body.classList.toggle('no-blade', !state.blade);
+  document.body.classList.toggle('hug', !!state.hug);
+
+  const data = (state.set === 'labels' ? LABELS : NUMBERS).slice(0, state.rows);
+  list.innerHTML = data.map(([label, text]) => `
+    <li class="fact">
+      <div class="fact-wrap"><span class="fact-label"></span><span class="plate"><i></i></span></div>
+      <p class="fact-text"></p>
+    </li>`).join('');
+
+  [...list.children].forEach((li, i) => {
+    li.querySelector('.fact-label').textContent = data[i][0];
+    li.querySelector('.fact-text').textContent  = data[i][1];
+  });
+
+  measure();
+  watch();
+}
+
+/* Pomeraj kosine se računa iz stvarne visine ploče — ugao ostaje 16.8°
+   bez obzira na veličinu teksta i ekran. */
+function measure() {
+  list.querySelectorAll('.fact-wrap').forEach(wrap => {
+    wrap.querySelector('.plate').style.setProperty('--wrap-h', wrap.offsetHeight + 'px');
+  });
+}
+
+/* Jednosmerno: obrisano ostaje obrisano. Red koji je već prošao otkriva se
+   odmah, bez animacije u redu čekanja. */
+function watch() {
+  if (observer) observer.disconnect();
+  observer = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('is-clean');
+      obs.unobserve(entry.target);
+    });
+  }, { threshold: 0.35 });
+
+  list.querySelectorAll('.fact').forEach(el => {
+    const box = el.getBoundingClientRect();
+    if (box.bottom < 0) el.classList.add('is-clean');   /* već prošao */
+    else observer.observe(el);
+  });
+}
+
+document.querySelector('.bar').addEventListener('click', event => {
+  const b = event.target.closest('button');
+  if (!b || b.id === 'replay') return;
+  const key = ['copy', 'set', 'blade', 'rows', 'hug'].find(k => b.dataset[k] !== undefined);
+  if (!key) return;
+  const value = b.dataset[key];
+  state[key] = (key === 'set') ? value : Number(value);
+  [...b.parentElement.querySelectorAll('button')].forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+  render();
+});
+
+document.querySelector('#replay').addEventListener('click', () => {
+  list.querySelectorAll('.fact').forEach(el => el.classList.remove('is-clean'));
+  measure();
+  requestAnimationFrame(() => requestAnimationFrame(watch));
+});
+
+addEventListener('resize', measure);
+document.fonts.ready.then(measure);
+render();
+</script>
+</body>
+</html>

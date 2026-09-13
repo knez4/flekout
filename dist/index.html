@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="sr-Latn">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f7f8fa"><meta name="description" content="Flekout Clean — mašinsko pranje i čišćenje tvrdih i mekih podloga u Beogradu."><title>FLEKOUT — Bez fleke.</title><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="service-rail.css"><script src="motion.js" defer></script><script src="services.js" defer></script></head>
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f7f8fa"><meta name="description" content="Flekout Clean — mašinsko pranje i čišćenje tvrdih i mekih podloga u Beogradu."><title>FLEKOUT — Bez fleke.</title><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="service-rail.css"><script src="motion.js" defer></script></head>
 <body>
 <a class="skip" href="#usluge">Pređi na usluge</a>
 <header><a href="#pocetak" class="brand" aria-label="Flekout početna"><img src="logo-black.png" width="140" height="31" alt="FLEKOUT"></a><nav aria-label="Glavna navigacija"><a href="#usluge">Naše usluge</a><a href="#kontakt">Kontakt ↗</a></nav></header>
@@ -15,17 +15,20 @@
 </div>
 </section>
 <section class="services services-rail" id="usluge" aria-labelledby="services-title">
+<div class="rail-intro">
+<div class="rail-heading"><div><span class="eyebrow">01 / NAŠE USLUGE</span><h2 id="services-title"><span class="h2-lead">Biraš prostor. Biraš uslugu.</span><span class="h2-punch">Mi biramo postupak.</span></h2></div></div>
+<span class="choose-label">Izaberi prostor</span>
+</div>
 <div class="rail-sticky">
-<div class="rail-heading"><div><span class="eyebrow">01 / NAŠE USLUGE</span><h2 id="services-title">Tvoj prostor.<br><span>Naš sledeći potez.</span></h2></div></div>
-<div class="space-options" role="group" aria-label="Izaberi prostor">
-<button class="space-option" data-space="dom" aria-pressed="true"><span class="space-number">01</span><strong>Kuća / stan</strong></button>
-<button class="space-option" data-space="zgrade" aria-pressed="false"><span class="space-number">02</span><strong>Zgrada</strong></button>
-<button class="space-option" data-space="posao" aria-pressed="false"><span class="space-number">03</span><strong>Kancelarijski prostor</strong></button>
+<div class="space-options" role="group" aria-label="Izaberi tip prostora">
+<button class="space-option" data-space="dom" aria-pressed="true"><span class="tab-face" aria-hidden="true"></span><span class="space-number">01</span><strong><span class="long">Kuća / stan</span><span class="short">Kuća / stan</span></strong></button>
+<button class="space-option" data-space="zgrade" aria-pressed="false"><span class="tab-face" aria-hidden="true"></span><span class="space-number">02</span><strong><span class="long">Zgrada</span><span class="short">Zgrada</span></strong></button>
+<button class="space-option" data-space="posao" aria-pressed="false"><span class="tab-face" aria-hidden="true"></span><span class="space-number">03</span><strong><span class="long">Kancelarijski prostor</span><span class="short">Kancelarija</span></strong></button>
 </div>
 <div class="dark-rail" role="region" aria-label="Usluge za izabrani prostor">
-<div class="rail-top"><span id="rail-scope" role="status">KUĆA / STAN</span></div>
+<div class="rail-top"><span id="rail-scope" role="status">KUĆA / STAN</span><span class="rail-hint" aria-hidden="true">Skroluj kroz usluge ↓</span></div>
 <div class="rail-window" tabindex="0" aria-label="Lista usluga — koristi strelice levo i desno"><div class="rail-track"></div></div>
-<div class="rail-bottom"><span class="rail-position">01 / 04</span><div class="rail-progress" aria-hidden="true"><i></i></div><a href="#kontakt">Razgovarajmo o prostoru ↗</a></div>
+<div class="rail-bottom"><span class="rail-position">01 / 04</span><div class="rail-steps" role="group" aria-label="Skoči na uslugu"></div><a href="#kontakt">Razgovarajmo o prostoru ↗</a></div>
 </div>
 </div>
 </section>

@@ -1,0 +1,146 @@
+[
+  {
+    "file": "flekout-wordmark-black-2048.png",
+    "size": [
+      2048,
+      449
+    ],
+    "color": "#171717"
+  },
+  {
+    "file": "flekout-wordmark-black-1024.png",
+    "size": [
+      1024,
+      225
+    ],
+    "color": "#171717"
+  },
+  {
+    "file": "flekout-symbol-black-1024.png",
+    "size": [
+      1024,
+      1024
+    ],
+    "color": "#171717"
+  },
+  {
+    "file": "flekout-symbol-black-512.png",
+    "size": [
+      512,
+      512
+    ],
+    "color": "#171717"
+  },
+  {
+    "file": "flekout-symbol-black-128.png",
+    "size": [
+      128,
+      128
+    ],
+    "color": "#171717"
+  },
+  {
+    "file": "flekout-symbol-black-32.png",
+    "size": [
+      32,
+      32
+    ],
+    "color": "#171717"
+  },
+  {
+    "file": "flekout-wordmark-white-2048.png",
+    "size": [
+      2048,
+      449
+    ],
+    "color": "#FFFFFF"
+  },
+  {
+    "file": "flekout-wordmark-white-1024.png",
+    "size": [
+      1024,
+      225
+    ],
+    "color": "#FFFFFF"
+  },
+  {
+    "file": "flekout-symbol-white-1024.png",
+    "size": [
+      1024,
+      1024
+    ],
+    "color": "#FFFFFF"
+  },
+  {
+    "file": "flekout-symbol-white-512.png",
+    "size": [
+      512,
+      512
+    ],
+    "color": "#FFFFFF"
+  },
+  {
+    "file": "flekout-symbol-white-128.png",
+    "size": [
+      128,
+      128
+    ],
+    "color": "#FFFFFF"
+  },
+  {
+    "file": "flekout-symbol-white-32.png",
+    "size": [
+      32,
+      32
+    ],
+    "color": "#FFFFFF"
+  },
+  {
+    "file": "flekout-wordmark-blue-2048.png",
+    "size": [
+      2048,
+      449
+    ],
+    "color": "#168CCD"
+  },
+  {
+    "file": "flekout-wordmark-blue-1024.png",
+    "size": [
+      1024,
+      225
+    ],
+    "color": "#168CCD"
+  },
+  {
+    "file": "flekout-symbol-blue-1024.png",
+    "size": [
+      1024,
+      1024
+    ],
+    "color": "#168CCD"
+  },
+  {
+    "file": "flekout-symbol-blue-512.png",
+    "size": [
+      512,
+      512
+    ],
+    "color": "#168CCD"
+  },
+  {
+    "file": "flekout-symbol-blue-128.png",
+    "size": [
+      128,
+      128
+    ],
+    "color": "#168CCD"
+  },
+  {
+    "file": "flekout-symbol-blue-32.png",
+    "size": [
+      32,
+      32
+    ],
+    "color": "#168CCD"
+  }
+]

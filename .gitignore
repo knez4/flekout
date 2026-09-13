@@ -1,0 +1,16 @@
+# Snimci stanja projekta — pravljeni lokalno, nisu izvorni kod
+*.tar.gz
+backups/
+
+# Konfiguracija hostinga sadrži identifikator naloga — drži se van javnog repoa.
+# Ako ti treba u repou, obriši ovu liniju.
+.openai/
+
+# Izvoz logotipa u zip-u je duplikat onoga što već stoji kao PNG u brand/logos/
+brand/*.zip
+
+# Sistemski otpad
+.DS_Store
+Thumbs.db
+desktop.ini
+node_modules/
