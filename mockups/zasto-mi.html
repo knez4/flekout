@@ -45,7 +45,7 @@ body{margin:0;background:#fff;color:var(--ink);
 .pad{height:200px}                 /* prostor da se sekcija ulovi skrolom */
 
 /* Linija okidača — samo za mokap, pokazuje gde red počinje da se briše. */
-.guide{position:fixed;left:0;right:0;top:33.333vh;z-index:40;pointer-events:none;
+.guide{position:fixed;left:0;right:0;top:66.667vh;z-index:40;pointer-events:none;
   border-top:1px dashed #d43f6a;display:none}
 .guide span{position:absolute;right:14px;top:6px;font-size:10px;letter-spacing:.1em;
   color:#d43f6a}
@@ -60,7 +60,9 @@ body{margin:0;background:#fff;color:var(--ink);
 .eyebrow{display:block;font-size:14px;font-weight:600;letter-spacing:.07em;color:var(--ink)}
 
 .why h2{margin:40px 0 0;font-weight:500;line-height:1.06;letter-spacing:-.05em;
-  max-width:18ch}
+  /* 22ch da udarni red stane u jedan red i kad je duži — na 18ch se lomilo
+     siroče ("ko." samo u drugom redu). */
+  max-width:22ch}
 .h2-lead{display:block;color:var(--grey);font-size:clamp(24px,2.4vw,34px);
   letter-spacing:-.04em;margin-bottom:.12em}
 .h2-punch{display:block;color:var(--ink);font-size:clamp(36px,3.8vw,56px)}
@@ -86,7 +88,7 @@ body{margin:0;background:#fff;color:var(--ink);
   transform:translateX(0);
   /* Ravnomernije usporavanje nego ranije: sporiji potez traži blaži kraj,
      inače se vidi kako sečivo "stane" umesto da izađe iz kadra. */
-  transition:transform var(--wipe,900ms) cubic-bezier(.33,.9,.35,1)}
+  transition:transform var(--wipe,1300ms) cubic-bezier(.33,.9,.35,1)}
 .plate i{position:absolute;inset:0 0 0 3px;background:var(--plate);
   clip-path:polygon(0 0,100% 0,100% 100%,var(--cut) 100%)}
 .no-blade .plate{background:var(--plate)}
@@ -100,9 +102,9 @@ body{margin:0;background:#fff;color:var(--ink);
 .fact-text{font-size:17px;line-height:1.7;color:var(--muted);max-width:46ch;margin:0;
   opacity:0;transform:translateY(12px);
   /* rečenica prati potez — kasni trećinu brisanja i traje njegovu polovinu */
-  transition:opacity calc(var(--wipe,900ms) * .55) ease,
-             transform calc(var(--wipe,900ms) * .55) cubic-bezier(.22,1,.36,1);
-  transition-delay:calc(var(--wipe,900ms) * .3)}
+  transition:opacity calc(var(--wipe,1300ms) * .55) ease,
+             transform calc(var(--wipe,1300ms) * .55) cubic-bezier(.22,1,.36,1);
+  transition-delay:calc(var(--wipe,1300ms) * .3)}
 .fact.is-clean .fact-text{opacity:1;transform:none}
 
 @media(prefers-reduced-motion:reduce){
@@ -130,6 +132,7 @@ body{margin:0;background:#fff;color:var(--ink);
     <button data-copy="1" aria-pressed="false">2</button>
     <button data-copy="2" aria-pressed="false">3</button>
     <button data-copy="3" aria-pressed="false">4</button>
+    <button data-copy="4" aria-pressed="false">5</button>
   </label>
   <label>Krupno
     <button data-set="labels" aria-pressed="true">oznake</button>
@@ -149,8 +152,8 @@ body{margin:0;background:#fff;color:var(--ink);
   </label>
   <label>Brzina
     <button data-wipe="700" aria-pressed="false">700</button>
-    <button data-wipe="900" aria-pressed="true">900</button>
-    <button data-wipe="1300" aria-pressed="false">1300</button>
+    <button data-wipe="900" aria-pressed="false">900</button>
+    <button data-wipe="1300" aria-pressed="true">1300</button>
   </label>
   <label>Linija
     <button data-guide="0" aria-pressed="true">sakrij</button>
@@ -160,7 +163,7 @@ body{margin:0;background:#fff;color:var(--ink);
   <button id="replay">Ponovi brisanje</button>
 </div>
 
-<div class="guide" aria-hidden="true"><span>OKIDAČ — TREĆINA EKRANA</span></div>
+<div class="guide" aria-hidden="true"><span>OKIDAČ — DONJA TREĆINA</span></div>
 
 <div class="pad"></div>
 
@@ -182,7 +185,10 @@ const COPY = [
   ['Za svaki posao znaš',   'čime, kada i ko.'],
   ['Sve što je bitno',      'dogovoreno je unapred.'],
   ['Trud se podrazumeva.',  'Ovo je ono što se ne podrazumeva.'],
-  ['Bez improvizacije.',    'Od mašine do garancije.']
+  ['Bez improvizacije.',    'Od mašine do garancije.'],
+  /* Spoj 4 i 1: tvrdnja u uvodu, mapa liste u udarnom redu. Udarni red je
+     jedini koji svi pročitaju, pa mora da ima smisla i sam za sebe. */
+  ['Bez improvizacije.',    'Znaš čime, kada i ko.']
 ];
 
 /* Oznake — preporučena varijanta. Krupni slot je uvek kratak, pa su redovi
@@ -206,7 +212,7 @@ const NUMBERS = [
 ];
 
 const list = document.querySelector('.facts');
-const state = { copy: 0, set: 'labels', blade: 1, rows: 4, hug: 0, wipe: 900, guide: 0 };
+const state = { copy: 0, set: 'labels', blade: 1, rows: 4, hug: 0, wipe: 1300, guide: 0 };
 let observer;
 
 function render() {
@@ -241,9 +247,10 @@ function measure() {
   });
 }
 
-/* Okidač NIJE ulazak u ekran nego dolazak do gornje trećine. Koren posmatranja
-   je stisnut na gornjih 33% ekrana, pa red počinje da se briše tek kad se
-   popne dotle — ne dok tek proviruje odozdo.
+/* Okidač NIJE ulazak u ekran nego ulazak u DONJU trećinu. Koren posmatranja je
+   stisnut na gornjih 67% ekrana, pa se red pali kad mu vrh pređe liniju na dve
+   trećine visine — dovoljno rano da se potez vidi u celini, a ne dok red tek
+   proviruje ispod ivice.
 
    Jednosmerno: obrisano ostaje obrisano. Red koji je već prošao otkriva se
    odmah, bez animacije u redu čekanja. */
@@ -255,9 +262,9 @@ function watch() {
       entry.target.classList.add('is-clean');
       obs.unobserve(entry.target);
     });
-  }, { rootMargin: '0px 0px -66.667% 0px', threshold: 0 });
+  }, { rootMargin: '0px 0px -33.333% 0px', threshold: 0 });
 
-  const line = innerHeight / 3;
+  const line = innerHeight * 2 / 3;
   list.querySelectorAll('.fact').forEach(el => {
     const box = el.getBoundingClientRect();
     if (box.top <= line) el.classList.add('is-clean');  /* već prešao liniju */
