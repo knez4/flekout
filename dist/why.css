@@ -21,15 +21,17 @@
   font-size:clamp(36px,3.8vw,56px);max-width:22ch}
 .why .h2-lead{font-size:.62em}
 
-/* overflow drži negativne margine omotača unutar sekcije — bez toga na
-   telefonu iscuri par piksela preko desne ivice ekrana */
-.facts{list-style:none;margin:64px 0 0;padding:0;overflow:hidden;
-  border-bottom:1px solid #e6e8e9}
+.facts{list-style:none;margin:64px 0 0;padding:0;border-bottom:1px solid #e6e8e9}
 .fact{display:grid;grid-template-columns:minmax(240px,32%) minmax(0,1fr);
   gap:clamp(24px,4vw,72px);align-items:center;
   padding:34px 0;border-top:1px solid #e6e8e9}
 
-/* levo — krupna oznaka */
+/* Levo — krupna oznaka. Omotač mora da viri levo od teksta bar za širinu
+   kosine, jer ploča pri dnu počinje pomerena udesno — inače bi dno oznake
+   provirivalo ispod ploče. Zato NE sme da postoji overflow:hidden iznad
+   ovog nivoa: odsekao bi levi prepust, a s njim i gornju polovinu kosine.
+   Prepusti su manji od 6vw koliko sekcija ima sa strane, pa ništa ne curi
+   preko ivice ekrana. */
 .fact-wrap{position:relative;overflow:hidden;
   margin:-18px -40px -18px -18px;padding:18px 40px 18px 18px}
 .fact-label{font-size:clamp(32px,3.2vw,46px);font-weight:500;letter-spacing:-.04em;
@@ -69,7 +71,7 @@
   .facts{margin-top:40px}
   .fact{grid-template-columns:1fr;gap:12px;align-items:start;padding:24px 0}
   .fact-label{font-size:clamp(28px,7vw,36px);white-space:normal}
-  .fact-wrap{margin:-12px -24px -12px -12px;padding:12px 24px 12px 12px}
+  .fact-wrap{margin:-12px -18px -12px -12px;padding:12px 18px 12px 12px}
   .fact-text{font-size:15px;max-width:none}
 }
 
