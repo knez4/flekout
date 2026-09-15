@@ -16,6 +16,8 @@ dist/            sajt koji se servira
   service-rail.css stilovi sekcije "Naše usluge"
   motion.js        hero — maska logotipa preko videa, kontrola videa, dijalog
   service-rail.js  sekcija "Naše usluge" — traka podtipova, sadržaj i mehanika
+  why.css          sekcija "Zašto Flekout"
+  why.js           sekcija "Zašto Flekout" — otkrivanje redova brisanjem
   services.js      detaljan katalog usluga (postupak, površine, oprema)
                    NIJE učitan u trenutnoj verziji, čuva se za sledeću fazu
   *.jpg / *.mp4    fotografije i video (privremeni, vidi "Otvoreno")
@@ -56,12 +58,16 @@ Dogovoreni redosled celog sajta:
 |---|---|---|
 | 01 | Hero | urađeno |
 | 02 | Naše usluge | urađeno |
-| 03 | Zašto Flekout | u dogovoru — mokap u `mockups/` |
+| 03 | Zašto Flekout | urađeno |
 | 04 | Proces — od upita do čistog prostora | u dogovoru |
 | 05 | Forma | nije rađeno |
 
 Sekcija **Pre / Posle** dolazi kasnije, kad klijent obezbedi fotografije, i ide
 između 02 i 03.
+
+Brojevi u `eyebrow` natpisima ne broje hero: Usluge su `01`, Zašto Flekout `02`,
+završna sekcija je privremeno `03`. Kad Proces dođe, on uzima `03`, a završna
+prelazi na `04`.
 
 ---
 
@@ -83,6 +89,13 @@ akciju. Nigde kao ukras.
 
 Tipografija: Manrope. Veličine opadaju kroz stranicu — Usluge su najglasnija
 sekcija (54px), Zašto mi tiša (46px), Proces informativan (~30px).
+
+## Sekcija "Zašto Flekout" — brojevi za podešavanje
+
+`--wipe` na vrhu `dist/why.css` je trajanje brisanja (1300ms). Okidač je u
+`dist/why.js`: `rootMargin` stisne koren na gornjih 67% ekrana, pa se red pali
+kad mu vrh pređe liniju na dve trećine visine. Skriveno stanje se pali tek kad
+JS doda klasu `is-ready` — ako skripta zakaže, sekcija ostaje čitljiva.
 
 ## Sekcija "Naše usluge" — brojevi za podešavanje
 
