@@ -1,8 +1,8 @@
 /* ============================================================================
    FLEKOUT — sekcija 02 "Zašto Flekout"
 
-   Okidač nije ulazak reda u ekran nego ulazak u DONJU TREĆINU: koren
-   posmatranja je stisnut na gornjih 67% ekrana, pa se red pali kad mu vrh
+   Okidač nije ulazak reda u ekran nego ulazak u DONJU TREĆINU:
+   proverava se stvarna pozicija svakog neotkrivenog reda, pa se red pali kad mu vrh
    pređe liniju na dve trećine visine. Dovoljno rano da se ceo potez vidi, a
    ne dok red tek proviruje ispod ivice.
 
@@ -25,28 +25,39 @@
     });
   }
 
-  function watch() {
-    const observer = new IntersectionObserver((entries, obs) => {
-      entries.forEach(entry => {
-        if (!entry.isIntersecting) return;
-        entry.target.classList.add('is-clean');
-        obs.unobserve(entry.target);
-      });
-    }, { rootMargin: '0px 0px -33.333% 0px', threshold: 0 });
-
+  const pending = new Set(rows);
+  let frame = 0;
+  function revealPassed() {
+    frame = 0;
     const line = innerHeight * 2 / 3;
-    rows.forEach(row => {
-      if (row.getBoundingClientRect().top <= line) row.classList.add('is-clean');
-      else observer.observe(row);
+    pending.forEach(row => {
+      // Includes rows jumped completely past between two browser frames.
+      if (row.getBoundingClientRect().top > line) return;
+      row.classList.add('is-clean');
+      pending.delete(row);
     });
+    if (!pending.size) {
+      removeEventListener('scroll', schedule);
+      removeEventListener('pageshow', schedule);
+      document.removeEventListener('visibilitychange', schedule);
+    }
+  }
+  function schedule() {
+    if (pending.size && !frame) frame = requestAnimationFrame(revealPassed);
   }
 
   /* Klasa pali skriveno stanje. Do tog trenutka sekcija stoji otkrivena, pa
      ako skripta zakaže tekst ostaje čitljiv. */
   measure();
+  // Mark restored/past rows before enabling masks; no delayed initial reveal.
+  revealPassed();
   section.classList.add('is-ready');
-  watch();
+  if (pending.size) {
+    addEventListener('scroll', schedule, { passive: true });
+    addEventListener('pageshow', schedule);
+    document.addEventListener('visibilitychange', schedule);
+  }
 
-  addEventListener('resize', measure);
-  document.fonts.ready.then(measure);
+  addEventListener('resize', () => { measure(); schedule(); });
+  document.fonts.ready.then(() => { measure(); schedule(); });
 })();
