@@ -43,6 +43,13 @@ body{margin:0;background:#fff;color:var(--ink);
 .bar .spacer{flex:1}
 
 .pad{height:200px}                 /* prostor da se sekcija ulovi skrolom */
+
+/* Linija okidača — samo za mokap, pokazuje gde red počinje da se briše. */
+.guide{position:fixed;left:0;right:0;top:33.333vh;z-index:40;pointer-events:none;
+  border-top:1px dashed #d43f6a;display:none}
+.guide span{position:absolute;right:14px;top:6px;font-size:10px;letter-spacing:.1em;
+  color:#d43f6a}
+.show-guide .guide{display:block}
 .pad.after{height:120vh;background:#f5f7f8;
   display:grid;place-items:center;color:#9aa3a8;font-size:12px;letter-spacing:.12em}
 
@@ -77,7 +84,9 @@ body{margin:0;background:#fff;color:var(--ink);
   clip-path:polygon(0 0,100% 0,100% 100%,var(--cut) 100%);
   background:var(--blue);
   transform:translateX(0);
-  transition:transform .55s cubic-bezier(.22,1,.36,1)}
+  /* Ravnomernije usporavanje nego ranije: sporiji potez traži blaži kraj,
+     inače se vidi kako sečivo "stane" umesto da izađe iz kadra. */
+  transition:transform var(--wipe,900ms) cubic-bezier(.33,.9,.35,1)}
 .plate i{position:absolute;inset:0 0 0 3px;background:var(--plate);
   clip-path:polygon(0 0,100% 0,100% 100%,var(--cut) 100%)}
 .no-blade .plate{background:var(--plate)}
@@ -90,8 +99,10 @@ body{margin:0;background:#fff;color:var(--ink);
 /* desno — rečenica */
 .fact-text{font-size:17px;line-height:1.7;color:var(--muted);max-width:46ch;margin:0;
   opacity:0;transform:translateY(12px);
-  transition:opacity .4s ease,transform .4s cubic-bezier(.22,1,.36,1);
-  transition-delay:.12s}
+  /* rečenica prati potez — kasni trećinu brisanja i traje njegovu polovinu */
+  transition:opacity calc(var(--wipe,900ms) * .55) ease,
+             transform calc(var(--wipe,900ms) * .55) cubic-bezier(.22,1,.36,1);
+  transition-delay:calc(var(--wipe,900ms) * .3)}
 .fact.is-clean .fact-text{opacity:1;transform:none}
 
 @media(prefers-reduced-motion:reduce){
@@ -118,6 +129,7 @@ body{margin:0;background:#fff;color:var(--ink);
     <button data-copy="0" aria-pressed="true">1</button>
     <button data-copy="1" aria-pressed="false">2</button>
     <button data-copy="2" aria-pressed="false">3</button>
+    <button data-copy="3" aria-pressed="false">4</button>
   </label>
   <label>Krupno
     <button data-set="labels" aria-pressed="true">oznake</button>
@@ -135,9 +147,20 @@ body{margin:0;background:#fff;color:var(--ink);
     <button data-hug="0" aria-pressed="true">kolona</button>
     <button data-hug="1" aria-pressed="false">uz tekst</button>
   </label>
+  <label>Brzina
+    <button data-wipe="700" aria-pressed="false">700</button>
+    <button data-wipe="900" aria-pressed="true">900</button>
+    <button data-wipe="1300" aria-pressed="false">1300</button>
+  </label>
+  <label>Linija
+    <button data-guide="0" aria-pressed="true">sakrij</button>
+    <button data-guide="1" aria-pressed="false">prikaži</button>
+  </label>
   <span class="spacer"></span>
   <button id="replay">Ponovi brisanje</button>
 </div>
+
+<div class="guide" aria-hidden="true"><span>OKIDAČ — TREĆINA EKRANA</span></div>
 
 <div class="pad"></div>
 
@@ -152,10 +175,14 @@ body{margin:0;background:#fff;color:var(--ink);
 <div class="pad after">SLEDI 04 / PROCES</div>
 
 <script>
+/* Raniji naslovi su isticali samo opremu, a ispod stoje četiri različite
+   prednosti — naslov je obećavao manje nego što lista daje. Ovi pokrivaju
+   ceo skup: čime radimo, za koliko, ko dolazi i ko odgovara. */
 const COPY = [
-  ['Razlika nije u trudu.', 'Razlika je u opremi.'],
-  ['Bez prideva.',          'Evo činjenica.'],
-  ['Trud imaju svi.',       'Mi imamo i mašine.']
+  ['Za svaki posao znaš',   'čime, kada i ko.'],
+  ['Sve što je bitno',      'dogovoreno je unapred.'],
+  ['Trud se podrazumeva.',  'Ovo je ono što se ne podrazumeva.'],
+  ['Bez improvizacije.',    'Od mašine do garancije.']
 ];
 
 /* Oznake — preporučena varijanta. Krupni slot je uvek kratak, pa su redovi
@@ -179,7 +206,7 @@ const NUMBERS = [
 ];
 
 const list = document.querySelector('.facts');
-const state = { copy: 0, set: 'labels', blade: 1, rows: 4, hug: 0 };
+const state = { copy: 0, set: 'labels', blade: 1, rows: 4, hug: 0, wipe: 900, guide: 0 };
 let observer;
 
 function render() {
@@ -187,6 +214,8 @@ function render() {
   document.querySelector('.h2-punch').textContent = COPY[state.copy][1];
   document.body.classList.toggle('no-blade', !state.blade);
   document.body.classList.toggle('hug', !!state.hug);
+  document.body.classList.toggle('show-guide', !!state.guide);
+  document.body.style.setProperty('--wipe', state.wipe + 'ms');
 
   const data = (state.set === 'labels' ? LABELS : NUMBERS).slice(0, state.rows);
   list.innerHTML = data.map(([label, text]) => `
@@ -212,7 +241,11 @@ function measure() {
   });
 }
 
-/* Jednosmerno: obrisano ostaje obrisano. Red koji je već prošao otkriva se
+/* Okidač NIJE ulazak u ekran nego dolazak do gornje trećine. Koren posmatranja
+   je stisnut na gornjih 33% ekrana, pa red počinje da se briše tek kad se
+   popne dotle — ne dok tek proviruje odozdo.
+
+   Jednosmerno: obrisano ostaje obrisano. Red koji je već prošao otkriva se
    odmah, bez animacije u redu čekanja. */
 function watch() {
   if (observer) observer.disconnect();
@@ -222,11 +255,12 @@ function watch() {
       entry.target.classList.add('is-clean');
       obs.unobserve(entry.target);
     });
-  }, { threshold: 0.35 });
+  }, { rootMargin: '0px 0px -66.667% 0px', threshold: 0 });
 
+  const line = innerHeight / 3;
   list.querySelectorAll('.fact').forEach(el => {
     const box = el.getBoundingClientRect();
-    if (box.bottom < 0) el.classList.add('is-clean');   /* već prošao */
+    if (box.top <= line) el.classList.add('is-clean');  /* već prešao liniju */
     else observer.observe(el);
   });
 }
@@ -234,7 +268,7 @@ function watch() {
 document.querySelector('.bar').addEventListener('click', event => {
   const b = event.target.closest('button');
   if (!b || b.id === 'replay') return;
-  const key = ['copy', 'set', 'blade', 'rows', 'hug'].find(k => b.dataset[k] !== undefined);
+  const key = ['copy', 'set', 'blade', 'rows', 'hug', 'wipe', 'guide'].find(k => b.dataset[k] !== undefined);
   if (!key) return;
   const value = b.dataset[key];
   state[key] = (key === 'set') ? value : Number(value);
