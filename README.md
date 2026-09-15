@@ -32,7 +32,8 @@ brand/           identitet
   README.md        napomene o identitetu
 
 mockups/         privremeni fajlovi za dogovor o dizajnu, ne deo sajta
-  zasto-mi.html    sekcija 03 "Zašto Flekout" — izgled i mehanika brisanja
+  zasto-mi.html    sekcija 02 "Zašto Flekout" — izgled i mehanika brisanja
+  proces.html      sekcija 03 "Proces" — linija, markeri i paneli koraka
 ```
 
 ## Pokretanje
@@ -93,9 +94,9 @@ sekcija (54px), Zašto mi tiša (46px), Proces informativan (~30px).
 ## Sekcija "Zašto Flekout" — brojevi za podešavanje
 
 `--wipe` na vrhu `dist/why.css` je trajanje brisanja (1300ms). Okidač je u
-`dist/why.js`: `rootMargin` stisne koren na gornjih 67% ekrana, pa se red pali
-kad mu vrh pređe liniju na dve trećine visine. Skriveno stanje se pali tek kad
-JS doda klasu `is-ready` — ako skripta zakaže, sekcija ostaje čitljiva.
+`dist/why.js`: proverava se pozicija svakog neotkrivenog reda i red se pali kad
+mu vrh pređe liniju na dve trećine visine ekrana. Skriveno stanje se pali tek
+kad JS doda klasu `is-ready` — ako skripta zakaže, sekcija ostaje čitljiva.
 
 ## Sekcija "Naše usluge" — brojevi za podešavanje
 

@@ -1,0 +1,11 @@
+Use case: ui-mockup
+Asset type: high fidelity single desktop website section design preview for FLEKOUT cleaning service.
+Primary request: polished flat front-on web design mockup of the process section, not a browser/device mockup. Show the COMPLETE section, all four steps, generous outer whitespace. Wide 4:3 composition.
+Style: refined minimalist Swiss/editorial web design, precise Manrope-like sans serif, white #ffffff background, near-black #202326 text, cool light gray #eceff1 flat cards, single cleaning blue #168ccd accent. No shadows, no gradients, no illustrations, no photos, no added icons. Premium understated cleaning service identity, not a tech dashboard.
+Layout: small uppercase eyebrow at upper left "03 / KAKO RADIMO". Under it large two-line left-aligned heading "Od prvog poziva" then "do čistog prostora." First line smaller gray, second larger near-black. Below, a single thin STRAIGHT VERTICAL blue line at left, four equally spaced filled blue circular nodes with white numerals 01 02 03 04. ALL cards align in a single column to RIGHT of the line, never zigzag or alternating. Each row connects its circle with a short horizontal blue connector to its card. Cards are wide low-profile light-gray PARALLELOGRAMS: top-left x0, top-right width-25, bottom-right width, bottom-left25; both side edges slant toward the right at bottom, matching a slanted navbar. Text remains horizontal with generous padding. Four cards same width. Keep ample gap between rows. Every step shown fully revealed as final state of scroll animation. No navbar or other sections.
+Exact text in the four cards, large title then smaller readable supporting text:
+01 title "Javi nam šta treba očistiti" body "Reci nam o kakvom prostoru je reč i koje čišćenje ti je potrebno."
+02 title "Pogledamo prostor i dogovorimo detalje" body "Na procenu dolazimo u roku od 48 sati i dogovaramo obim posla."
+03 title "Dogovaramo termin i čistimo" body "Dolazimo u dogovorenom terminu i čistimo prema dogovoru."
+04 title "Proveravamo rezultat" body "Zajedno prolazimo kroz urađeno i proveravamo dogovorene detalje."
+Constraints: correct Serbian Latin diacritics. No other text, no branding invented, no floating decorations, no rounded cards, no curved line. Clean legible restrained professional layout.

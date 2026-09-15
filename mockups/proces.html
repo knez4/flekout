@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="sr-Latn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FLEKOUT — mokap: Proces</title>
+<!--
+  MOKAP, NIJE DEO SAJTA.
+  Sekcija 03 "Proces". Kad se ugradi u dist/, ovaj fajl se briše.
+
+  Tekstovi koraka su predlog i moraju se potvrditi sa klijentom — posebno
+  korak 02, koji nosi odgovor na cenu.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1b2226;
+  --muted:#5f686d;
+  --grey:#828b91;
+  --paper:#f5f7f8;      /* pozadina sekcije — odvaja je od bele "Zašto Flekout" iznad */
+  --panel:#fff;
+  --line:#dfe3e5;
+  --blue:#168ccd;
+  --cut-ratio:.3014;    /* nagib nav-a: 22px na 73px = 16.8° */
+  --speed:500ms;
+}
+*{box-sizing:border-box}
+body{margin:0;background:#fff;color:var(--ink);
+  font-family:Manrope,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+
+/* ── traka za odlučivanje — NE pripada dizajnu ─────────────────────────── */
+.bar{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;flex-wrap:wrap;
+  gap:10px 26px;align-items:center;padding:12px 20px;background:#11181d;color:#cfdde5;
+  font-size:12px;letter-spacing:.02em}
+.bar strong{color:#fff;font-weight:600;letter-spacing:.08em;font-size:10px;text-transform:uppercase}
+.bar label{display:flex;gap:7px;align-items:center;color:#8ba4b2}
+.bar button{font:inherit;background:#1d2a32;color:#cfdde5;border:1px solid #2f414c;
+  padding:5px 11px;cursor:pointer}
+.bar button[aria-pressed=true]{background:var(--blue);border-color:var(--blue);color:#fff}
+.bar .spacer{flex:1}
+
+.guide{position:fixed;left:0;right:0;top:66.667vh;z-index:40;pointer-events:none;
+  border-top:1px dashed #d43f6a;display:none}
+.guide span{position:absolute;right:14px;top:6px;font-size:10px;letter-spacing:.1em;color:#d43f6a}
+.show-guide .guide{display:block}
+
+.pad{height:220px;background:#fff;display:grid;place-items:end center;
+  color:#b6bdc1;font-size:11px;letter-spacing:.12em;padding-bottom:30px}
+.pad.after{height:110vh;background:#17252e;color:#6a8291;place-items:center;padding:0}
+
+/* ── SEKCIJA 03 — PROCES ──────────────────────────────────────────────── */
+.process{background:var(--paper);padding:110px 6vw 120px}
+.process-inner{max-width:1560px;margin:0 auto}
+
+.eyebrow{display:block;font-size:14px;font-weight:600;letter-spacing:.07em;color:var(--ink)}
+.process h2{margin:40px 0 0;font-weight:500;line-height:1.06;letter-spacing:-.05em;max-width:22ch}
+.h2-lead{display:block;color:var(--grey);font-size:clamp(24px,2.4vw,34px);
+  letter-spacing:-.04em;margin-bottom:.12em}
+.h2-punch{display:block;color:var(--ink);font-size:clamp(36px,3.8vw,56px)}
+
+/* ── koraci ───────────────────────────────────────────────────────────── */
+.steps{--rail:96px;--line-h:0px;--panel-h:126px;
+  position:relative;list-style:none;margin:70px 0 0;padding:0}
+
+/* Linija raste do markera koraka koji se upravo otkrio — jedan izvor istine,
+   pa linija i paneli ne mogu da se raziđu. */
+.steps:before{content:"";position:absolute;left:calc(var(--rail) - 1px);top:0;
+  width:2px;height:var(--line-h);background:var(--blue);
+  transition:height var(--speed) cubic-bezier(.33,.9,.35,1)}
+
+.step{display:grid;grid-template-columns:var(--rail) minmax(0,1fr);
+  gap:clamp(20px,3vw,46px);padding-bottom:clamp(24px,3vw,40px)}
+.step:last-child{padding-bottom:0}
+
+/* Marker: broj sedi NA liniji i prekida je. Nema kruga — na sajtu nema nijednog
+   okruglog oblika, pa bi bio prvi i to na najvidljivijem mestu. */
+.step-rail{position:relative}
+.step-num{position:absolute;left:100%;top:calc(var(--panel-h) / 2);transform:translate(-50%,-50%);
+  background:var(--paper);padding:8px 12px;
+  font-size:13px;font-weight:600;letter-spacing:.06em;color:var(--blue);
+  white-space:nowrap}
+/* kratka crtica — nastavak linije ka panelu */
+.step-num:after{content:"";position:absolute;left:100%;top:50%;
+  width:18px;height:2px;margin-top:-1px;background:var(--blue)}
+
+.is-square .step-num{background:var(--blue);color:#fff;padding:9px 11px}
+.is-square .step-num:after{background:var(--blue)}
+
+/* Visina panela je ZADATA, a kosina se izvodi iz nje. Obrnuto ne sme: ako se
+   kosina računa iz izmerene visine, a padding iz kosine, dobija se petlja koja
+   se raspiruje — duži padding gura tekst u više redova, panel raste, kosina
+   raste, padding raste. U prvoj verziji je tako odletelo na 120px umesto 43px.
+   Zadata visina usput daje i ujednačene panele, što ionako izgleda bolje. */
+.step-panel{position:relative;background:var(--panel);
+  height:var(--panel-h);
+  /* sadržaj centriran: visina je zadata, pa bi tekst pri vrhu ostavljao
+     praznu donju polovinu */
+  display:flex;flex-direction:column;justify-content:center;
+  --cut:calc(var(--panel-h) * var(--cut-ratio));
+  clip-path:polygon(0 0,calc(100% - var(--cut)) 0,100% 100%,var(--cut) 100%);
+  padding:26px calc(var(--cut) + 26px)}
+/* kosina samo levo — jeftinija po širini, a panel i dalje "gleda" ka liniji */
+.is-left .step-panel{clip-path:polygon(0 0,100% 0,100% 100%,var(--cut) 100%);
+  padding:26px 30px 26px calc(var(--cut) + 26px)}
+.is-plain .step-panel{clip-path:none;padding:26px 30px}
+.step-panel h3{margin:0;font-size:clamp(20px,1.9vw,27px);font-weight:500;
+  letter-spacing:-.03em;color:var(--ink)}
+.step-panel p{margin:10px 0 0;font-size:16px;line-height:1.65;color:var(--muted);
+  max-width:46ch}
+
+/* ── stanje pre otkrivanja ────────────────────────────────────────────────
+   Pali se tek kad JS javi da je spreman — bez skripte sekcija stoji otkrivena. */
+.steps.is-ready .step:not(.is-shown) .step-num,
+.steps.is-ready .step:not(.is-shown) .step-panel{opacity:0;transform:translateX(-20px)}
+.steps.is-ready .step-num{transition:opacity var(--speed) ease,
+  transform var(--speed) cubic-bezier(.22,1,.36,1);
+  transition-delay:calc(var(--speed) * .55)}
+.steps.is-ready .step-panel{transition:opacity var(--speed) ease,
+  transform var(--speed) cubic-bezier(.22,1,.36,1);
+  transition-delay:calc(var(--speed) * .55 + 80ms)}
+.steps.is-ready .step-num{transform:translate(-50%,-50%)}
+.steps.is-ready .step:not(.is-shown) .step-num{transform:translate(calc(-50% - 20px),-50%)}
+
+@media(max-width:800px){
+  .process{padding:72px 6vw 80px}
+  .process h2{margin-top:28px;font-size:clamp(30px,6.6vw,42px)}
+  .steps{--rail:44px;--panel-h:186px;margin-top:44px}
+  .step{gap:16px;padding-bottom:22px}
+  .step-num{font-size:11px;padding:6px 9px}
+  .step-num:after{width:10px}
+  .step-panel{padding:20px calc(var(--cut) + 18px)}
+  .is-left .step-panel{padding:20px 18px 20px calc(var(--cut) + 18px)}
+  .is-plain .step-panel{padding:20px 18px}
+  .step-panel p{font-size:15px;max-width:none}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .steps:before{transition:none}
+  .steps.is-ready .step:not(.is-shown) .step-num,
+  .steps.is-ready .step:not(.is-shown) .step-panel{opacity:1;transform:none}
+  .steps.is-ready .step:not(.is-shown) .step-num{transform:translate(-50%,-50%)}
+}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <strong>Mokap</strong>
+  <label>Naslov
+    <button data-copy="0" aria-pressed="true">1</button>
+    <button data-copy="1" aria-pressed="false">2</button>
+    <button data-copy="2" aria-pressed="false">3</button>
+  </label>
+  <label>Marker
+    <button data-marker="num" aria-pressed="true">broj na liniji</button>
+    <button data-marker="square" aria-pressed="false">kvadrat</button>
+  </label>
+  <label>Panel
+    <button data-shape="cut" aria-pressed="true">sečen</button>
+    <button data-shape="left" aria-pressed="false">kosa levo</button>
+    <button data-shape="plain" aria-pressed="false">pravougaon</button>
+  </label>
+  <label>Brzina
+    <button data-speed="400" aria-pressed="false">400</button>
+    <button data-speed="500" aria-pressed="true">500</button>
+    <button data-speed="700" aria-pressed="false">700</button>
+  </label>
+  <label>Linija okidača
+    <button data-guide="0" aria-pressed="true">sakrij</button>
+    <button data-guide="1" aria-pressed="false">prikaži</button>
+  </label>
+  <span class="spacer"></span>
+  <button id="replay">Ponovi</button>
+</div>
+
+<div class="guide" aria-hidden="true"><span>OKIDAČ — DONJA TREĆINA</span></div>
+
+<div class="pad">↑ IZNAD: 02 / ZAŠTO FLEKOUT (belo)</div>
+
+<section class="process">
+  <div class="process-inner">
+    <span class="eyebrow">03 / PROCES</span>
+    <h2><span class="h2-lead"></span><span class="h2-punch"></span></h2>
+    <ol class="steps"></ol>
+  </div>
+</section>
+
+<div class="pad after">SLEDI 04 / FORMA (tamna)</div>
+
+<script>
+const COPY = [
+  ['Od prvog upita',                 'do čistog prostora.'],
+  ['Četiri koraka.',                 'Ni jedan više.'],
+  ['Ne moraš ništa da znaš unapred.','Mi vodimo kroz posao.']
+];
+
+/* Korak 02 nosi odgovor na cenu — to je i dalje najveće neodgovoreno pitanje
+   na sajtu, a ovde se rešava bez objavljivanja cenovnika. */
+const STEPS = [
+  ['Pošalješ upit',      'Kažeš nam šta i gde treba očistiti — telefonom ili preko forme.'],
+  ['Izlazak i procena',  'Dolazimo na lice mesta, merimo obim i dajemo cenu. Besplatno.'],
+  ['Termin i čišćenje',  'Biraš termin koji ti odgovara. Radimo po dogovorenom obimu.'],
+  ['Završni pregled',    'Zajedno proveravamo urađeno i predajemo prostor.']
+];
+
+const list  = document.querySelector('.steps');
+const state = { copy: 0, marker: 'num', shape: 'cut', speed: 500, guide: 0 };
+let pending = new Set(), frame = 0;
+
+function render() {
+  document.querySelector('.h2-lead').textContent  = COPY[state.copy][0];
+  document.querySelector('.h2-punch').textContent = COPY[state.copy][1];
+  document.body.classList.toggle('is-square', state.marker === 'square');
+  document.body.classList.toggle('is-left',   state.shape  === 'left');
+  document.body.classList.toggle('is-plain',  state.shape  === 'plain');
+  document.body.classList.toggle('show-guide', !!state.guide);
+  document.documentElement.style.setProperty('--speed', state.speed + 'ms');
+
+  list.classList.remove('is-ready');
+  list.style.setProperty('--line-h', '0px');
+  list.innerHTML = STEPS.map((_, i) => `
+    <li class="step">
+      <div class="step-rail"><span class="step-num">${String(i + 1).padStart(2, '0')}</span></div>
+      <div class="step-panel"><h3></h3><p></p></div>
+    </li>`).join('');
+
+  [...list.children].forEach((li, i) => {
+    li.querySelector('h3').textContent = STEPS[i][0];
+    li.querySelector('p').textContent  = STEPS[i][1];
+  });
+
+  arm();
+}
+
+/* Kosinu više ne meri JS — izvedena je iz zadate visine panela u CSS-u.
+   Vidi komentar uz .step-panel: merenje je pravilo petlju. */
+
+/* Linija staje tačno na markeru koraka koji je poslednji otkriven. */
+function lineTo(step) {
+  const num = step.querySelector('.step-num');
+  const y = num.getBoundingClientRect().top + num.offsetHeight / 2
+          - list.getBoundingClientRect().top;
+  list.style.setProperty('--line-h', Math.round(y) + 'px');
+}
+
+function reveal() {
+  frame = 0;
+  const line = innerHeight * 2 / 3;
+  let last = null;
+  pending.forEach(step => {
+    if (step.getBoundingClientRect().top > line) return;
+    step.classList.add('is-shown');
+    pending.delete(step);
+    last = step;
+  });
+  if (last) lineTo(last);
+  if (!pending.size) removeEventListener('scroll', schedule);
+}
+
+function schedule() {
+  if (pending.size && !frame) frame = requestAnimationFrame(reveal);
+}
+
+function arm() {
+  pending = new Set(list.querySelectorAll('.step'));
+  reveal();                       /* koraci koji su već prošli — odmah, bez čekanja */
+  list.classList.add('is-ready');
+  if (pending.size) addEventListener('scroll', schedule, { passive: true });
+}
+
+document.querySelector('.bar').addEventListener('click', event => {
+  const b = event.target.closest('button');
+  if (!b || b.id === 'replay') return;
+  const key = ['copy', 'marker', 'shape', 'speed', 'guide'].find(k => b.dataset[k] !== undefined);
+  if (!key) return;
+  state[key] = (key === 'marker' || key === 'shape') ? b.dataset[key] : Number(b.dataset[key]);
+  [...b.parentElement.querySelectorAll('button')].forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+  render();
+});
+
+document.querySelector('#replay').addEventListener('click', () => {
+  scrollTo({ top: 0, behavior: 'instant' });
+  render();
+});
+
+addEventListener('resize', schedule);
+document.fonts.ready.then(schedule);
+render();
+</script>
+</body>
+</html>
