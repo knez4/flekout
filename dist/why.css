@@ -35,7 +35,7 @@
 .fact-wrap{position:relative;overflow:hidden;
   margin:-18px -40px -18px -18px;padding:18px 40px 18px 18px}
 .fact-label{font-size:clamp(32px,3.2vw,46px);font-weight:500;letter-spacing:-.04em;
-  color:#1b2226;white-space:nowrap}
+  color:#1b2226;white-space:normal}
 
 /* desno — rečenica */
 .fact-text{font-size:17px;line-height:1.7;color:#5f686d;max-width:46ch;margin:0}
