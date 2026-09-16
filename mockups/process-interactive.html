@@ -1,0 +1,98 @@
+<div id="flekout-process-study" aria-label="Flekout — interaktivni predlog procesa">
+  <div class="fp-control"><label for="fp-progress">Simulacija skrola <output id="fp-value">0%</output></label><input id="fp-progress" type="range" min="0" max="100" value="0" aria-label="Napredovanje kroz proces"></div>
+  <section class="fp-section">
+    <div class="fp-background" aria-hidden="true"><div class="fp-grid"></div><div class="fp-cuts"><i></i><i></i><i></i></div></div>
+    <p class="fp-eyebrow">03 / KAKO RADIMO</p>
+    <h2><span>Od prvog poziva</span>do čistog prostora.</h2>
+    <ol class="fp-steps">
+      <li><div class="fp-number"><span>01</span></div><article><svg aria-hidden="true"><path class="fp-base"/><path class="fp-blue"/></svg><div class="fp-copy"><h3>Javi nam šta treba očistiti</h3><p>Reci nam o kakvom prostoru je reč i koje čišćenje ti je potrebno.</p></div></article></li>
+      <li><div class="fp-number"><span>02</span></div><article><svg aria-hidden="true"><path class="fp-base"/><path class="fp-blue"/></svg><div class="fp-copy"><h3>Pogledamo prostor i dogovorimo detalje</h3><p>Na procenu dolazimo u roku od 48 sati i dogovaramo obim posla.</p></div></article></li>
+      <li><div class="fp-number"><span>03</span></div><article><svg aria-hidden="true"><path class="fp-base"/><path class="fp-blue"/></svg><div class="fp-copy"><h3>Dogovaramo termin i čistimo</h3><p>Dolazimo u dogovorenom terminu i čistimo prema dogovoru.</p></div></article></li>
+      <li><div class="fp-number"><span>04</span></div><article><svg aria-hidden="true"><path class="fp-base"/><path class="fp-blue"/></svg><div class="fp-copy"><h3>Proveravamo rezultat</h3><p>Zajedno prolazimo kroz urađeno i proveravamo dogovorene detalje.</p></div></article></li>
+    </ol>
+  </section>
+</div>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&display=swap');
+#flekout-process-study{--fp-blue:#168ccd;--fp-gray:#61696e;--fp-paper:#eceff1;color:#202326;background:#fff;font-family:Manrope,Arial,sans-serif;color-scheme:light}
+#flekout-process-study *{box-sizing:border-box}
+#flekout-process-study .fp-control{padding:18px 6%;background:#f5f6f7;border-bottom:1px solid #e1e4e6}
+#flekout-process-study .fp-control label{display:flex;justify-content:space-between;font-size:12px;color:#51585c;margin-bottom:8px}
+#flekout-process-study input{display:block;width:100%;accent-color:var(--fp-blue);cursor:ew-resize;min-height:24px;margin:0}
+#flekout-process-study .fp-section{--fp-detail:.65;position:relative;isolation:isolate;overflow:hidden;padding:54px 6% 64px;background:#fafbfc}
+#flekout-process-study .fp-background{position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:var(--fp-detail)}
+#flekout-process-study .fp-grid{position:absolute;inset:0;background-image:linear-gradient(90deg,rgba(63,83,95,.065) 1px,transparent 1px),linear-gradient(0deg,rgba(63,83,95,.04) 1px,transparent 1px);background-size:calc(88% / 4) 100%,100% 174px;background-position:6% 0;mask-image:linear-gradient(120deg,transparent 2%,#000 65%,transparent 100%)}
+#flekout-process-study .fp-cuts{position:absolute;inset:-160px -100% -160px 65%;transform:skewX(16.8deg);background:repeating-linear-gradient(90deg,transparent 0 47px,rgba(22,140,205,.27) 47px 48px);border-left:1px solid rgba(22,140,205,.34)}
+#flekout-process-study .fp-cuts i{display:none}
+#flekout-process-study .fp-cuts i:nth-child(2){left:92px}
+#flekout-process-study .fp-cuts i:nth-child(3){left:140px}
+#flekout-process-study .fp-eyebrow:before{content:'';display:inline-block;width:15px;height:7px;background:var(--fp-blue);transform:skewX(16.8deg);margin-right:11px;vertical-align:1px}
+#flekout-process-study .fp-eyebrow{font-size:11px;font-weight:600;letter-spacing:.12em;margin:0 0 24px;color:#626c72}
+#flekout-process-study h2{font-size:clamp(30px,5.5vw,45px);font-weight:500;letter-spacing:-.055em;line-height:1.09;margin:0 0 40px}
+#flekout-process-study h2 span{display:block;color:#6c757b;font-size:.7em;margin-bottom:5px}
+#flekout-process-study .fp-steps{margin:0;padding:0;list-style:none;position:relative}
+#flekout-process-study li{--stem:0;--badge:0;--branch:0;position:relative;padding:24px 0 0 90px;min-height:162px}
+#flekout-process-study li:before,#flekout-process-study li:after{content:'';position:absolute;left:26px;top:0;width:2px;height:100%;background:var(--fp-gray)}
+#flekout-process-study li:after{background:var(--fp-blue);transform:scaleY(var(--stem));transform-origin:top}
+#flekout-process-study li:last-child:before,#flekout-process-study li:last-child:after{height:79px}
+#flekout-process-study .fp-number{position:absolute;z-index:2;top:54px;left:0;width:54px;height:50px;background:var(--fp-gray);clip-path:polygon(0 0,calc(100% - 15px) 0,100% 100%,15px 100%);display:grid;place-items:center;color:#fff}
+#flekout-process-study .fp-number:before{content:'';position:absolute;inset:0;background:var(--fp-blue);transform:scaleY(var(--badge));transform-origin:top}
+#flekout-process-study .fp-number span{position:relative;font-size:18px;font-weight:500}
+#flekout-process-study article{position:relative;min-height:126px;isolation:isolate}
+#flekout-process-study article:before,#flekout-process-study article:after{content:'';position:absolute;left:-53px;top:54px;width:70px;height:2px;background:var(--fp-gray);z-index:-1}
+#flekout-process-study article:after{background:var(--fp-blue);transform:scaleX(var(--branch));transform-origin:left}
+#flekout-process-study article svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible;z-index:-1}
+#flekout-process-study .fp-base{fill:var(--fp-paper);stroke:var(--fp-gray);stroke-width:1}
+#flekout-process-study .fp-blue{fill:none;stroke:var(--fp-blue);stroke-width:1.8;stroke-linejoin:miter}
+#flekout-process-study .fp-copy{padding:25px 42px 28px 48px}
+#flekout-process-study h3{font-size:21px;line-height:1.25;letter-spacing:-.035em;font-weight:500;margin:0 0 10px;color:#202326}
+#flekout-process-study article p{font-size:13px;line-height:1.7;margin:0;color:#202326}
+@media(max-width:480px){
+#flekout-process-study .fp-section{padding:34px 5% 40px}
+#flekout-process-study li{padding-left:57px;min-height:190px}
+#flekout-process-study li:before,#flekout-process-study li:after{left:18px}
+#flekout-process-study .fp-number{width:38px;height:42px;top:58px;clip-path:polygon(0 0,calc(100% - 12px) 0,100% 100%,12px 100%)}
+#flekout-process-study .fp-number span{font-size:14px}
+#flekout-process-study article:before,#flekout-process-study article:after{left:-32px;width:45px}
+#flekout-process-study .fp-copy{padding:23px 21px 25px 30px}
+#flekout-process-study h3{font-size:18px}
+#flekout-process-study article p{font-size:13px}
+}
+</style>
+<script>
+(() => {
+ const root=document.getElementById('flekout-process-study');
+ const input=root.querySelector('#fp-progress');
+ const out=root.querySelector('#fp-value');
+ const rows=[...root.querySelectorAll('li')];
+ const state={progress:0,softFill:false,detail:65};
+ const clamp=v=>Math.max(0,Math.min(1,v));
+ function measure(){
+   rows.forEach(row=>{
+     const card=row.querySelector('article'),w=card.clientWidth,h=card.clientHeight;
+     const cut=Math.min(h*.3014,w*.14), y=Math.min(54,h/2), x=1+cut*y/(h-2);
+     const d=`M ${x} ${y} L 1 1 L ${w-cut-1} 1 L ${w-1} ${h-1} L ${cut+1} ${h-1} Z`;
+     row.querySelectorAll('path').forEach(p=>p.setAttribute('d',d));
+     const p=row.querySelector('.fp-blue');p.dataset.length=p.getTotalLength();
+   });render();
+ }
+ function render(){
+   root.querySelector('.fp-section').style.setProperty('--fp-detail',state.detail/100);
+   const progress=Number(state.progress); input.value=progress;out.value=Math.round(progress)+'%';
+   rows.forEach((row,i)=>{
+     const local=progress/25-i;
+     row.style.setProperty('--stem',clamp(local/.28));
+     row.style.setProperty('--badge',clamp((local-.18)/.19));
+     row.style.setProperty('--branch',clamp((local-.32)/.17));
+     const border=clamp((local-.43)/.57),path=row.querySelector('.fp-blue'),length=Number(path.dataset.length||1);
+     path.style.strokeDasharray=length;path.style.strokeDashoffset=length*(1-border);
+     row.querySelector('.fp-base').style.fill=state.softFill?`color-mix(in srgb, #dceff9 ${border*100}%, #eceff1)`:'#eceff1';
+   });
+ }
+ input.addEventListener('input',()=>{state.progress=Number(input.value);render()});
+ new ResizeObserver(measure).observe(root.querySelector('.fp-steps'));
+ if(document.fonts)document.fonts.ready.then(measure);
+ measure();
+ if(globalThis.Tweak){const tweak=new Tweak({container:root,onChange:render});tweak.addToggle(state,'softFill',{label:'Svetloplava ispuna panela'});tweak.addSlider(state,'detail',{label:'Vidljivost pozadinskih linija',min:0,max:100,unit:'%'});}
+})();
+</script>

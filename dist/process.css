@@ -1,0 +1,49 @@
+/* Shared section signature. Hero logo/mask and its contrast treatment stay intact. */
+main .eyebrow::before{content:"";display:inline-block;width:15px;height:7px;background:#168ccd;transform:skewX(16.8deg);margin-right:11px;vertical-align:2px}
+.process{--process-blue:#168ccd;--process-gray:#61696e;position:relative;isolation:isolate;overflow:hidden;background:#fafbfc;padding:110px 6vw 120px}
+.process-inner{max-width:1560px;margin:auto}
+.process-background{position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:.65}
+.process-grid{position:absolute;inset:0;background-image:linear-gradient(90deg,rgba(63,83,95,.065) 1px,transparent 1px),linear-gradient(0deg,rgba(63,83,95,.04) 1px,transparent 1px);background-size:22% 100%,100% 174px;background-position:6% 0;mask-image:linear-gradient(120deg,transparent 2%,#000 65%,transparent 100%)}
+.process-cuts{position:absolute;inset:-160px -100% -160px 65%;transform:skewX(16.8deg);background:repeating-linear-gradient(90deg,transparent 0 47px,rgba(22,140,205,.27) 47px 48px);border-left:1px solid rgba(22,140,205,.34)}
+.process h2{font-size:clamp(36px,3.8vw,56px);font-weight:500;line-height:1.06;letter-spacing:-.05em;margin:40px 0 52px}
+.process .h2-lead{font-size:.62em}
+.process-steps{list-style:none;padding:0;margin:0;max-width:1200px}
+.process-step{--stem:0;--badge:0;--branch:0;--node-y:79px;position:relative;padding:24px 0 30px 110px;min-height:200px}
+.process-step::before,.process-step::after{content:"";position:absolute;left:32px;top:0;width:2px;height:100%;background:var(--process-gray)}
+.process-step::after{background:var(--process-blue);transform:scaleY(var(--stem));transform-origin:top}
+.process-step:last-child::before,.process-step:last-child::after{height:var(--node-y)}
+.process-number{position:absolute;top:54px;left:0;width:66px;height:50px;z-index:2;background:var(--process-gray);clip-path:polygon(0 0,calc(100% - 15px) 0,100% 100%,15px 100%);display:grid;place-items:center;color:#fff}
+.process-number::before{content:"";position:absolute;inset:0;background:var(--process-blue);transform:scaleY(var(--badge));transform-origin:top}
+.process-number span{position:relative;font-size:20px;font-weight:500}
+.process-panel{position:relative;min-height:146px;isolation:isolate;background:#eceff1}
+.process.is-ready .process-panel{background:transparent}
+.process-panel::before,.process-panel::after{content:"";position:absolute;left:-58px;top:54px;width:80px;height:2px;background:var(--process-gray);z-index:-1}
+.process-panel::after{background:var(--process-blue);transform:scaleX(var(--branch));transform-origin:left}
+.process-panel svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible;z-index:-1}
+.process-base{fill:#eceff1;stroke:var(--process-gray);stroke-width:1}
+.process-blue{fill:none;stroke:var(--process-blue);stroke-width:1.8;stroke-linejoin:miter;visibility:hidden}
+.process.is-ready .process-blue{visibility:visible}
+.process-copy{padding:30px 58px 34px 58px}
+.process h3{font-size:clamp(23px,2.2vw,32px);font-weight:500;letter-spacing:-.035em;line-height:1.2;margin:0 0 12px;color:#202326}
+.process-panel p{font-size:17px;line-height:1.7;color:#202326;margin:0;max-width:58ch}
+@media(max-width:800px){
+ .process{padding:72px 6vw 80px}
+ .process h2{font-size:clamp(30px,6.6vw,42px);margin:28px 0 32px}
+ .process-step{padding-left:70px;padding-bottom:26px;min-height:190px}
+ .process-step::before,.process-step::after{left:23px}
+ .process-number{width:48px;font-size:16px}
+ .process-number span{font-size:16px}
+ .process-panel::before,.process-panel::after{left:-35px;width:55px}
+ .process-copy{padding:26px max(34px,calc(var(--panel-cut,30px) + 12px)) 30px}
+ .process h3{font-size:24px}
+ .process-panel p{font-size:16px}
+}
+@media(max-width:480px){
+ .process-step{padding-left:50px}
+ .process-step::before,.process-step::after{left:17px}
+ .process-number{width:36px;height:42px;top:58px;clip-path:polygon(0 0,calc(100% - 12px) 0,100% 100%,12px 100%)}
+ .process-number span{font-size:14px}
+ .process-panel::before,.process-panel::after{left:-28px;width:42px}
+ .process-copy{padding:24px max(28px,calc(var(--panel-cut,30px) + 10px)) 28px}
+ .process h3{font-size:22px}
+}
