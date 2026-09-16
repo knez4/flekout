@@ -32,9 +32,11 @@
    ovog nivoa: odsekao bi levi prepust, a s njim i gornju polovinu kosine.
    Prepusti su manji od 6vw koliko sekcija ima sa strane, pa ništa ne curi
    preko ivice ekrana. */
-.fact-wrap{position:relative;overflow:hidden;display:flex;align-items:center;
-  margin:-18px -40px -18px -18px;padding:18px 40px 18px 18px}
-.fact-label{font-size:clamp(32px,3.2vw,46px);font-weight:500;letter-spacing:-.04em;
+.fact-wrap{position:relative;overflow:visible;display:flex;align-items:center;
+  /* Keep the slanted left overhang visible, but clip the exiting plate on the right. */
+  clip-path:inset(0 0 0 -80px);
+  margin:-8px -24px -8px -12px;padding:8px 24px 8px 12px}
+.fact-label{font-size:clamp(26px,2.4vw,36px);line-height:1.12;font-weight:500;letter-spacing:-.04em;
   color:#1b2226;white-space:normal}
 
 /* desno — rečenica */
@@ -71,8 +73,8 @@
   .why h2{margin-top:28px;font-size:clamp(30px,6.6vw,42px)}
   .facts{margin-top:40px}
   .fact{grid-template-columns:1fr;gap:12px;align-items:start;padding:24px 0}
-  .fact-label{font-size:clamp(28px,7vw,36px);white-space:normal}
-  .fact-wrap{margin:-12px -18px -12px -12px;padding:12px 18px 12px 12px}
+  .fact-label{font-size:clamp(25px,6vw,30px);white-space:normal}
+  .fact-wrap{margin:-8px -18px -8px -8px;padding:8px 18px 8px 8px}
   .fact-text{font-size:15px;max-width:none}
 }
 
