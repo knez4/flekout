@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="sr-Latn">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f7f8fa"><meta name="description" content="Flekout Clean — mašinsko pranje i čišćenje tvrdih i mekih podloga u Beogradu."><title>FLEKOUT — Bez fleke.</title><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="service-rail.css"><link rel="stylesheet" href="why.css"><link rel="stylesheet" href="process.css"><script src="motion.js" defer></script></head>
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f7f8fa"><meta name="description" content="Flekout Clean — mašinsko pranje i čišćenje tvrdih i mekih podloga u Beogradu."><title>FLEKOUT — Bez fleke.</title><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="service-rail.css"><link rel="stylesheet" href="why.css"><link rel="stylesheet" href="process.css"><link rel="stylesheet" href="contact.css"><script src="motion.js" defer></script></head>
 <body>
 <a class="skip" href="#usluge">Pređi na usluge</a>
 <header><a href="#pocetak" class="brand" aria-label="Flekout početna"><img src="logo-black.png" width="140" height="31" alt="FLEKOUT"></a><nav aria-label="Glavna navigacija"><a href="#usluge">Naše usluge</a><a href="#kontakt">Kontakt ↗</a></nav></header>
@@ -57,10 +57,36 @@
 </ol>
 </div>
 </section>
-<section class="closing" id="kontakt"><span class="eyebrow">04 / SLEDEĆI POTEZ JE TVOJ</span><h2>Tvoj prostor.<br>Naš sledeći<br><span>potez.</span></h2><button class="talk" id="open-contact">Hajde da pričamo <span>↗</span></button><footer><a class="brand" href="#pocetak">FLEKOUT.</a><span>Mašinsko pranje i čišćenje · Beograd</span><button id="replay">Ponovi iskustvo ↑</button></footer></section>
+<section id="kontakt" aria-labelledby="contact-title">
+ <div class="fc-reflection" aria-hidden="true"></div>
+ <div class="fc-eyebrow">04 / KONTAKT</div>
+ <h2 id="contact-title"><span>Čist prostor počinje</span>jednim dogovorom.</h2>
+ <p class="fc-intro">Reci nam šta treba da očistimo. Pošalji nekoliko detalja i javićemo ti se da dogovorimo procenu.</p>
+ <form aria-label="Upit za čišćenje">
+  <fieldset><legend>Šta želiš da očistimo?</legend><div class="fc-choices">
+   <button type="button" class="fc-choice" aria-pressed="true" data-space="Kuća / stan"><span class="fc-index">01</span><span>Kuća / stan</span></button>
+   <button type="button" class="fc-choice" aria-pressed="false" data-space="Zgrada"><span class="fc-index">02</span><span>Zgrada</span></button>
+   <button type="button" class="fc-choice" aria-pressed="false" data-space="Poslovni prostor"><span class="fc-index">03</span><span>Poslovni prostor</span></button>
+  </div></fieldset>
+  <div class="fc-row">
+   <label class="fc-field"><span class="fc-label">Gde se nalazi prostor?</span><input name="location" autocomplete="address-level2" placeholder="Mesto / opština, npr. Novi Beograd" required></label>
+   <label class="fc-field"><span class="fc-label">Tvoje ime <span class="fc-optional">/ opciono</span></span><input name="name" autocomplete="given-name" placeholder="Unesi ime"></label>
+  </div>
+  <div class="fc-description"><label class="fc-label" for="fc-details">Reci nam malo više.</label><div class="fc-upload-box"><textarea id="fc-details" name="details" placeholder="Npr. dubinsko pranje ugaone garniture i dva tepiha." required></textarea><div class="fc-upload-bar"><button type="button" class="fc-attach"><span aria-hidden="true">＋</span>Dodaj fotografije</button><span class="fc-hint">Opciono · do 5 slika, do 10 MB po slici · JPG, PNG, WebP</span><input type="file" accept="image/jpeg,image/png,image/webp" multiple hidden id="fc-files" aria-label="Izaberi fotografije"></div><div class="fc-thumbs"></div></div><p class="fc-error" role="alert" hidden></p></div>
+  <fieldset><legend>Kako želiš da te kontaktiramo?</legend><div class="fc-contact-options">
+   <button type="button" class="fc-method" data-method="Poziv" aria-pressed="true">Poziv</button><button type="button" class="fc-method" data-method="Poruka" aria-pressed="false">Poruka</button><button type="button" class="fc-method" data-method="Email" aria-pressed="false">Email</button>
+  </div><div class="fc-apps" role="group" aria-label="Aplikacija za poruke" hidden><button type="button" class="fc-app" data-app="Viber" aria-pressed="true"><img src="https://cdn.jsdelivr.net/npm/simple-icons@11.15.0/icons/viber.svg" alt="">Viber</button><button type="button" class="fc-app" data-app="WhatsApp" aria-pressed="false"><img src="https://cdn.jsdelivr.net/npm/simple-icons@11.15.0/icons/whatsapp.svg" alt="">WhatsApp</button></div>
+  <div data-phone><label class="fc-label" for="fc-phone-input">Broj telefona</label><div class="fc-phone"><select aria-label="Pozivni broj države" name="country"><option value="381">+381 RS</option><option value="382">+382 ME</option><option value="387">+387 BA</option><option value="385">+385 HR</option><option value="386">+386 SI</option><option value="49">+49 DE</option><option value="43">+43 AT</option><option value="41">+41 CH</option><option value="other">Drugi</option></select><input id="fc-phone-input" name="phone" type="tel" autocomplete="tel-national" placeholder="65 9564738" required></div></div>
+  <label class="fc-field" data-email hidden><span class="fc-label">Email adresa</span><input name="email" type="email" autocomplete="email" placeholder="Unesi email adresu" disabled></label></fieldset>
+  <div class="fc-bottom"><p class="fc-note">Slanjem upita ne zakazuješ uslugu. Termin i detalje dogovaramo sa tobom.</p><button type="submit" class="fc-submit">Pošalji upit <span aria-hidden="true">↗</span></button></div>
+  <p class="fc-prototype">Probna verzija forme: slanje upita još nije povezano. Uneti podaci i fotografije se ne šalju.</p>
+  <p class="fc-demo-result" role="status" aria-live="polite" hidden></p>
+ </form>
+ <div class="fc-foot"><a href="#pocetak" aria-label="Povratak na početak">FLEKOUT ↗</a><span>FLEKOUT / Mašinsko pranje i čišćenje</span></div>
+</section>
 </main>
-<dialog id="contact-dialog"><button class="close" aria-label="Zatvori">×</button><span class="eyebrow">FLEKOUT CLEAN</span><h2>Hajde da pričamo.</h2><p>Ovo je dizajnerski prototip. Kontakt ćemo povezati sa telefonom ili kanalom koji agencija odabere.</p><button class="dialog-done">Nazad na sajt ↗</button></dialog>
 <script src="service-rail.js"></script>
 <script src="why.js"></script>
 <script src="process.js"></script>
+<script src="contact.js"></script>
 </body></html>
