@@ -34,6 +34,7 @@ brand/           identitet
 mockups/         privremeni fajlovi za dogovor o dizajnu, ne deo sajta
   zasto-mi.html    sekcija 02 "Zašto Flekout" — izgled i mehanika brisanja
   proces.html      sekcija 03 "Proces" — linija, markeri i paneli koraka
+  forma.html       sekcija 04 "Kontakt" — forma, brz kontakt i potvrda
 ```
 
 ## Pokretanje
