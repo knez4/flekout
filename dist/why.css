@@ -32,7 +32,7 @@
    ovog nivoa: odsekao bi levi prepust, a s njim i gornju polovinu kosine.
    Prepusti su manji od 6vw koliko sekcija ima sa strane, pa ništa ne curi
    preko ivice ekrana. */
-.fact-wrap{position:relative;overflow:hidden;
+.fact-wrap{position:relative;overflow:hidden;display:flex;align-items:center;
   margin:-18px -40px -18px -18px;padding:18px 40px 18px 18px}
 .fact-label{font-size:clamp(32px,3.2vw,46px);font-weight:500;letter-spacing:-.04em;
   color:#1b2226;white-space:normal}
@@ -46,7 +46,8 @@
 .plate{display:none}
 .why.is-ready .plate{display:block;position:absolute;inset:0;
   --cut:calc(var(--wrap-h,90px) * var(--cut-ratio));
-  clip-path:polygon(0 0,100% 0,100% 100%,var(--cut) 100%);
+  left:calc(-1 * var(--cut));right:calc(-1 * var(--cut));
+  clip-path:polygon(0 0,calc(100% - var(--cut)) 0,100% 100%,var(--cut) 100%);
   background:#168ccd;transform:translateX(0);
   /* blago usporavanje: na sporom potezu se sa oštrijom krivom vidi kako sečivo
      stane umesto da izađe iz kadra */
@@ -55,7 +56,7 @@
    tačno 3px plavog. Gradijentom ne može — gradijent prati ugao svoje ose, ne
    kosinu clip-path-a. */
 .why.is-ready .plate i{position:absolute;inset:0 0 0 3px;background:#eceff1;
-  clip-path:polygon(0 0,100% 0,100% 100%,var(--cut) 100%)}
+  clip-path:polygon(0 0,calc(100% - var(--cut)) 0,100% 100%,var(--cut) 100%)}
 
 .why.is-ready .fact:not(.is-clean) .fact-text{opacity:0;transform:translateY(12px)}
 .why.is-ready .fact-text{

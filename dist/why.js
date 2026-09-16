@@ -19,9 +19,13 @@
   /* Pomeraj kosine se računa iz stvarne visine ploče, pa ugao ostaje 16.8°
      bez obzira na veličinu teksta i širinu ekrana. */
   function measure() {
-    section.querySelectorAll('.fact-wrap').forEach(wrap => {
+    const wraps = [...section.querySelectorAll('.fact-wrap')];
+    wraps.forEach(wrap => { wrap.style.minHeight = ''; });
+    const height = Math.max(...wraps.map(wrap => wrap.offsetHeight));
+    wraps.forEach(wrap => {
+      wrap.style.minHeight = height + 'px';
       const plate = wrap.querySelector('.plate');
-      if (plate) plate.style.setProperty('--wrap-h', wrap.offsetHeight + 'px');
+      if (plate) plate.style.setProperty('--wrap-h', height + 'px');
     });
   }
 

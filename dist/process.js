@@ -10,6 +10,19 @@
   const clamp = value => Math.max(0, Math.min(1, value));
   let frame = 0, needsMeasure = true;
   function measure() {
+    // Equal card geometry per breakpoint; size from the longest text, never clip it.
+    rows.forEach(row => { row.panel.style.minHeight = ''; });
+    let tallest = Math.max(...rows.map(row => row.panel.offsetHeight));
+    for (let pass = 0; pass < 3; pass++) {
+      rows.forEach(row => {
+        row.panel.style.minHeight = tallest + 'px';
+        row.panel.style.setProperty('--panel-cut', Math.min(tallest * .3014, row.panel.clientWidth * .14) + 'px');
+      });
+      const next = Math.max(...rows.map(row => row.panel.offsetHeight));
+      if (next === tallest) break;
+      tallest = next;
+    }
+    rows.forEach(row => { row.panel.style.minHeight = tallest + 'px'; });
     rows.forEach(row => {
       const w = row.panel.clientWidth, h = row.panel.clientHeight;
       // Preserve navbar angle until narrow/tall cards require a bounded cut.
