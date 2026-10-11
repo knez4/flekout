@@ -23,7 +23,8 @@ služe kao lista za proveru, ne kao uputstvo za zamenu identiteta.
 - **Plava nije ukras.** `#168ccd` znači "čisto"; ispod belog teksta ide `#0f7ab5`.
 - **Rez od 16.8°** živi samo u dve porodice (kontejner sa tekstom, ivica/maska).
 - **Bez novih biblioteka i build alata** (React, Tailwind, GSAP, Motion...).
-- **Brojevi u eyebrow natpisima** (`01 / NAŠE USLUGE`) su dogovoreni, ostaju.
+- **Brojevi samo gde redosled nešto znači:** koraci procesa i brojač u traci
+  usluga. Natpisi sekcija, jezičci i kartice su bez brojeva (odluka 12.10.).
 
 | skill | kada ga koristiti ovde |
 |---|---|

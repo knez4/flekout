@@ -16,9 +16,9 @@
 .foot-cta{position:relative;isolation:isolate;display:inline-flex;align-items:center;gap:34px;min-height:52px;padding:14px 32px;color:#fff;font-size:15px;font-weight:600;transition:transform .2s}
 .foot-cta:before{content:"";position:absolute;inset:0;z-index:-1;background:var(--blue-ink);transition:background .2s;
   clip-path:polygon(0 0,calc(100% - 16px) 0,100% 100%,16px 100%)}
-.foot-cta span{transition:transform .2s}
+.foot-cta{gap:12px;font-variant-numeric:tabular-nums}
+.foot-cta-icon{width:22px;height:22px}
 .foot-cta:hover:before{background:#0b6a9e}
-.foot-cta:hover span{transform:translate(3px,-3px)}
 .foot-cta:active{transform:translateY(1px)}
 
 .foot-contact{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 32px}
@@ -35,11 +35,12 @@
 
 /* znak: logotip kao maska, boja za nijansu svetlija od podloge */
 .foot-mark{margin:88px 0 0;aspect-ratio:2048/449;max-width:100%;background:#1d303c;
-  -webkit-mask:url(logo-white.png) center/contain no-repeat;mask:url(logo-white.png) center/contain no-repeat}
+  -webkit-mask:url(logo-white.svg) center/contain no-repeat;mask:url(logo-white.svg) center/contain no-repeat}
 
 .foot-bottom{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px 24px;margin-top:28px;padding-top:20px;border-top:1px solid var(--foot-line);font-size:13px;color:var(--foot-muted)}
 .foot-bottom a{color:var(--foot-text);transition:color .2s}
 .foot-bottom a:hover{color:#fff}
+.foot-bottom .foot-pib{margin-left:10px;opacity:.8}
 .foot-bottom .foot-credit{color:var(--foot-muted);font-weight:500;letter-spacing:.01em}
 .foot-bottom .foot-credit:hover{color:#fff}
 .site-foot a:focus-visible{outline:2px solid var(--blue);outline-offset:4px}

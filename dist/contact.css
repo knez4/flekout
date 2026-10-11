@@ -38,9 +38,8 @@
 #kontakt .fc-choice:active,#kontakt .fc-method:active{transform:translateY(1px)}
 
 #kontakt .fc-choices{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
-#kontakt .fc-choice{--cut:25px;text-align:left;padding:19px 24px;min-height:83px;display:flex;flex-direction:column;justify-content:space-between;gap:12px;font-size:14px;line-height:1.3}
-#kontakt .fc-choice>span:last-child{padding-left:12px}
-#kontakt .fc-choice .fc-index{font-size:12px;letter-spacing:.1em;opacity:.75}
+#kontakt .fc-choice{--cut:25px;text-align:left;padding:19px 24px;min-height:64px;display:flex;flex-direction:column;justify-content:center;gap:12px;font-size:14px;line-height:1.3}
+#kontakt .fc-choice>span:last-child{padding-left:12px;font-size:15px}
 
 #kontakt .fc-contact-options{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:14px}
 #kontakt .fc-method{--cut:13px;padding:10px 24px;min-height:44px;font-size:13px}
@@ -81,6 +80,10 @@
 #kontakt .fc-prototype{font-size:12px;color:#b8c9d3;line-height:1.6;margin:20px 0 0}
 #kontakt .fc-demo-result{margin:22px 0 0;padding:15px;background:#203e50;color:#a2dfff;font-size:13px;line-height:1.6}
 #kontakt .fc-intro a{color:var(--ink);font-weight:600;text-decoration:underline;text-decoration-color:var(--blue);text-underline-offset:4px;white-space:nowrap}
+#kontakt .fc-consent{display:flex;gap:12px;align-items:flex-start;margin:6px 0 0;font-size:13px;line-height:1.55;color:#c9d6dd;cursor:pointer}
+#kontakt .fc-consent input{flex:none;width:20px;height:20px;margin:1px 0 0;padding:0;accent-color:var(--blue-ink)}
+#kontakt .fc-consent a{color:#a2dfff;text-decoration:underline;text-underline-offset:3px}
+#kontakt .fc-consent a:hover{color:#fff}
 #kontakt [hidden]{display:none!important}
 
 @media(max-width:500px){

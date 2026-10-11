@@ -33,7 +33,7 @@
   let frame = 0;
   function revealPassed() {
     frame = 0;
-    const line = innerHeight * 2 / 3;
+    const line = innerHeight * 0.88;
     pending.forEach(row => {
       // Includes rows jumped completely past between two browser frames.
       if (row.getBoundingClientRect().top > line) return;

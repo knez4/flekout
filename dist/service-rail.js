@@ -210,7 +210,6 @@
       const body = document.createElement('div');
       body.className = 'rail-card-body';
       body.innerHTML =
-        `<span class="rail-card-number">${pad(i + 1)}</span>` +
         `<h3></h3><p class="rail-card-text"></p><p class="rail-surfaces"></p>`;
       body.querySelector('h3').textContent = item.title;
       body.querySelector('.rail-card-text').textContent = item.text;
@@ -219,7 +218,11 @@
       const figure = document.createElement('figure');
       figure.className = 'rail-card-figure';
       const img = document.createElement('img');
+      /* WebP u dve veličine: telefon povuče 800px, računar 1400px. */
+      const base = item.image.replace(/\.jpg$/, '');
       img.src = item.image;
+      img.srcset = `${base}-800.webp 800w, ${base}-1400.webp 1400w`;
+      img.sizes = '(max-width: 800px) 100vw, 50vw';
       img.alt = item.alt;
       img.width = 1400;
       img.height = 1050;

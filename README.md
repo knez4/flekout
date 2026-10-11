@@ -28,7 +28,10 @@ dist/            sajt koji se servira
                    NIJE učitan u trenutnoj verziji, čuva se za sledeću fazu
   *.jpg / *.mp4    fotografije i video (privremeni, vidi "Otvoreno");
                    video je 720p bez zvuka, ~1.1 MB
-  logo-*.png       logotip u upotrebi na sajtu
+  logo-*.svg       logotip (vektor, trasiran iz PNG-a; original za štampu tražiti od dizajnera)
+  fonts/           Manrope, varijabilni, lokalno (SIL OFL)
+  *-800/1400.webp  fotografije usluga za srcset (telefon / računar)
+  politika-privatnosti.html  NACRT, čeka pravnika i podatke firme
 
 brand/           identitet
   logos/           finalni logotipi (wordmark i simbol, crno/belo/plavo)
@@ -82,7 +85,8 @@ Dogovoreni redosled celog sajta:
 | 04 | Kontakt + futer | urađeno, slanje nije povezano |
 
 Sekcija **Pre / Posle** dolazi kasnije, kad klijent obezbedi fotografije, i ide
-posle Usluga. Brojevi u `eyebrow` natpisima ne broje hero.
+posle Usluga. Brojevi se koriste samo gde redosled nešto znači (koraci procesa, brojač u
+traci usluga). Natpis ("eyebrow") imaju samo Usluge i Kontakt.
 
 ---
 
@@ -155,6 +159,17 @@ cene određuje polje `prices` u `GROUPS`.
 ---
 
 ## Otvoreno
+
+- **Recenzije i pre / posle.** Najveća rupa u poverenju. Čim klijent pošalje
+  3 do 5 pravih recenzija (ili Google profil) i fotografije, ide nova sekcija
+  posle Usluga. Recenzije se NE izmišljaju.
+- **Persiranje "ti" ili "vi".** Sajt je na "ti"; za zgrade i firme možda bolje
+  "vi". Odluka klijenta.
+- **Hero video i fotografije usluga** su generičke (video pokazuje ručno
+  brisanje, a firma radi mašinski). Jedan dan snimanja na terenu.
+- **Politika privatnosti** (`dist/politika-privatnosti.html`) je nacrt: treba
+  podatke firme, rok čuvanja, servis za formu i pregled pravnika.
+- **"Garancija na uslugu"** treba konkretizovati (šta tačno klijent dobija).
 
 - **Cene** su od klijenta: garnitura 1.000 po sedećem mestu, fotelja 500,
   stolica 250, mono dušek 1.000, bračni dušek 1.500 / 2.500. Ostaje pitanje

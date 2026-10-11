@@ -14,11 +14,10 @@
 <meta name="twitter:card" content="summary">
 <link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap">
-<link rel="stylesheet" href="style.css?v=20261011e"><link rel="stylesheet" href="service-rail.css?v=20261011e"><link rel="stylesheet" href="why.css?v=20261011e"><link rel="stylesheet" href="process.css?v=20261011e"><link rel="stylesheet" href="contact.css?v=20261011e"><link rel="stylesheet" href="footer.css?v=20261011e">
-<script src="motion.js?v=20261011e" defer></script>
+<link rel="preload" href="fonts/manrope-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/manrope-latin-ext-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="style.css?v=20261012b"><link rel="stylesheet" href="service-rail.css?v=20261012b"><link rel="stylesheet" href="why.css?v=20261012b"><link rel="stylesheet" href="process.css?v=20261012b"><link rel="stylesheet" href="contact.css?v=20261012b"><link rel="stylesheet" href="footer.css?v=20261012b">
+<script src="motion.js?v=20261012b" defer></script>
 <!-- Cene se menjaju na DVA mesta: ovde i u PRICES na vrhu service-rail.js.
      Kontakt podaci (telefon, mejl, adresa, radno vreme) su PRIVREMENI i stoje
      ovde, u headeru i u futeru — svuda sa atributom data-placeholder. -->
@@ -36,35 +35,38 @@
 </head>
 <body>
 <a class="skip" href="#usluge">Pređi na usluge</a>
-<header><a href="#pocetak" class="brand" aria-label="Flekout početna"><img src="logo-black.png" width="140" height="31" alt="FLEKOUT"></a><nav aria-label="Glavna navigacija"><a href="#usluge" class="nav-optional">Naše usluge</a><a href="#usluge" data-open-prices>Cene</a><a href="#kontakt">Kontakt ↗</a></nav></header>
+<header><a href="#pocetak" class="brand" aria-label="Flekout početna"><img src="logo-black.svg" width="140" height="31" alt="FLEKOUT"></a><nav aria-label="Glavna navigacija"><a href="#usluge" class="nav-optional">Naše usluge</a><a href="#usluge" data-open-prices>Cene</a><a href="#kontakt">Kontakt ↗</a></nav></header>
 <main>
 <section class="journey" id="pocetak" aria-label="Flekout, čistoća kroz pokret">
 <div class="stage">
-<video id="cleaning-video" autoplay muted loop playsinline preload="auto" poster="cleaning-poster.jpg" aria-label="Ilustrativni snimak mašinskog čišćenja"><source src="cleaning-preview.mp4" type="video/mp4"></video>
-<svg class="portal" aria-hidden="true"><defs><filter id="pure-black" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0"/></filter><mask id="letter-mask" maskUnits="userSpaceOnUse" style="mask-type:luminance"><rect class="canvas" fill="white"/><image class="hero-logo" href="logo-black.png" filter="url(#pure-black)"/></mask><clipPath id="swept"><rect id="swept-rect"/></clipPath><clipPath id="unswept"><rect id="unswept-rect"/></clipPath></defs><rect class="canvas" fill="white" mask="url(#letter-mask)" clip-path="url(#swept)"/><image class="hero-logo" href="logo-white.png" clip-path="url(#unswept)"/></svg>
-<div class="intro-meta"><p>Mašinsko pranje i čišćenje</p><p>Beograd</p></div>
-<h1 class="sr-only">Flekout Clean, mašinsko pranje i čišćenje u Beogradu</h1>
-<div class="hero-bottom"><a href="#usluge" class="scroll-cue">Čistoća kroz pokret <span aria-hidden="true">↓</span></a><button type="button" id="video-toggle" aria-label="Pauziraj video">Pauziraj video Ⅱ</button></div>
+<video id="cleaning-video" autoplay muted loop playsinline preload="auto" poster="cleaning-poster.webp" aria-label="Ilustrativni snimak mašinskog čišćenja"><source src="cleaning-preview.mp4" type="video/mp4"></video>
+<svg class="portal" aria-hidden="true"><defs><filter id="pure-black" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0"/></filter><mask id="letter-mask" maskUnits="userSpaceOnUse" style="mask-type:luminance"><rect class="canvas" fill="white"/><image class="hero-logo" href="logo-black.svg" filter="url(#pure-black)"/></mask><clipPath id="swept"><rect id="swept-rect"/></clipPath><clipPath id="unswept"><rect id="unswept-rect"/></clipPath></defs><rect class="canvas" fill="white" mask="url(#letter-mask)" clip-path="url(#swept)"/><image class="hero-logo" href="logo-white.svg" clip-path="url(#unswept)"/></svg>
+<div class="hero-copy">
+<h1>Mašinsko pranje i dubinsko čišćenje u Beogradu.</h1>
+<p>Stanovi, zgrade i kancelarije. Procena u roku od 48 sati, cene unapred.</p>
+<div class="hero-actions"><a href="#kontakt" class="hero-cta">Zatraži procenu <span aria-hidden="true">↗</span></a><a href="#usluge" class="hero-link" data-open-prices>Pogledaj cene</a></div>
+</div>
+<div class="hero-bottom"><button type="button" id="video-toggle" aria-label="Pauziraj video">Pauziraj video Ⅱ</button></div>
 </div>
 </section>
 <section class="services services-rail" id="usluge" aria-labelledby="services-title">
 <div class="rail-intro">
-<div class="rail-heading"><div><span class="eyebrow">01 / NAŠE USLUGE</span><h2 id="services-title"><span class="h2-lead">Biraš prostor. Biraš uslugu.</span><span class="h2-punch">Mi biramo postupak.</span></h2></div></div>
+<div class="rail-heading"><div><span class="eyebrow">Naše usluge</span><h2 id="services-title"><span class="h2-lead">Biraš prostor. Biraš uslugu.</span><span class="h2-punch">Mi biramo postupak.</span></h2></div></div>
 <span class="choose-label">Izaberi prostor</span>
 </div>
 <div class="rail-sticky">
 <div class="space-options" role="group" aria-label="Izaberi tip prostora">
-<button class="space-option" data-space="dom" aria-pressed="true"><span class="tab-face" aria-hidden="true"></span><span class="space-number">01</span><strong><span class="long">Kuća / stan</span><span class="short">Kuća / stan</span></strong></button>
-<button class="space-option" data-space="zgrade" aria-pressed="false"><span class="tab-face" aria-hidden="true"></span><span class="space-number">02</span><strong><span class="long">Zgrada</span><span class="short">Zgrada</span></strong></button>
-<button class="space-option" data-space="posao" aria-pressed="false"><span class="tab-face" aria-hidden="true"></span><span class="space-number">03</span><strong><span class="long">Kancelarijski prostor</span><span class="short">Kancelarija</span></strong></button>
+<button class="space-option" data-space="dom" aria-pressed="true"><span class="tab-face" aria-hidden="true"></span><strong><span class="long">Kuća / stan</span><span class="short">Kuća / stan</span></strong></button>
+<button class="space-option" data-space="zgrade" aria-pressed="false"><span class="tab-face" aria-hidden="true"></span><strong><span class="long">Zgrada</span><span class="short">Zgrada</span></strong></button>
+<button class="space-option" data-space="posao" aria-pressed="false"><span class="tab-face" aria-hidden="true"></span><strong><span class="long">Kancelarijski prostor</span><span class="short">Kancelarija</span></strong></button>
 </div>
 <div class="dark-rail" role="region" aria-label="Usluge za izabrani prostor">
 <div class="rail-top"><span id="rail-scope" role="status">KUĆA / STAN</span><span class="rail-hint" aria-hidden="true">Skroluj kroz usluge ↓</span></div>
 <div class="rail-window" tabindex="0" aria-label="Lista usluga, koristi strelice levo i desno"><div class="rail-track">
-<article class="rail-card" aria-label="01 od 04: Dubinsko pranje"><div class="rail-card-body"><span class="rail-card-number">01</span><h3>Dubinsko pranje</h3><p class="rail-card-text">Nameštaj, dušeci, tepisi i druge meke podloge.</p><p class="rail-surfaces">Nameštaj / Dušeci / Tepisi</p><div class="rail-price"><span class="rail-price-label">Cena</span><span class="rail-price-value"><small>od</small> 250 din</span></div></div><figure class="rail-card-figure"><img src="service-furniture.jpg" alt="Dubinsko pranje tapaciranog nameštaja" width="1400" height="1050" loading="eager" decoding="async"></figure></article>
-<article class="rail-card" aria-label="02 od 04: Mašinsko pranje podova"><div class="rail-card-body"><span class="rail-card-number">02</span><h3>Mašinsko pranje podova</h3><p class="rail-card-text">Čišćenje tvrdih podnih površina, uz postupak prilagođen materijalu.</p><p class="rail-surfaces">Tvrde podne površine</p><div class="rail-price"><span class="rail-price-label">Cena</span><span class="rail-price-value is-quote">određuje se na proceni</span></div></div><figure class="rail-card-figure"><img src="service-floors.jpg" alt="Mašinsko pranje tvrdog poda" width="1400" height="1050" loading="lazy" decoding="async"></figure></article>
-<article class="rail-card" aria-label="03 od 04: Pranje prozora i stakla"><div class="rail-card-body"><span class="rail-card-number">03</span><h3>Pranje prozora i stakla</h3><p class="rail-card-text">Pranje prozora, staklenih pregrada i drugih staklenih površina u domu.</p><p class="rail-surfaces">Prozori / Pregrade / Staklo</p><div class="rail-price"><span class="rail-price-label">Cena</span><span class="rail-price-value is-quote">određuje se na proceni</span></div></div><figure class="rail-card-figure"><img src="service-glass.jpg" alt="Pranje staklene površine" width="1400" height="1050" loading="lazy" decoding="async"></figure></article>
-<article class="rail-card" aria-label="04 od 04: Generalno čišćenje"><div class="rail-card-body"><span class="rail-card-number">04</span><h3>Generalno čišćenje</h3><p class="rail-card-text">Kompletno čišćenje doma, prema dogovorenom obimu.</p><p class="rail-surfaces">Kuhinja / Kupatilo / Prostorije</p><div class="rail-price"><span class="rail-price-label">Cena</span><span class="rail-price-value is-quote">određuje se na proceni</span></div></div><figure class="rail-card-figure"><img src="service-space.jpg" alt="Uredan prostor posle generalnog čišćenja" width="1400" height="1050" loading="lazy" decoding="async"></figure></article>
+<article class="rail-card" aria-label="01 od 04: Dubinsko pranje"><div class="rail-card-body"><h3>Dubinsko pranje</h3><p class="rail-card-text">Nameštaj, dušeci, tepisi i druge meke podloge.</p><p class="rail-surfaces">Nameštaj / Dušeci / Tepisi</p><div class="rail-price"><span class="rail-price-label">Cena</span><span class="rail-price-value"><small>od</small> 250 din</span></div></div><figure class="rail-card-figure"><img src="service-furniture.jpg" srcset="service-furniture-800.webp 800w, service-furniture-1400.webp 1400w" sizes="(max-width: 800px) 100vw, 50vw" alt="Dubinsko pranje tapaciranog nameštaja" width="1400" height="1050" loading="eager" decoding="async"></figure></article>
+<article class="rail-card" aria-label="02 od 04: Mašinsko pranje podova"><div class="rail-card-body"><h3>Mašinsko pranje podova</h3><p class="rail-card-text">Čišćenje tvrdih podnih površina, uz postupak prilagođen materijalu.</p><p class="rail-surfaces">Tvrde podne površine</p><div class="rail-price"><span class="rail-price-label">Cena</span><span class="rail-price-value is-quote">određuje se na proceni</span></div></div><figure class="rail-card-figure"><img src="service-floors.jpg" srcset="service-floors-800.webp 800w, service-floors-1400.webp 1400w" sizes="(max-width: 800px) 100vw, 50vw" alt="Mašinsko pranje tvrdog poda" width="1400" height="1050" loading="lazy" decoding="async"></figure></article>
+<article class="rail-card" aria-label="03 od 04: Pranje prozora i stakla"><div class="rail-card-body"><h3>Pranje prozora i stakla</h3><p class="rail-card-text">Pranje prozora, staklenih pregrada i drugih staklenih površina u domu.</p><p class="rail-surfaces">Prozori / Pregrade / Staklo</p><div class="rail-price"><span class="rail-price-label">Cena</span><span class="rail-price-value is-quote">određuje se na proceni</span></div></div><figure class="rail-card-figure"><img src="service-glass.jpg" srcset="service-glass-800.webp 800w, service-glass-1400.webp 1400w" sizes="(max-width: 800px) 100vw, 50vw" alt="Pranje staklene površine" width="1400" height="1050" loading="lazy" decoding="async"></figure></article>
+<article class="rail-card" aria-label="04 od 04: Generalno čišćenje"><div class="rail-card-body"><h3>Generalno čišćenje</h3><p class="rail-card-text">Kompletno čišćenje doma, prema dogovorenom obimu.</p><p class="rail-surfaces">Kuhinja / Kupatilo / Prostorije</p><div class="rail-price"><span class="rail-price-label">Cena</span><span class="rail-price-value is-quote">određuje se na proceni</span></div></div><figure class="rail-card-figure"><img src="service-space.jpg" srcset="service-space-800.webp 800w, service-space-1400.webp 1400w" sizes="(max-width: 800px) 100vw, 50vw" alt="Uredan prostor posle generalnog čišćenja" width="1400" height="1050" loading="lazy" decoding="async"></figure></article>
 </div></div>
 <div class="rail-bottom"><span class="rail-position">01 / 04</span><div class="rail-steps" role="group" aria-label="Skoči na uslugu"></div><a href="#kontakt">Zatraži procenu ↗</a></div>
 </div>
@@ -72,7 +74,6 @@
 </section>
 <section class="why" id="zasto" aria-labelledby="why-title">
 <div class="why-inner">
-<span class="eyebrow">02 / ZAŠTO FLEKOUT</span>
 <h2 id="why-title"><span class="h2-lead">Bez improvizacije.</span><span class="h2-punch">Znaš čime, kada i ko.</span></h2>
 <ul class="facts">
 <li class="fact"><div class="fact-wrap"><span class="fact-label">Oprema za svaku podlogu</span><span class="plate" aria-hidden="true"><i></i></span></div><p class="fact-text">Opremu i postupak prilagođavamo materijalu i stanju površine.</p></li>
@@ -85,7 +86,6 @@
 <section class="process" id="proces" aria-labelledby="process-title">
 <div class="process-background" aria-hidden="true"><div class="process-grid"></div><div class="process-cuts"></div></div>
 <div class="process-inner">
-<span class="eyebrow">03 / KAKO RADIMO</span>
 <h2 id="process-title"><span class="h2-lead">Od prvog poziva</span><span class="h2-punch">do čistog prostora.</span></h2>
 <ol class="process-steps">
 <li class="process-step"><span class="process-number" aria-hidden="true"><span>01</span></span><article class="process-panel"><svg aria-hidden="true" focusable="false"><path class="process-base"/><path class="process-blue"/></svg><div class="process-copy"><h3>Javi nam šta treba očistiti</h3><p>Reci nam o kakvom prostoru je reč i koje čišćenje ti je potrebno.</p></div></article></li>
@@ -97,15 +97,15 @@
 </section>
 <section id="kontakt" aria-labelledby="contact-title">
  <div class="fc-reflection" aria-hidden="true"></div>
- <div class="fc-eyebrow">04 / KONTAKT</div>
+ <div class="fc-eyebrow">Kontakt</div>
  <h2 id="contact-title"><span>Čist prostor počinje</span>jednim dogovorom.</h2>
  <p class="fc-intro">Reci nam šta treba da očistimo. Pošalji nekoliko detalja i javićemo ti se da dogovorimo procenu. Ako ti je brže, pozovi nas na <a href="tel:+381601234567" data-placeholder>+381 60 123 4567</a>.</p>
  <form aria-label="Upit za čišćenje">
   <input type="hidden" name="space" value="Kuća / stan"><input type="hidden" name="contact_method" value="Poziv"><input type="hidden" name="app" value="" disabled>
   <fieldset><legend>Šta želiš da očistimo?</legend><div class="fc-choices">
-   <button type="button" class="fc-choice" aria-pressed="true" data-space="Kuća / stan"><span class="fc-index">01</span><span>Kuća / stan</span></button>
-   <button type="button" class="fc-choice" aria-pressed="false" data-space="Zgrada"><span class="fc-index">02</span><span>Zgrada</span></button>
-   <button type="button" class="fc-choice" aria-pressed="false" data-space="Kancelarijski prostor"><span class="fc-index">03</span><span>Kancelarijski prostor</span></button>
+   <button type="button" class="fc-choice" aria-pressed="true" data-space="Kuća / stan"><span>Kuća / stan</span></button>
+   <button type="button" class="fc-choice" aria-pressed="false" data-space="Zgrada"><span>Zgrada</span></button>
+   <button type="button" class="fc-choice" aria-pressed="false" data-space="Kancelarijski prostor"><span>Kancelarijski prostor</span></button>
   </div></fieldset>
   <div class="fc-row">
    <label class="fc-field"><span class="fc-label">Gde se nalazi prostor?</span><input name="location" autocomplete="address-level2" placeholder="Mesto / opština, npr. Novi Beograd" required></label>
@@ -117,19 +117,21 @@
   </div><div class="fc-apps" role="group" aria-label="Aplikacija za poruke" hidden><button type="button" class="fc-app" data-app="Viber" aria-pressed="true"><img src="icons/viber.svg" alt="">Viber</button><button type="button" class="fc-app" data-app="WhatsApp" aria-pressed="false"><img src="icons/whatsapp.svg" alt="">WhatsApp</button></div>
   <div data-phone><label class="fc-label" for="fc-phone-input">Broj telefona</label><div class="fc-phone"><select aria-label="Pozivni broj države" name="country"><option value="381">+381 RS</option><option value="382">+382 ME</option><option value="387">+387 BA</option><option value="385">+385 HR</option><option value="386">+386 SI</option><option value="49">+49 DE</option><option value="43">+43 AT</option><option value="41">+41 CH</option><option value="other">Drugi</option></select><input id="fc-phone-input" name="phone" type="tel" autocomplete="tel-national" placeholder="65 9564738" required></div></div>
   <label class="fc-field" data-email hidden><span class="fc-label">Email adresa</span><input name="email" type="email" autocomplete="email" placeholder="Unesi email adresu" disabled></label></fieldset>
+  <label class="fc-consent"><input type="checkbox" name="consent" required><span>Slažem se da Flekout Clean koristi unete podatke samo da bi odgovorio na ovaj upit. <a href="politika-privatnosti.html">Politika privatnosti</a></span></label>
   <div class="fc-bottom"><p class="fc-note">Slanjem upita ne zakazuješ uslugu. Termin i detalje dogovaramo sa tobom.</p><button type="submit" class="fc-submit">Pošalji upit <span aria-hidden="true">↗</span></button></div>
   <p class="fc-prototype">Probna verzija forme: slanje upita još nije povezano. Uneti podaci i fotografije se ne šalju.</p>
   <p class="fc-demo-result" role="status" aria-live="polite" hidden></p>
  </form>
 </section>
 </main>
+<a class="call-fab" href="tel:+381601234567" aria-label="Pozovi +381 60 123 4567" data-placeholder><svg xmlns="http://www.w3.org/2000/svg" class="" width="24" height="24" aria-hidden="true" focusable="false" viewBox="0 0 256 256" fill="currentColor"><path d="M221.59,160.3l-47.24-21.17a14,14,0,0,0-13.28,1.22,4.81,4.81,0,0,0-.56.42l-24.69,21a1.88,1.88,0,0,1-1.68.06c-15.87-7.66-32.31-24-40-39.65a1.91,1.91,0,0,1,0-1.68l21.07-25a6.13,6.13,0,0,0,.42-.58,14,14,0,0,0,1.12-13.27L95.73,34.49a14,14,0,0,0-14.56-8.38A54.24,54.24,0,0,0,34,80c0,78.3,63.7,142,142,142a54.25,54.25,0,0,0,53.89-47.17A14,14,0,0,0,221.59,160.3ZM176,210C104.32,210,46,151.68,46,80A42.23,42.23,0,0,1,82.67,38h.23a2,2,0,0,1,1.84,1.31l21.1,47.11a2,2,0,0,1,0,1.67L84.73,113.15a4.73,4.73,0,0,0-.43.57,14,14,0,0,0-.91,13.73c8.87,18.16,27.17,36.32,45.53,45.19a14,14,0,0,0,13.77-1c.19-.13.38-.27.56-.42l24.68-21a1.92,1.92,0,0,1,1.6-.1l47.25,21.17a2,2,0,0,1,1.21,2A42.24,42.24,0,0,1,176,210Z"/></svg><span>Pozovi</span></a>
 <footer class="site-foot" aria-labelledby="foot-title">
  <div class="foot-inner">
   <div class="foot-top">
    <div class="foot-brand">
     <h2 id="foot-title">Flekout Clean</h2>
     <p>Mašinsko pranje i dubinsko čišćenje stanova, zgrada i kancelarija u Beogradu.</p>
-    <a class="foot-cta" href="#kontakt">Zatraži procenu <span aria-hidden="true">↗</span></a>
+    <a class="foot-cta" href="tel:+381601234567" data-placeholder><svg xmlns="http://www.w3.org/2000/svg" class="foot-cta-icon" width="24" height="24" aria-hidden="true" focusable="false" viewBox="0 0 256 256" fill="currentColor"><path d="M221.59,160.3l-47.24-21.17a14,14,0,0,0-13.28,1.22,4.81,4.81,0,0,0-.56.42l-24.69,21a1.88,1.88,0,0,1-1.68.06c-15.87-7.66-32.31-24-40-39.65a1.91,1.91,0,0,1,0-1.68l21.07-25a6.13,6.13,0,0,0,.42-.58,14,14,0,0,0,1.12-13.27L95.73,34.49a14,14,0,0,0-14.56-8.38A54.24,54.24,0,0,0,34,80c0,78.3,63.7,142,142,142a54.25,54.25,0,0,0,53.89-47.17A14,14,0,0,0,221.59,160.3ZM176,210C104.32,210,46,151.68,46,80A42.23,42.23,0,0,1,82.67,38h.23a2,2,0,0,1,1.84,1.31l21.1,47.11a2,2,0,0,1,0,1.67L84.73,113.15a4.73,4.73,0,0,0-.43.57,14,14,0,0,0-.91,13.73c8.87,18.16,27.17,36.32,45.53,45.19a14,14,0,0,0,13.77-1c.19-.13.38-.27.56-.42l24.68-21a1.92,1.92,0,0,1,1.6-.1l47.25,21.17a2,2,0,0,1,1.21,2A42.24,42.24,0,0,1,176,210Z"/></svg>Pozovi +381 60 123 4567</a>
    </div>
    <ul class="foot-contact">
     <li><span class="foot-icon"><svg xmlns="http://www.w3.org/2000/svg" class="" width="24" height="24" aria-hidden="true" focusable="false" viewBox="0 0 256 256" fill="currentColor"><path d="M221.59,160.3l-47.24-21.17a14,14,0,0,0-13.28,1.22,4.81,4.81,0,0,0-.56.42l-24.69,21a1.88,1.88,0,0,1-1.68.06c-15.87-7.66-32.31-24-40-39.65a1.91,1.91,0,0,1,0-1.68l21.07-25a6.13,6.13,0,0,0,.42-.58,14,14,0,0,0,1.12-13.27L95.73,34.49a14,14,0,0,0-14.56-8.38A54.24,54.24,0,0,0,34,80c0,78.3,63.7,142,142,142a54.25,54.25,0,0,0,53.89-47.17A14,14,0,0,0,221.59,160.3ZM176,210C104.32,210,46,151.68,46,80A42.23,42.23,0,0,1,82.67,38h.23a2,2,0,0,1,1.84,1.31l21.1,47.11a2,2,0,0,1,0,1.67L84.73,113.15a4.73,4.73,0,0,0-.43.57,14,14,0,0,0-.91,13.73c8.87,18.16,27.17,36.32,45.53,45.19a14,14,0,0,0,13.77-1c.19-.13.38-.27.56-.42l24.68-21a1.92,1.92,0,0,1,1.6-.1l47.25,21.17a2,2,0,0,1,1.21,2A42.24,42.24,0,0,1,176,210Z"/></svg></span><div><span class="foot-label">Telefon</span><a href="tel:+381601234567" data-placeholder>+381 60 123 4567</a></div></li>
@@ -140,15 +142,16 @@
   </div>
   <div class="foot-mark" aria-hidden="true"></div>
   <div class="foot-bottom">
-   <span>© 2026 Flekout Clean</span>
+   <span>© 2026 Flekout Clean <span class="foot-pib" data-placeholder>PIB 000000000</span></span>
+   <a href="politika-privatnosti.html">Politika privatnosti</a>
    <a class="foot-credit" href="https://github.com/knez4" target="_blank" rel="noopener" aria-label="Autor sajta: knez4 (GitHub)">@knez4</a>
    <a href="#pocetak">Nazad na vrh <span aria-hidden="true">↑</span></a>
   </div>
  </div>
 </footer>
 
-<script src="service-rail.js?v=20261011e"></script>
-<script src="why.js?v=20261011e"></script>
-<script src="process.js?v=20261011e"></script>
-<script src="contact.js?v=20261011e"></script>
+<script src="service-rail.js?v=20261012b"></script>
+<script src="why.js?v=20261012b"></script>
+<script src="process.js?v=20261012b"></script>
+<script src="contact.js?v=20261012b"></script>
 </body></html>

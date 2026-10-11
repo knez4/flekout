@@ -9,7 +9,7 @@
    bez obzira na ekran. Tri mesta su plafon — sve ostalo je strogo pravougaono,
    inače rez prestaje da bude sistem i postaje manir.
 ============================================================================ */
-.services.services-rail{--card-h:300px;--tab-h:112px;padding:0;background:#fff;position:relative}
+.services.services-rail{--card-h:300px;--tab-h:84px;padding:0;background:#fff;position:relative}
 /* Naslov NIJE u lepljivom bloku — odskroluje pošto je odradio posao. Time se
    zakačeni režim pali i na niskim ekranima, umesto da tiho otkazuje. */
 .rail-intro{padding:48px 6vw 0}
@@ -36,8 +36,7 @@
 /* Kosina je na unutrašnjoj ploči, ne na dugmetu — da outline za fokus ne bude odsečen. */
 .tab-face{position:absolute;inset:0;z-index:0;background:#eceff1;transition:background .25s;
   clip-path:polygon(0 0,calc(100% - var(--tab-cut)) 0,100% 100%,var(--tab-cut) 100%)}
-.space-number,.space-option strong{position:relative;z-index:1}
-.space-number{font-size:12px;opacity:.62}
+.space-option strong{position:relative;z-index:1}
 .space-option strong{font-weight:500;font-size:clamp(18px,1.9vw,28px);letter-spacing:-.035em;align-self:end}
 .space-option .short{display:none}
 .space-option:hover .tab-face{background:#e1e7ea}
@@ -66,7 +65,6 @@
 .rail-card{flex:0 0 100%;min-width:100%;min-height:var(--card-h);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.9fr);gap:clamp(22px,3.6vw,58px);align-items:stretch;padding:0;scroll-snap-align:start}
 /* padding-top drži tekst ispod lebdećeg gornjeg reda */
 .rail-card-body{display:flex;flex-direction:column;justify-content:flex-start;padding:58px 0 22px;transform:translate3d(calc(var(--o,0) * -4%),0,0)}
-.rail-card-number{font-size:13px;color:#6fabc9;letter-spacing:.06em}
 .rail-card h3{font-size:clamp(28px,3.5vw,54px);line-height:1.08;font-weight:500;letter-spacing:-.035em;margin:16px 0 14px;max-width:16ch}
 .rail-card p{font-size:17px;line-height:1.55;color:#d7e1e6;margin:0;max-width:46ch}
 .rail-card .rail-surfaces{font-size:13.5px;color:#91a6b4;margin:16px 0 22px;letter-spacing:.03em}
@@ -144,7 +142,7 @@
 .rail-bottom a:hover{color:#7bcef8}
 
 /* --- .is-tight: JS ga pali kad izmeri da sadržaj ne staje u ekran --- */
-.services-rail.is-tight{--tab-h:92px}
+.services-rail.is-tight{--tab-h:72px}
 .is-tight .rail-heading h2{font-size:40px;margin-top:12px}
 .is-tight .rail-heading{margin-bottom:16px}
 .is-tight .choose-label{margin-bottom:9px}
@@ -162,7 +160,7 @@
 .is-tight .rail-price-more{min-height:40px}
 
 /* --- .is-compact: niski laptopi (oko 600px visine sa trakama pregledača) --- */
-.services-rail.is-compact{--tab-h:70px}
+.services-rail.is-compact{--tab-h:60px}
 .is-compact .space-option{padding-top:10px;padding-bottom:10px;gap:2px}
 .is-compact .space-option strong{font-size:clamp(17px,1.6vw,22px)}
 .is-compact .rail-sticky{padding-top:6px;padding-bottom:10px}
@@ -177,9 +175,9 @@
 .is-compact .rail-step{padding:8px 0}
 
 @media(max-width:800px){
-.services.services-rail{--tab-h:78px}
-.services-rail.is-tight{--tab-h:66px}
-.services-rail.is-compact{--tab-h:58px}
+.services.services-rail{--tab-h:62px}
+.services-rail.is-tight{--tab-h:56px}
+.services-rail.is-compact{--tab-h:50px}
 .rail-intro{padding:44px 6vw 0}
 .rail-sticky{padding:16px 6vw 40px}
 .rail-heading{display:block}
@@ -189,7 +187,6 @@
 .space-option strong{font-size:13px;letter-spacing:-.02em;line-height:1.25}
 .space-option .long{display:none}
 .space-option .short{display:inline}
-.space-number{font-size:12px}
 .is-cinematic .rail-window{margin-right:-6vw}
 .rail-card{grid-template-columns:1fr;gap:14px;align-items:start;min-height:0;padding-bottom:4px}
 .rail-card-body{padding:44px 0 0}
