@@ -68,7 +68,7 @@ Dogovoreni redosled celog sajta:
 |---|---|---|
 | — | Hero | urađeno |
 | 01 | Naše usluge | urađeno |
-| 02 | Cenovnik | urađeno, čeka cene (vidi "Otvoreno") |
+| 02 | Cenovnik | urađeno |
 | 03 | Zašto Flekout | urađeno |
 | 04 | Kako radimo | urađeno |
 | 05 | Kontakt | urađeno, slanje nije povezano |
@@ -132,17 +132,17 @@ horizontalnu listu sa snap-om.
 ## Sekcija "Cenovnik"
 
 Cene se menjaju na **dva mesta** u `dist/index.html`: u sekciji `#cenovnik` i u
-`application/ld+json` bloku u `<head>` (podaci za pretraživače). Red koji još
-čeka cenu ima atribut `data-todo-price` i prikazuje "— din"; kad cena stigne,
-upiši je i obriši atribut.
+`application/ld+json` bloku u `<head>` (podaci za pretraživače). Ako se doda
+stavka bez potvrđene cene, red dobija atribut `data-todo-price` i prikazuje
+"— din" (stil je spreman u `pricing.css`).
 
 ---
 
 ## Otvoreno
 
-- **Cene.** Poznate su samo za bračni dušek (1.500 jedna strana, 2.500 obe).
-  Fotelja, dvosed, trosed, ugaona garnitura, stolica i dušek za jednu osobu
-  čekaju klijenta. Proveriti i spisak stavki i da li su cene sa PDV-om.
+- **Cene** su od klijenta: garnitura 1.000 po sedećem mestu, fotelja 500,
+  stolica 250, mono dušek 1.000, bračni dušek 1.500 / 2.500. Ostaje pitanje
+  da li su sa PDV-om.
 - **Fotografije su privremene.** Četiri kadra rotiraju kroz dvanaest podtipova.
   Svaki podtip treba svoj pravi snimak sa terena.
 - **Slanje forme nije povezano.** Svi izbori su već u `FormData` (`space`,
