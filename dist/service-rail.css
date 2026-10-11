@@ -55,20 +55,21 @@
 .rail-top{position:absolute;top:20px;left:6vw;z-index:2;display:flex;gap:28px;align-items:baseline;font-size:13px;letter-spacing:.06em;color:#cfdde5}
 .rail-hint{color:#8ba4b2;letter-spacing:.04em;display:none}
 .is-cinematic .rail-hint{display:inline}
-.rail-window{overflow-x:auto;scrollbar-width:thin;scrollbar-color:#168ccd #263945;scroll-snap-type:x mandatory;padding-bottom:14px}
+.rail-window{overflow-x:auto;scrollbar-width:none;scroll-snap-type:x mandatory;padding-bottom:14px}
+.rail-window::-webkit-scrollbar{display:none}
 .rail-window:focus-visible{outline:2px solid #168ccd;outline-offset:6px}
 /* u zakačenom režimu traka ide do same desne ivice — kadar seče ekran */
 .is-cinematic .rail-window{overflow:hidden;scroll-snap-type:none;padding-bottom:0;margin-right:-6vw;touch-action:pan-y}
 .rail-track{display:flex;gap:0;width:100%;will-change:transform}
 
 /* --- kartica podtipa: tekst levo, kadar desno --- */
-.rail-card{flex:0 0 100%;min-width:100%;min-height:var(--card-h);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.74fr);gap:clamp(22px,3.6vw,58px);align-items:stretch;padding:0;scroll-snap-align:start}
+.rail-card{flex:0 0 100%;min-width:100%;min-height:var(--card-h);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.9fr);gap:clamp(22px,3.6vw,58px);align-items:stretch;padding:0;scroll-snap-align:start}
 /* padding-top drži tekst ispod lebdećeg gornjeg reda */
-.rail-card-body{display:flex;flex-direction:column;justify-content:center;padding:58px 0 18px;transform:translate3d(calc(var(--o,0) * -4%),0,0)}
+.rail-card-body{display:flex;flex-direction:column;justify-content:flex-start;padding:58px 0 22px;transform:translate3d(calc(var(--o,0) * -4%),0,0)}
 .rail-card-number{font-size:13px;color:#6fabc9;letter-spacing:.06em}
-.rail-card h3{font-size:clamp(28px,3.5vw,54px);line-height:1.1;font-weight:500;letter-spacing:-.035em;margin:16px 0 14px;max-width:13ch}
+.rail-card h3{font-size:clamp(28px,3.5vw,54px);line-height:1.08;font-weight:500;letter-spacing:-.035em;margin:16px 0 14px;max-width:16ch}
 .rail-card p{font-size:17px;line-height:1.55;color:#d7e1e6;margin:0;max-width:46ch}
-.rail-card .rail-surfaces{font-size:13.5px;color:#91a6b4;margin-top:16px;letter-spacing:.03em}
+.rail-card .rail-surfaces{font-size:13.5px;color:#91a6b4;margin:16px 0 22px;letter-spacing:.03em}
 
 /* Kadar ide od same gornje ivice tamne trake do reda sa brojačem, i seče desnu
    ivicu ekrana. Pomeraj reza meri JS iz stvarne visine kadra — ugao ostaje 16.8°. */
@@ -94,7 +95,8 @@
    Ploča deli ćeliju mreže sa kadrom, pa se visina kartice ne menja. */
 .rail-card-body{grid-column:1;grid-row:1}
 .rail-card-figure{grid-column:2;grid-row:1}
-.rail-price{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 16px;margin-top:20px;padding-top:14px;border-top:1px solid #344956;max-width:46ch}
+/* naslov uvek na istoj visini, red sa cenom uvek na dnu: oko zna gde da gleda */
+.rail-price{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 16px;margin-top:auto;padding-top:14px;border-top:1px solid #344956;max-width:46ch}
 .rail-price-label{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#91a6b4}
 .rail-price-value{font-size:22px;font-weight:600;letter-spacing:-.02em;font-variant-numeric:tabular-nums;color:#fff}
 .rail-price-value small{font-size:14px;font-weight:500;color:#d7e1e6}
@@ -111,7 +113,7 @@
   transform:translateX(102%);transition:transform .9s cubic-bezier(.33,.9,.35,1)}
 .rail-prices:before{background:#168ccd}
 .rail-prices:after{left:3px;background:#0f1b22}
-.rail-prices-inner{position:absolute;inset:0;z-index:1;display:flex;flex-direction:column;justify-content:safe center;gap:10px;
+.rail-prices-inner{position:absolute;inset:0;z-index:1;display:flex;flex-direction:column;justify-content:safe center;gap:8px;
   padding:16px 6vw 16px calc(var(--cut) + 20px);overflow-y:auto;overscroll-behavior:contain;
   opacity:0;transform:translateY(10px);transition:opacity .3s ease,transform .3s ease}
 .is-pricing .rail-prices{pointer-events:auto}
@@ -120,7 +122,7 @@
 .rail-prices-group{max-width:400px}
 .rail-prices h4{margin:0 0 2px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;color:#91a6b4}
 .rail-prices dl{margin:0}
-.rail-prices dl>div{display:flex;justify-content:space-between;align-items:baseline;gap:14px;padding:6px 0;border-top:1px solid #2b3f4b}
+.rail-prices dl>div{display:flex;justify-content:space-between;align-items:baseline;gap:14px;padding:5px 0;border-top:1px solid #2b3f4b}
 .rail-prices dt{font-size:15px;color:#fff}
 .rail-prices dt small{font-size:13px;color:#91a6b4;margin-left:6px}
 .rail-prices dd{margin:0;font-size:15px;font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap;color:#fff}
@@ -155,13 +157,29 @@
 .is-tight .rail-card-body{padding-top:50px}
 .is-tight .rail-bottom{padding-top:12px;margin-top:10px}
 .is-tight .rail-step{padding:10px 0}
-.is-tight .rail-price{margin-top:12px;padding-top:10px}
+.is-tight .rail-price{padding-top:10px}
 .is-tight .rail-price-value{font-size:19px}
 .is-tight .rail-price-more{min-height:40px}
+
+/* --- .is-compact: niski laptopi (oko 600px visine sa trakama pregledača) --- */
+.services-rail.is-compact{--tab-h:70px}
+.is-compact .space-option{padding-top:10px;padding-bottom:10px;gap:2px}
+.is-compact .space-option strong{font-size:clamp(17px,1.6vw,22px)}
+.is-compact .rail-sticky{padding-top:6px;padding-bottom:10px}
+.is-compact .rail-top{top:14px}
+.is-compact .rail-card-body{padding:42px 0 12px}
+.is-compact .rail-card h3{font-size:clamp(24px,2.4vw,32px);margin:6px 0 8px}
+.is-compact .rail-card p{font-size:15px}
+.is-compact .rail-card .rail-surfaces{margin-top:6px;font-size:13px}
+.is-compact .rail-price{padding-top:8px}
+.is-compact .rail-price-value{font-size:18px}
+.is-compact .rail-bottom{padding-top:8px;margin-top:6px}
+.is-compact .rail-step{padding:8px 0}
 
 @media(max-width:800px){
 .services.services-rail{--tab-h:78px}
 .services-rail.is-tight{--tab-h:66px}
+.services-rail.is-compact{--tab-h:58px}
 .rail-intro{padding:44px 6vw 0}
 .rail-sticky{padding:16px 6vw 40px}
 .rail-heading{display:block}
@@ -207,3 +225,4 @@
 .rail-card-body,.rail-card-figure img{transform:none}
 .rail-prices:before,.rail-prices:after,.rail-prices-inner,.rail-price-more span{transition:none}
 }
+.is-tight .rail-prices .rail-prices-foot{display:none}

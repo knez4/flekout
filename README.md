@@ -20,7 +20,9 @@ dist/            sajt koji se servira
   why.js           sekcija "Zašto Flekout" — otkrivanje redova brisanjem
   process.css/.js  sekcija "Kako radimo"
   contact.css/.js  sekcija "Kontakt" — forma (slanje još nije povezano)
-  icons/           Viber i WhatsApp (simple-icons, CC0)
+  footer.css       futer — kontakt podaci, Phosphor ikonice, znak, potpis
+  icons/           Viber i WhatsApp (simple-icons, CC0); ostale ikonice su
+                   Phosphor "light" (MIT), ubačene direktno u index.html
   favicon-32.png, apple-touch-icon.png, robots.txt
   services.js      detaljan katalog usluga (postupak, površine, oprema)
                    NIJE učitan u trenutnoj verziji, čuva se za sledeću fazu
@@ -44,6 +46,13 @@ mockups/         privremeni fajlovi za dogovor o dizajnu, ne deo sajta
   forma.html       sekcija 04 "Kontakt" — forma, brz kontakt i potvrda
   cene-u-uslugama.html  cene unutar "Naše usluge" — varijante A i B
 ```
+
+## Keš: verzija fajlova
+
+Svi CSS i JS fajlovi se u `index.html` učitavaju sa `?v=...` (npr.
+`style.css?v=20261011c`). **Posle svake izmene CSS-a ili JS-a podigni tu
+oznaku** na svim linkovima, inače pregledač pokaže novi HTML sa starim
+stilovima (tako su ikonice u futeru jednom ispale ogromne).
 
 ## Pokretanje
 
@@ -158,8 +167,8 @@ cene određuje polje `prices` u `GROUPS`.
 - **Kontakt podaci su PRIVREMENI** (izmišljeni telefon, mejl, adresa, radno
   vreme). Svi stoje u `dist/index.html` sa atributom `data-placeholder`
   (`grep data-placeholder`) i u JSON-LD bloku u `<head>`. Ime je "Flekout Clean".
-- **Potpis u futeru** ("Dizajn i izrada: Veljko Knez") trenutno vodi na
-  GitHub profil — zameniti linkom ka portfoliju.
+- **Potpis u futeru** ("Dizajn i izrada @knez4") vodi na GitHub profil;
+  zameniti linkom ka portfoliju kad bude gotov.
 - **Tepih / itison** su u listi cena kao "na proceni"; kancelarijske stolice
   su po istoj ceni kao obične (250). Potvrditi sa klijentom.
 - **Politika privatnosti** — forma prima lične podatke, pa treba stranica i

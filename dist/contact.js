@@ -134,9 +134,9 @@
     }
     const data = new FormData(form);
     status.textContent =
-      'Demo — ništa nije poslato. Prostor: ' + data.get('space') +
-      ' · Kontakt: ' + (data.get('app') || data.get('contact_method')) + ' · ' + contact +
-      ' · Fotografije: ' + photos.length + '.';
+      'Probni prikaz, ništa nije poslato. Prostor: ' + data.get('space') +
+      '. Kontakt: ' + (data.get('app') || data.get('contact_method')) + ', ' + contact +
+      '. Fotografija: ' + photos.length + '.';
     status.hidden = false;
   });
 })();

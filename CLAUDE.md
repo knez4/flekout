@@ -39,5 +39,8 @@ služe kao lista za proveru, ne kao uputstvo za zamenu identiteta.
 - Mokap se prvo pravi u `mockups/`, odobri se, pa tek onda ide u `dist/`.
 - Posle izmene proveriti u pregledaču na 1440, 1366, 390 i 360 px: bez grešaka
   u konzoli i bez horizontalnog prelivanja.
+- Posle izmene CSS/JS podići `?v=` oznaku u `dist/index.html` (vidi README, "Keš").
+- Ikonice: samo Phosphor "light" (paket `@phosphor-icons/core`), bez ručno crtanih SVG-ova.
+- Bez em-crte (—) i en-crte (–) u tekstu koji korisnik vidi; koristiti zarez, tačku ili crticu.
 - Ne izmišljati podatke o firmi: cene, telefon, adresu, rokove, garancije.
   Šta fali, ide u "Otvoreno" u README-u.

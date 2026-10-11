@@ -189,7 +189,7 @@
   const pad = n => String(n).padStart(2, '0');
 
   let active = 0, cinematic = false, raf = 0, lastFrame = 0, shown = 0, target = 0;
-  let step = 600, total = 2400, offsetTop = 110, introH = 0;
+  let step = 600, total = 2400, offsetTop = 110, headerSpace = 110, introH = 0;
   let cards = [], steps = [];
   let lastY = scrollY, dir = 0, settling = false, endTimer = 0, settleGuard = 0;
 
@@ -205,7 +205,7 @@
     cards = group.items.map((item, i) => {
       const card = document.createElement('article');
       card.className = 'rail-card';
-      card.setAttribute('aria-label', `${pad(i + 1)} od ${pad(group.items.length)} — ${item.title}`);
+      card.setAttribute('aria-label', `${pad(i + 1)} od ${pad(group.items.length)}: ${item.title}`);
 
       const body = document.createElement('div');
       body.className = 'rail-card-body';
@@ -264,7 +264,7 @@
       panel.className = 'rail-prices';
       panel.id = id;
       panel.setAttribute('role', 'region');
-      panel.setAttribute('aria-label', `Cene — ${item.title}`);
+      panel.setAttribute('aria-label', `Cene: ${item.title}`);
       panel.inert = true;
       const inner = document.createElement('div');
       inner.className = 'rail-prices-inner';
@@ -311,7 +311,7 @@
       button.type = 'button';
       button.className = 'rail-step';
       button.dataset.step = String(i);
-      button.setAttribute('aria-label', `${pad(i + 1)} — ${item.title}`);
+      button.setAttribute('aria-label', `${pad(i + 1)}: ${item.title}`);
       button.innerHTML = '<span class="track"><i></i></span>';
       return button;
     });
@@ -403,7 +403,7 @@
   function render() { schedule(); }
 
   /* ---- merenja -------------------------------------------------------- */
-  const fits = () => sticky.offsetHeight <= innerHeight - offsetTop;
+  const fits = () => sticky.offsetHeight <= innerHeight - headerSpace - 8;
 
   /* Kartica dobija tačno onoliko visine koliko je u traci preostalo, a kadar se
      rasteže s njom. Umesto da modelujemo svaki padding, merimo razliku i
@@ -413,9 +413,9 @@
     cardH = 300;
     for (let pass = 0; pass < 4; pass++) {
       section.style.setProperty('--card-h', cardH + 'px');
-      const slack = (innerHeight - offsetTop - 12) - sticky.offsetHeight;
+      const slack = (innerHeight - headerSpace - 24) - sticky.offsetHeight;
       if (Math.abs(slack) < 3) break;
-      const next = clamp(cardH + slack, 170, 470);
+      const next = clamp(cardH + slack, 150, 540);
       if (next === cardH) break;
       cardH = next;
     }
@@ -428,24 +428,32 @@
   }
 
   function layout() {
-    offsetTop = innerWidth <= 800 ? 96 : 110;
+    /* headerSpace = prostor ispod fiksnog headera. offsetTop = gde se blok
+       zakači; na visokim ekranima veći, da blok stoji na sredini. */
+    headerSpace = offsetTop = innerWidth <= 800 ? 96 : 110;
     section.style.setProperty('--rail-top', offsetTop + 'px');
 
     /* Zakačena varijanta mora da stane u ekran, inače skrol "zaglavi" na sadržaju
        koji se ne vidi. Zato ne nagađamo visinu kadra nego je izračunamo iz onoga
-       što preostane, pa tek ako ni to nije dovoljno stisnemo tipografiju. */
+       što preostane. Ako ni to nije dovoljno, stiskamo u dva koraka:
+       is-tight (manja tipografija), pa is-compact (niski laptopi, ~600px). */
     section.classList.add('is-cinematic');
-    section.classList.remove('is-tight');
+    section.classList.remove('is-tight', 'is-compact');
     section.style.removeProperty('--card-h');
 
     grow();
     if (!fits()) { section.classList.add('is-tight'); grow(); }
+    if (!fits()) { section.classList.add('is-compact'); grow(); }
 
     cinematic = !reduced.matches && fits();
     section.classList.toggle('is-cinematic', cinematic);
     if (!cinematic) {
-      section.classList.remove('is-tight');
+      section.classList.remove('is-tight', 'is-compact');
       section.style.removeProperty('--card-h');
+    } else {
+      const free = innerHeight - headerSpace - sticky.offsetHeight;
+      offsetTop = headerSpace + Math.max(0, Math.round(free / 2) - 4);
+      section.style.setProperty('--rail-top', offsetTop + 'px');
     }
 
     introH = intro.offsetHeight;

@@ -5,7 +5,7 @@
    za slanje nose rez od 16.8° na ploči ispod teksta (:before), pa fokus
    prsten ostaje pun pravougaonik. Beli tekst stoji na --blue-ink (4.7:1).
 ============================================================================ */
-#kontakt{background:#fafbfc;color:#20282c;padding:100px max(6vw,calc((100vw - 1200px)/2)) 36px;position:relative;isolation:isolate;overflow:hidden}
+#kontakt{background:#fafbfc;color:#20282c;padding:100px max(6vw,calc((100vw - 1200px)/2)) 110px;position:relative;isolation:isolate;overflow:hidden}
 #kontakt *{box-sizing:border-box}
 #kontakt .fc-reflection{position:absolute;z-index:-1;inset:0;pointer-events:none;background:radial-gradient(ellipse at 100% 18%,#cbe9f5 0,transparent 45%),linear-gradient(115deg,transparent 58%,#ffffffb3 63%,transparent 72%)}
 #kontakt .fc-eyebrow{font-size:14px;letter-spacing:.07em;font-weight:600;display:flex;align-items:center;gap:11px;margin-bottom:23px}
@@ -81,27 +81,10 @@
 #kontakt .fc-prototype{font-size:12px;color:#b8c9d3;line-height:1.6;margin:20px 0 0}
 #kontakt .fc-demo-result{margin:22px 0 0;padding:15px;background:#203e50;color:#a2dfff;font-size:13px;line-height:1.6}
 #kontakt .fc-intro a{color:var(--ink);font-weight:600;text-decoration:underline;text-decoration-color:var(--blue);text-underline-offset:4px;white-space:nowrap}
-#kontakt .fc-foot{border-top:1px solid #dce3e6;margin-top:56px;padding-top:32px;font-size:14px;line-height:1.6;color:#5b6970}
-#kontakt .fc-foot-brand{display:flex;flex-direction:column;gap:2px;margin-bottom:26px}
-#kontakt .fc-foot-brand strong{color:var(--ink);font-weight:600;font-size:18px;letter-spacing:-.02em}
-#kontakt .fc-foot-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:22px 28px}
-#kontakt .fc-foot-list li{display:flex;gap:14px;align-items:flex-start;min-width:0}
-#kontakt .fc-foot-list li>div{display:flex;flex-direction:column;min-width:0}
-/* ikonica: tanka linija u boji teksta na sivoj pločici — kao jezičci, bez plave */
-#kontakt .fc-icon{flex:none;width:40px;height:40px;padding:10px;background:#eceff1;fill:none;stroke:var(--ink);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
-#kontakt .fc-foot-label{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#6b757b;margin-bottom:2px}
-#kontakt .fc-foot-list a,#kontakt .fc-foot-list span:not(.fc-foot-label){color:var(--ink);font-weight:500;overflow-wrap:anywhere}
-#kontakt .fc-foot a{text-decoration:none;text-underline-offset:4px;transition:color .2s}
-#kontakt .fc-foot a:hover{text-decoration:underline;text-decoration-color:var(--blue)}
-#kontakt .fc-foot-bottom{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px 24px;margin-top:32px;padding-top:18px;border-top:1px solid #e6eaec;font-size:13px}
-#kontakt .fc-credit a{color:var(--ink);font-weight:600}
-#kontakt .fc-credit a:hover{color:var(--blue-ink)}
-@media(max-width:1000px){#kontakt .fc-foot-list{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:500px){#kontakt .fc-foot-list{grid-template-columns:1fr;gap:18px}#kontakt .fc-foot-bottom{flex-direction:column;align-items:flex-start}}
 #kontakt [hidden]{display:none!important}
 
 @media(max-width:500px){
-  #kontakt{padding:64px 18px 22px}
+  #kontakt{padding:64px 18px 72px}
   #kontakt form{padding:20px 15px}
   #kontakt .fc-row{grid-template-columns:1fr}
   #kontakt .fc-choices{grid-template-columns:1fr;gap:5px}
