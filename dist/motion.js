@@ -12,7 +12,7 @@ new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;playback();
 document.addEventListener('visibilitychange',playback);reduced.addEventListener('change',()=>{resize();playback();});addEventListener('scroll',schedule,{passive:true});new ResizeObserver(resize).observe(stage);resize();playback();
 /* Navigacija: link sekcije koja je trenutno na sredini ekrana dobija aria-current. */
 (()=>{
-  const links=[...document.querySelectorAll('nav a[href^="#"]')];
+  const links=[...document.querySelectorAll('nav a[href^="#"]:not([data-open-prices])')];
   const targets=links.map(a=>document.querySelector(a.getAttribute('href'))).filter(Boolean);
   const seen=new Set();
   const io=new IntersectionObserver(entries=>{

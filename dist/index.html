@@ -17,9 +17,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap">
-<link rel="stylesheet" href="style.css"><link rel="stylesheet" href="service-rail.css"><link rel="stylesheet" href="pricing.css"><link rel="stylesheet" href="why.css"><link rel="stylesheet" href="process.css"><link rel="stylesheet" href="contact.css">
+<link rel="stylesheet" href="style.css"><link rel="stylesheet" href="service-rail.css"><link rel="stylesheet" href="why.css"><link rel="stylesheet" href="process.css"><link rel="stylesheet" href="contact.css">
 <script src="motion.js" defer></script>
-<!-- Cene se menjaju na DVA mesta: ovde i u sekciji #cenovnik.
+<!-- Cene se menjaju na DVA mesta: ovde i u PRICES na vrhu service-rail.js.
      Kontakt podaci (telefon, mejl, adresa, radno vreme) su PRIVREMENI i stoje
      ovde, u headeru i u futeru — svuda sa atributom data-placeholder. -->
 <script type="application/ld+json">
@@ -36,7 +36,7 @@
 </head>
 <body>
 <a class="skip" href="#usluge">Pređi na usluge</a>
-<header><a href="#pocetak" class="brand" aria-label="Flekout početna"><img src="logo-black.png" width="140" height="31" alt="FLEKOUT"></a><nav aria-label="Glavna navigacija"><a href="#usluge" class="nav-optional">Naše usluge</a><a href="#cenovnik">Cenovnik</a><a href="tel:+381601234567" class="nav-phone" data-placeholder>060 123 4567</a><a href="#kontakt">Kontakt ↗</a></nav></header>
+<header><a href="#pocetak" class="brand" aria-label="Flekout početna"><img src="logo-black.png" width="140" height="31" alt="FLEKOUT"></a><nav aria-label="Glavna navigacija"><a href="#usluge" class="nav-optional">Naše usluge</a><a href="#usluge" data-open-prices>Cene</a><a href="tel:+381601234567" class="nav-phone" data-placeholder>+381 60 123 4567</a><a href="#kontakt">Kontakt ↗</a></nav></header>
 <main>
 <section class="journey" id="pocetak" aria-label="Flekout — Čistoća kroz pokret">
 <div class="stage">
@@ -61,39 +61,18 @@
 <div class="dark-rail" role="region" aria-label="Usluge za izabrani prostor">
 <div class="rail-top"><span id="rail-scope" role="status">KUĆA / STAN</span><span class="rail-hint" aria-hidden="true">Skroluj kroz usluge ↓</span></div>
 <div class="rail-window" tabindex="0" aria-label="Lista usluga — koristi strelice levo i desno"><div class="rail-track">
-<article class="rail-card" aria-label="01 od 04 — Dubinsko pranje"><div class="rail-card-body"><span class="rail-card-number">01</span><h3>Dubinsko pranje</h3><p class="rail-card-text">Nameštaj, dušeci, tepisi i druge meke podloge.</p><p class="rail-surfaces">Nameštaj / Dušeci / Tepisi</p></div><figure class="rail-card-figure"><img src="service-furniture.jpg" alt="Dubinsko pranje tapaciranog nameštaja" width="1400" height="1050" loading="eager" decoding="async"></figure></article>
-<article class="rail-card" aria-label="02 od 04 — Mašinsko pranje podova"><div class="rail-card-body"><span class="rail-card-number">02</span><h3>Mašinsko pranje podova</h3><p class="rail-card-text">Čišćenje tvrdih podnih površina, uz postupak prilagođen materijalu.</p><p class="rail-surfaces">Tvrde podne površine</p></div><figure class="rail-card-figure"><img src="service-floors.jpg" alt="Mašinsko pranje tvrdog poda" width="1400" height="1050" loading="lazy" decoding="async"></figure></article>
-<article class="rail-card" aria-label="03 od 04 — Pranje prozora i stakla"><div class="rail-card-body"><span class="rail-card-number">03</span><h3>Pranje prozora i stakla</h3><p class="rail-card-text">Pranje prozora, staklenih pregrada i drugih staklenih površina u domu.</p><p class="rail-surfaces">Prozori / Pregrade / Staklo</p></div><figure class="rail-card-figure"><img src="service-glass.jpg" alt="Pranje staklene površine" width="1400" height="1050" loading="lazy" decoding="async"></figure></article>
-<article class="rail-card" aria-label="04 od 04 — Generalno čišćenje"><div class="rail-card-body"><span class="rail-card-number">04</span><h3>Generalno čišćenje</h3><p class="rail-card-text">Kompletno čišćenje doma, prema dogovorenom obimu.</p><p class="rail-surfaces">Kuhinja / Kupatilo / Prostorije</p></div><figure class="rail-card-figure"><img src="service-space.jpg" alt="Uredan prostor posle generalnog čišćenja" width="1400" height="1050" loading="lazy" decoding="async"></figure></article>
+<article class="rail-card" aria-label="01 od 04 — Dubinsko pranje"><div class="rail-card-body"><span class="rail-card-number">01</span><h3>Dubinsko pranje</h3><p class="rail-card-text">Nameštaj, dušeci, tepisi i druge meke podloge.</p><p class="rail-surfaces">Nameštaj / Dušeci / Tepisi</p><div class="rail-price"><span class="rail-price-label">Cena</span><span class="rail-price-value"><small>od</small> 250 din</span></div></div><figure class="rail-card-figure"><img src="service-furniture.jpg" alt="Dubinsko pranje tapaciranog nameštaja" width="1400" height="1050" loading="eager" decoding="async"></figure></article>
+<article class="rail-card" aria-label="02 od 04 — Mašinsko pranje podova"><div class="rail-card-body"><span class="rail-card-number">02</span><h3>Mašinsko pranje podova</h3><p class="rail-card-text">Čišćenje tvrdih podnih površina, uz postupak prilagođen materijalu.</p><p class="rail-surfaces">Tvrde podne površine</p><div class="rail-price"><span class="rail-price-label">Cena</span><span class="rail-price-value is-quote">određuje se na proceni</span></div></div><figure class="rail-card-figure"><img src="service-floors.jpg" alt="Mašinsko pranje tvrdog poda" width="1400" height="1050" loading="lazy" decoding="async"></figure></article>
+<article class="rail-card" aria-label="03 od 04 — Pranje prozora i stakla"><div class="rail-card-body"><span class="rail-card-number">03</span><h3>Pranje prozora i stakla</h3><p class="rail-card-text">Pranje prozora, staklenih pregrada i drugih staklenih površina u domu.</p><p class="rail-surfaces">Prozori / Pregrade / Staklo</p><div class="rail-price"><span class="rail-price-label">Cena</span><span class="rail-price-value is-quote">određuje se na proceni</span></div></div><figure class="rail-card-figure"><img src="service-glass.jpg" alt="Pranje staklene površine" width="1400" height="1050" loading="lazy" decoding="async"></figure></article>
+<article class="rail-card" aria-label="04 od 04 — Generalno čišćenje"><div class="rail-card-body"><span class="rail-card-number">04</span><h3>Generalno čišćenje</h3><p class="rail-card-text">Kompletno čišćenje doma, prema dogovorenom obimu.</p><p class="rail-surfaces">Kuhinja / Kupatilo / Prostorije</p><div class="rail-price"><span class="rail-price-label">Cena</span><span class="rail-price-value is-quote">određuje se na proceni</span></div></div><figure class="rail-card-figure"><img src="service-space.jpg" alt="Uredan prostor posle generalnog čišćenja" width="1400" height="1050" loading="lazy" decoding="async"></figure></article>
 </div></div>
 <div class="rail-bottom"><span class="rail-position">01 / 04</span><div class="rail-steps" role="group" aria-label="Skoči na uslugu"></div><a href="#kontakt">Zatraži procenu ↗</a></div>
 </div>
 </div>
 </section>
-<section class="pricing" id="cenovnik" aria-labelledby="pricing-title">
-<div class="pricing-inner">
-<span class="eyebrow">02 / CENOVNIK</span>
-<h2 id="pricing-title"><span class="h2-lead">Dubinsko pranje.</span><span class="h2-punch">Cenu znaš unapred.</span></h2>
-<div class="price-boards">
-<section class="price-board" aria-labelledby="price-furniture"><h3 id="price-furniture">Nameštaj</h3>
-<dl class="price-list">
-<div class="price-row"><dt>Garnitura <small>po sedećem mestu</small></dt><dd>1.000 din</dd></div>
-<div class="price-row"><dt>Fotelja</dt><dd>500 din</dd></div>
-<div class="price-row"><dt>Stolica <small>po komadu</small></dt><dd>250 din</dd></div>
-</dl></section>
-<section class="price-board" aria-labelledby="price-mattress"><h3 id="price-mattress">Dušeci</h3>
-<dl class="price-list">
-<div class="price-row"><dt>Mono dušek</dt><dd>1.000 din</dd></div>
-<div class="price-row"><dt>Bračni dušek <small>jedna strana</small></dt><dd>1.500 din</dd></div>
-<div class="price-row"><dt>Bračni dušek <small>obe strane</small></dt><dd>2.500 din</dd></div>
-</dl></section>
-</div>
-<div class="pricing-foot"><p>Cene su u dinarima. Za ostale usluge cenu dogovaramo na proceni.</p><a href="#kontakt" class="pricing-cta">Zatraži procenu <span aria-hidden="true">↗</span></a></div>
-</div>
-</section>
 <section class="why" id="zasto" aria-labelledby="why-title">
 <div class="why-inner">
-<span class="eyebrow">03 / ZAŠTO FLEKOUT</span>
+<span class="eyebrow">02 / ZAŠTO FLEKOUT</span>
 <h2 id="why-title"><span class="h2-lead">Bez improvizacije.</span><span class="h2-punch">Znaš čime, kada i ko.</span></h2>
 <ul class="facts">
 <li class="fact"><div class="fact-wrap"><span class="fact-label">Oprema za svaku podlogu</span><span class="plate" aria-hidden="true"><i></i></span></div><p class="fact-text">Opremu i postupak prilagođavamo materijalu i stanju površine.</p></li>
@@ -106,7 +85,7 @@
 <section class="process" id="proces" aria-labelledby="process-title">
 <div class="process-background" aria-hidden="true"><div class="process-grid"></div><div class="process-cuts"></div></div>
 <div class="process-inner">
-<span class="eyebrow">04 / KAKO RADIMO</span>
+<span class="eyebrow">03 / KAKO RADIMO</span>
 <h2 id="process-title"><span class="h2-lead">Od prvog poziva</span><span class="h2-punch">do čistog prostora.</span></h2>
 <ol class="process-steps">
 <li class="process-step"><span class="process-number" aria-hidden="true"><span>01</span></span><article class="process-panel"><svg aria-hidden="true" focusable="false"><path class="process-base"/><path class="process-blue"/></svg><div class="process-copy"><h3>Javi nam šta treba očistiti</h3><p>Reci nam o kakvom prostoru je reč i koje čišćenje ti je potrebno.</p></div></article></li>
@@ -118,9 +97,9 @@
 </section>
 <section id="kontakt" aria-labelledby="contact-title">
  <div class="fc-reflection" aria-hidden="true"></div>
- <div class="fc-eyebrow">05 / KONTAKT</div>
+ <div class="fc-eyebrow">04 / KONTAKT</div>
  <h2 id="contact-title"><span>Čist prostor počinje</span>jednim dogovorom.</h2>
- <p class="fc-intro">Reci nam šta treba da očistimo. Pošalji nekoliko detalja i javićemo ti se da dogovorimo procenu. Ako ti je brže, pozovi nas na <a href="tel:+381601234567" data-placeholder>060 123 4567</a>.</p>
+ <p class="fc-intro">Reci nam šta treba da očistimo. Pošalji nekoliko detalja i javićemo ti se da dogovorimo procenu. Ako ti je brže, pozovi nas na <a href="tel:+381601234567" data-placeholder>+381 60 123 4567</a>.</p>
  <form aria-label="Upit za čišćenje">
   <input type="hidden" name="space" value="Kuća / stan"><input type="hidden" name="contact_method" value="Poziv"><input type="hidden" name="app" value="" disabled>
   <fieldset><legend>Šta želiš da očistimo?</legend><div class="fc-choices">
@@ -143,13 +122,18 @@
   <p class="fc-demo-result" role="status" aria-live="polite" hidden></p>
  </form>
  <footer class="fc-foot">
-  <div class="fc-foot-grid">
-   <div><strong>Flekout Clean</strong><span>Mašinsko pranje i čišćenje</span></div>
-   <div><span class="fc-foot-label">Adresa</span><span data-placeholder>Primer ulica 12, 11000 Beograd</span></div>
-   <div><span class="fc-foot-label">Kontakt</span><a href="tel:+381601234567" data-placeholder>060 123 4567</a><a href="mailto:kontakt@flekout.rs" data-placeholder>kontakt@flekout.rs</a></div>
-   <div><span class="fc-foot-label">Radno vreme</span><span data-placeholder>Pon – Sub, 08 – 20 h</span></div>
+  <div class="fc-foot-brand"><strong>Flekout Clean</strong><span>Mašinsko pranje i čišćenje, Beograd</span></div>
+  <ul class="fc-foot-list">
+   <li><svg class="fc-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6.6 3.5h2.6l1.4 4.1-1.9 1.3a10.6 10.6 0 0 0 6.4 6.4l1.3-1.9 4.1 1.4v2.6a2 2 0 0 1-2.2 2A16.6 16.6 0 0 1 4.6 5.7a2 2 0 0 1 2-2.2Z"/></svg><div><span class="fc-foot-label">Telefon</span><a href="tel:+381601234567" data-placeholder>+381 60 123 4567</a></div></li>
+   <li><svg class="fc-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3.5" y="5.5" width="17" height="13" rx="1"/><path d="m4 6.5 8 6.2 8-6.2"/></svg><div><span class="fc-foot-label">Email</span><a href="mailto:kontakt@flekout.rs" data-placeholder>kontakt@flekout.rs</a></div></li>
+   <li><svg class="fc-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0C18.5 15.4 12 21 12 21Z"/><circle cx="12" cy="10" r="2.4"/></svg><div><span class="fc-foot-label">Adresa</span><span data-placeholder>Primer ulica 12<br>11000 Beograd</span></div></li>
+   <li><svg class="fc-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><div><span class="fc-foot-label">Radno vreme</span><span data-placeholder>Ponedeljak – subota<br>08:00 – 20:00</span></div></li>
+  </ul>
+  <div class="fc-foot-bottom">
+   <span>© 2026 Flekout Clean</span>
+   <span class="fc-credit">Dizajn i izrada: <a href="https://github.com/knez4" target="_blank" rel="noopener" data-placeholder>Veljko Knez <span aria-hidden="true">↗</span></a></span>
+   <a href="#pocetak">Nazad na vrh <span aria-hidden="true">↑</span></a>
   </div>
-  <div class="fc-foot-bottom"><span>© 2026 Flekout Clean</span><a href="#pocetak">Nazad na vrh ↑</a></div>
  </footer>
 </section>
 </main>

@@ -44,6 +44,7 @@
           title: 'Dubinsko pranje',
           text: 'Nameštaj, dušeci, tepisi i druge meke podloge.',
           surfaces: 'Nameštaj / Dušeci / Tepisi',
+          prices: ['furnitureHome', 'mattresses'],
           image: 'service-furniture.jpg',
           alt: 'Dubinsko pranje tapaciranog nameštaja'
         },
@@ -117,6 +118,7 @@
           title: 'Dubinsko pranje nameštaja i tepiha',
           text: 'Dubinsko pranje kancelarijskih stolica, garnitura, tepiha i itisona.',
           surfaces: 'Stolice / Garniture / Tepisi / Itisoni',
+          prices: ['furnitureOffice'],
           image: 'service-furniture.jpg',
           alt: 'Dubinsko pranje kancelarijskog nameštaja'
         },
@@ -137,6 +139,30 @@
       ]
     }
   ];
+
+  /* CENE — potvrdio klijent. null = "na proceni" (cena nije data).
+     Iste cene stoje i u application/ld+json bloku u index.html: menjaju se
+     na OBA mesta. Usluga bez `prices` prikazuje "određuje se na proceni". */
+  const PRICES = {
+    furnitureHome: { title: 'Nameštaj', rows: [
+      ['Garnitura', 'po sedećem mestu', 1000],
+      ['Fotelja', '', 500],
+      ['Stolica', 'po komadu', 250],
+      ['Tepih', '', null]
+    ]},
+    furnitureOffice: { title: 'Nameštaj i podne obloge', rows: [
+      ['Garnitura', 'po sedećem mestu', 1000],
+      ['Fotelja', '', 500],
+      ['Stolica', 'po komadu', 250],
+      ['Tepih i itison', '', null]
+    ]},
+    mattresses: { title: 'Dušeci', rows: [
+      ['Mono dušek', '', 1000],
+      ['Bračni dušek', 'jedna strana', 1500],
+      ['Bračni dušek', 'obe strane', 2500]
+    ]}
+  };
+  const money = n => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ' din';
 
   const LAST = 3;                 /* indeks poslednjeg podtipa */
   const TAIL = 0.35;              /* koliko koraka poslednji podtip stoji pre otpuštanja */
@@ -170,6 +196,7 @@
   /* ---- render jedne grupe -------------------------------------------- */
   function build(groupIndex) {
     active = groupIndex;
+    openCard = null;
     const group = GROUPS[groupIndex];
 
     buttons.forEach((b, i) => b.setAttribute('aria-pressed', String(i === groupIndex)));
@@ -201,7 +228,79 @@
       img.decoding = 'async';
       figure.appendChild(img);
 
+      /* Red sa cenom stoji na istom mestu na svakoj kartici. */
+      const line = document.createElement('div');
+      line.className = 'rail-price';
+      line.innerHTML = '<span class="rail-price-label">Cena</span>';
+      const value = document.createElement('span');
+      value.className = 'rail-price-value';
+      line.append(value);
+      body.append(line);
       card.append(body, figure);
+
+      if (!item.prices) {
+        value.classList.add('is-quote');
+        value.textContent = 'određuje se na proceni';
+        return card;
+      }
+
+      const lists = item.prices.map(key => PRICES[key]);
+      const from = Math.min(...lists.flatMap(list => list.rows.map(row => row[2]).filter(Number.isFinite)));
+      value.innerHTML = `<small>od</small> ${money(from)}`;
+
+      const id = `cene-${groupIndex}-${i}`;
+      const more = document.createElement('button');
+      more.type = 'button';
+      more.className = 'rail-price-more';
+      more.setAttribute('aria-expanded', 'false');
+      more.setAttribute('aria-controls', id);
+      more.innerHTML = 'Sve cene <span aria-hidden="true">→</span>';
+      line.append(more);
+
+      /* Ploča deli ćeliju mreže sa kadrom: na računaru prebriše fotografiju,
+         na telefonu celu karticu. Visina kartice se ne menja, pa zakačeni
+         režim ostaje u ekranu. */
+      const panel = document.createElement('div');
+      panel.className = 'rail-prices';
+      panel.id = id;
+      panel.setAttribute('role', 'region');
+      panel.setAttribute('aria-label', `Cene — ${item.title}`);
+      panel.inert = true;
+      const inner = document.createElement('div');
+      inner.className = 'rail-prices-inner';
+      lists.forEach(list => {
+        const group = document.createElement('div');
+        group.className = 'rail-prices-group';
+        const h = document.createElement('h4');
+        h.textContent = list.title;
+        const dl = document.createElement('dl');
+        list.rows.forEach(([name, note, price]) => {
+          const row = document.createElement('div');
+          const dt = document.createElement('dt');
+          dt.textContent = name;
+          if (note) { const small = document.createElement('small'); small.textContent = note; dt.append(small); }
+          const dd = document.createElement('dd');
+          dd.textContent = price == null ? 'na proceni' : money(price);
+          if (price == null) dd.className = 'is-quote';
+          row.append(dt, dd);
+          dl.append(row);
+        });
+        group.append(h, dl);
+        inner.append(group);
+      });
+      const foot = document.createElement('p');
+      foot.className = 'rail-prices-foot';
+      foot.textContent = 'Cene su u dinarima. Tačan obim dogovaramo na proceni.';
+      const close = document.createElement('button');
+      close.type = 'button';
+      close.className = 'rail-prices-close';
+      close.innerHTML = '<span aria-hidden="true">←</span> Zatvori cene';
+      inner.append(foot, close);
+      panel.append(inner);
+      card.append(panel);
+
+      more.addEventListener('click', () => setPrices(card, more.getAttribute('aria-expanded') !== 'true'));
+      close.addEventListener('click', () => { setPrices(card, false); more.focus({ preventScroll: true }); });
       return card;
     });
 
@@ -224,8 +323,25 @@
   }
 
   /* ---- pozicija trake ------------------------------------------------- */
+  /* ---- cene ------------------------------------------------------------ */
+  let openCard = null;
+  function setPrices(card, open) {
+    if (openCard && openCard !== card) setPrices(openCard, false);
+    const more = card.querySelector('.rail-price-more');
+    const panel = card.querySelector('.rail-prices');
+    if (!more || !panel) return;
+    card.classList.toggle('is-pricing', open);
+    panel.inert = !open;
+    more.setAttribute('aria-expanded', String(open));
+    more.firstChild.textContent = open ? 'Sakrij cene ' : 'Sve cene ';
+    openCard = open ? card : null;
+    if (open) panel.querySelector('.rail-prices-close').focus({ preventScroll: true });
+  }
+
   function paint(slide) {
     const index = clamp(Math.round(slide), 0, LAST);
+    /* ploča se zatvara čim kartica ode iz kadra */
+    if (openCard && cards.indexOf(openCard) !== index) setPrices(openCard, false);
     counter.textContent = `${pad(index + 1)} / ${pad(LAST + 1)}`;
     /* segment se puni neprekidno, zajedno sa prstom */
     steps.forEach((button, i) => {
@@ -456,6 +572,32 @@
     const now = clamp(Math.round((scrollY - slideStart()) / step), 0, LAST);
     goTo(clamp(now + (dx < 0 ? 1 : -1), 0, LAST));
   }, { passive: true });
+
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && openCard) {
+      const card = openCard;
+      setPrices(card, false);
+      card.querySelector('.rail-price-more').focus({ preventScroll: true });
+    }
+  });
+
+  /* Link "Cene" u navigaciji: prva grupa, prva kartica, otvorena ploča.
+     Bez JS-a link samo vodi na #usluge. */
+  document.querySelectorAll('a[data-open-prices]').forEach(link => link.addEventListener('click', event => {
+    event.preventDefault();
+    if (active !== 0) { build(0); layout(); }
+    const top = cinematic ? slideStart() : scrollY + section.getBoundingClientRect().top - offsetTop;
+    scrollTo({ top, behavior: reduced.matches ? 'instant' : 'smooth' });
+    if (!cinematic) viewport.scrollTo({ left: 0 });
+    const card = cards[0];
+    /* otvori kad skrol stigne — dotle bi je paint() zatvorio */
+    let tries = 0;
+    const wait = () => {
+      if (Math.abs(scrollY - top) < 2 || ++tries > 90) setPrices(card, true);
+      else requestAnimationFrame(wait);
+    };
+    requestAnimationFrame(wait);
+  }));
 
   build(active);
   layout();

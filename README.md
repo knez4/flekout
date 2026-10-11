@@ -16,7 +16,6 @@ dist/            sajt koji se servira
   service-rail.css stilovi sekcije "Naše usluge"
   motion.js        hero — maska logotipa preko videa, dugme za pauzu; aktivni link u navigaciji
   service-rail.js  sekcija "Naše usluge" — traka podtipova, sadržaj i mehanika
-  pricing.css      sekcija "Cenovnik"
   why.css          sekcija "Zašto Flekout"
   why.js           sekcija "Zašto Flekout" — otkrivanje redova brisanjem
   process.css/.js  sekcija "Kako radimo"
@@ -68,11 +67,10 @@ Dogovoreni redosled celog sajta:
 | | sekcija | status |
 |---|---|---|
 | — | Hero | urađeno |
-| 01 | Naše usluge | urađeno |
-| 02 | Cenovnik | urađeno |
-| 03 | Zašto Flekout | urađeno |
-| 04 | Kako radimo | urađeno |
-| 05 | Kontakt | urađeno, slanje nije povezano |
+| 01 | Naše usluge (sa cenama) | urađeno |
+| 02 | Zašto Flekout | urađeno |
+| 03 | Kako radimo | urađeno |
+| 04 | Kontakt + futer | urađeno, slanje nije povezano |
 
 Sekcija **Pre / Posle** dolazi kasnije, kad klijent obezbedi fotografije, i ide
 posle Usluga. Brojevi u `eyebrow` natpisima ne broje hero.
@@ -130,12 +128,20 @@ horizontalnu listu sa snap-om.
 
 ---
 
-## Sekcija "Cenovnik"
+## Cene u sekciji "Naše usluge"
 
-Cene se menjaju na **dva mesta** u `dist/index.html`: u sekciji `#cenovnik` i u
-`application/ld+json` bloku u `<head>` (podaci za pretraživače). Ako se doda
-stavka bez potvrđene cene, red dobija atribut `data-todo-price` i prikazuje
-"— din" (stil je spreman u `pricing.css`).
+Nema posebnog cenovnika. Svaka kartica u tamnoj traci ima red "Cena" na istom
+mestu: usluga sa cenom pokazuje "od X din" i dugme "Sve cene", ostale kažu
+"određuje se na proceni".
+
+"Sve cene" otvara ploču koja plavim sečivom prebriše fotografiju (na telefonu
+celu karticu). Visina kartice se ne menja, pa zakačeni režim ostaje u ekranu.
+Ploča se zatvara na "Zatvori cene", Escape ili čim kartica ode iz kadra.
+Link "Cene" u navigaciji vodi na prvu karticu i otvara ploču.
+
+Cene se menjaju na **dva mesta**: `PRICES` na vrhu `dist/service-rail.js` i
+`application/ld+json` blok u `<head>` fajla `dist/index.html`. Koja usluga ima
+cene određuje polje `prices` u `GROUPS`.
 
 ---
 
@@ -152,6 +158,10 @@ stavka bez potvrđene cene, red dobija atribut `data-todo-price` i prikazuje
 - **Kontakt podaci su PRIVREMENI** (izmišljeni telefon, mejl, adresa, radno
   vreme). Svi stoje u `dist/index.html` sa atributom `data-placeholder`
   (`grep data-placeholder`) i u JSON-LD bloku u `<head>`. Ime je "Flekout Clean".
+- **Potpis u futeru** ("Dizajn i izrada: Veljko Knez") trenutno vodi na
+  GitHub profil — zameniti linkom ka portfoliju.
+- **Tepih / itison** su u listi cena kao "na proceni"; kancelarijske stolice
+  su po istoj ceni kao obične (250). Potvrditi sa klijentom.
 - **Politika privatnosti** — forma prima lične podatke, pa treba stranica i
   link u futeru.
 - **Domen.** Bez njega nema `og:image`, `og:url`, `canonical` ni `sitemap.xml`.
