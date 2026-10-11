@@ -40,8 +40,8 @@
 .foot-bottom{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px 24px;margin-top:28px;padding-top:20px;border-top:1px solid var(--foot-line);font-size:13px;color:var(--foot-muted)}
 .foot-bottom a{color:var(--foot-text);transition:color .2s}
 .foot-bottom a:hover{color:#fff}
-.foot-credit a{margin-left:6px;color:#fff;font-weight:600}
-.foot-credit a:hover{color:#7bcef8}
+.foot-bottom .foot-credit{color:var(--foot-muted);font-weight:500;letter-spacing:.01em}
+.foot-bottom .foot-credit:hover{color:#fff}
 .site-foot a:focus-visible{outline:2px solid var(--blue);outline-offset:4px}
 
 @media(max-width:900px){

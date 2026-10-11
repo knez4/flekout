@@ -25,10 +25,6 @@ nav{display:flex;gap:38px;font-size:14px;font-weight:600}
 nav a{padding:6px 0;text-underline-offset:5px}
 nav a:hover,nav a[aria-current=true]{text-decoration:underline}
 nav a[aria-current=true]{text-decoration-color:var(--blue);text-decoration-thickness:2px}
-.nav-phone{display:grid;place-items:center;width:40px;height:40px;margin:-8px -6px;padding:0;color:var(--ink);transition:color .2s,transform .2s}
-.nav-phone:hover{color:var(--blue-ink);text-decoration:none}
-.nav-phone:active{transform:translateY(1px)}
-.nav-icon{width:22px;height:22px}
 nav{align-items:center}
 
 /* --- hero: video kroz slova logotipa --- */
