@@ -25,6 +25,8 @@ nav{display:flex;gap:38px;font-size:14px;font-weight:600}
 nav a{padding:6px 0;text-underline-offset:5px}
 nav a:hover,nav a[aria-current=true]{text-decoration:underline}
 nav a[aria-current=true]{text-decoration-color:var(--blue);text-decoration-thickness:2px}
+.nav-phone{font-variant-numeric:tabular-nums;color:var(--blue-ink)}
+@media(max-width:1000px){.nav-phone{display:none}}
 
 /* --- hero: video kroz slova logotipa --- */
 .journey{height:200svh}

@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="sr-Latn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cene u uslugama</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&amp;display=swap">
+<style>
+/* ============================================================================
+   MOKAP — cene unutar sekcije "Naše usluge"
+
+   Dve varijante na istoj kartici iz tamne trake:
+   A  "Cena u tekstu"     — red sa cenom ispod površina, lista se otvara u tekstu
+   B  "Cenovnik u kadru"  — isti red, ali lista prebriše fotografiju (ploča sa
+                            plavim sečivom, isti potez kao u "Zašto Flekout")
+
+   Red sa cenom stoji na ISTOM mestu na svakoj kartici. Usluga bez cene
+   kaže "na proceni" — slot je uvek tu, pa oko zna gde da gleda.
+============================================================================ */
+:root{
+  --paper:#fff;--ink:#202326;--muted:#5f686d;
+  --blue:#168ccd;--blue-ink:#0f7ab5;
+  --night:#17252e;--night-2:#1d2f39;--night-3:#0f1b22;--line:#344956;
+  --rail-text:#d7e1e6;--rail-muted:#91a6b4;--rail-number:#6fabc9;
+  --cut-ratio:.3014;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:Manrope,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+button{font:inherit;cursor:pointer}
+button:focus-visible{outline:2px solid var(--blue);outline-offset:4px}
+
+/* --- okvir mokapa (nije deo dizajna) --- */
+.mock-head{padding:40px 6vw 28px;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:20px 40px}
+.mock-head h1{margin:0 0 8px;font-size:clamp(26px,3vw,38px);font-weight:500;letter-spacing:-.04em}
+.mock-head p{margin:0;max-width:62ch;font-size:15px;line-height:1.65;color:var(--muted)}
+.switch{display:flex;gap:6px;flex-wrap:wrap}
+.switch button{position:relative;isolation:isolate;border:0;background:transparent;color:var(--ink);padding:12px 26px;min-height:44px;font-size:14px;font-weight:600}
+.switch button:before{content:"";position:absolute;inset:0;z-index:-1;background:#eceff1;clip-path:polygon(0 0,calc(100% - 13px) 0,100% 100%,13px 100%)}
+.switch button[aria-pressed=true]{color:#fff}
+.switch button[aria-pressed=true]:before{background:var(--blue-ink)}
+.mock-note{padding:0 6vw;margin:0 0 14px;font-size:13px;color:var(--muted)}
+
+/* --- tamna traka (replika iz service-rail.css) --- */
+.dark-rail{background:var(--night);color:#fff;padding:0 6vw 22px}
+.rail-top{display:flex;gap:28px;padding-top:20px;font-size:13px;letter-spacing:.06em;color:#cfdde5}
+.card{position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.74fr);gap:clamp(22px,3.6vw,58px);min-height:420px;margin-right:-6vw}
+.card + .card{border-top:1px solid var(--line);margin-top:22px}
+.card-body{display:flex;flex-direction:column;justify-content:center;padding:34px 0 18px;min-width:0}
+.card-number{font-size:13px;color:var(--rail-number);letter-spacing:.06em}
+.card h3{font-size:clamp(28px,3.5vw,54px);line-height:1.1;font-weight:500;letter-spacing:-.035em;margin:16px 0 14px;max-width:13ch}
+.card-text{font-size:17px;line-height:1.55;color:var(--rail-text);margin:0;max-width:46ch}
+.surfaces{font-size:13.5px;color:var(--rail-muted);margin:16px 0 0;letter-spacing:.03em}
+
+.card{--fig-cut:calc(420px * var(--cut-ratio))}
+.card-body{grid-column:1;grid-row:1}
+.figure{position:relative;margin:0;overflow:hidden;background:var(--night-2);
+  clip-path:polygon(0 0,100% 0,100% 100%,var(--fig-cut) 100%)}
+.figure img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.08)}
+.figure:after{content:"";position:absolute;inset:0;background:linear-gradient(107deg,var(--night) 0,rgba(23,37,46,0) 26%);pointer-events:none}
+
+.rail-bottom{display:flex;justify-content:space-between;align-items:center;gap:24px;border-top:1px solid var(--line);padding-top:16px;margin-top:22px;font-size:14px}
+.rail-bottom span{color:#c7d8e2;font-variant-numeric:tabular-nums}
+.rail-bottom a{color:#fff;text-decoration:none}
+
+/* ============================================================================
+   RED SA CENOM — zajednički za A i B
+   Tanka linija iznad, oznaka levo, iznos krupno, dugme kao tekst-link.
+   Iznos je beo, ne plav: plava je poziv na akciju, a cena je informacija.
+============================================================================ */
+.price-line{display:flex;align-items:baseline;flex-wrap:wrap;gap:6px 18px;margin-top:22px;padding-top:16px;border-top:1px solid var(--line);max-width:46ch}
+.price-label{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--rail-muted)}
+.price-value{font-size:24px;font-weight:600;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.price-value small{font-size:14px;font-weight:500;color:var(--rail-text);margin-right:4px}
+.price-value.is-quote{font-size:17px;font-weight:500;color:var(--rail-text)}
+.price-more{margin-left:auto;border:0;background:none;color:#7bcef8;padding:8px 0;min-height:44px;font-size:14px;font-weight:600;display:inline-flex;align-items:center;gap:8px}
+.price-more span{display:inline-block;transition:transform .25s}
+.price-more:hover{color:#fff}
+.price-more[aria-expanded=true] span{transform:rotate(180deg)}
+.v-b .price-more span{transform:none}
+.v-b .price-more[aria-expanded=true] span{transform:translateX(3px)}
+
+/* lista cena — isti sadržaj, dva rasporeda */
+.price-groups{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px 32px}
+.price-group h4{margin:0 0 4px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;color:var(--rail-muted)}
+.price-group dl{margin:0}
+.price-row{display:flex;justify-content:space-between;align-items:baseline;gap:14px;padding:9px 0;border-top:1px solid #2b3f4b}
+.price-row dt{font-size:15px;color:#fff}
+.price-row dt small{display:block;font-size:13px;color:var(--rail-muted);margin-top:1px}
+.price-row dd{margin:0;font-size:15px;font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap}
+.price-row dd.is-quote{font-weight:500;color:var(--rail-muted)}
+.price-foot{margin:12px 0 0;font-size:13px;color:var(--rail-muted)}
+
+/* ---------- A: lista se otvara u tekstu ---------- */
+.inline-list{display:grid;grid-template-rows:0fr;transition:grid-template-rows .4s cubic-bezier(.22,1,.36,1);max-width:46ch}
+.inline-list>div{overflow:hidden}
+.inline-list.is-open{grid-template-rows:1fr}
+.inline-list .price-groups{padding-top:14px;grid-template-columns:1fr 1fr}
+@media(min-width:801px){.v-b .inline-list{display:none}}
+
+/* ---------- B: ploča prebriše kadar ---------- */
+.panel{display:none}
+.figure{grid-column:2;grid-row:1}
+/* ploča deli ćeliju mreže sa kadrom — prekriva samo fotografiju, ne tekst */
+.v-b .panel{display:block;position:relative;grid-column:2;grid-row:1;z-index:2;pointer-events:none;overflow:hidden;
+  --cut:var(--fig-cut)}
+/* ploča i sečivo: plava ispod, tamna preko pomerena 3px — ostane plava ivica */
+.v-b .panel:before,.v-b .panel:after{content:"";position:absolute;inset:0;clip-path:polygon(0 0,100% 0,100% 100%,var(--cut) 100%);
+  transform:translateX(102%);transition:transform .9s cubic-bezier(.33,.9,.35,1)}
+.v-b .panel:before{background:var(--blue)}
+.v-b .panel:after{left:3px;background:var(--night-3)}
+.v-b .panel-inner{position:absolute;inset:0;z-index:1;display:flex;flex-direction:column;justify-content:center;
+  padding:28px 6vw 28px calc(var(--cut) + 20px);opacity:0;transform:translateY(10px);transition:opacity .35s ease,transform .35s ease}
+.v-b .panel.is-open{pointer-events:auto}
+.v-b .panel.is-open:before,.v-b .panel.is-open:after{transform:none}
+.v-b .panel.is-open .panel-inner{opacity:1;transform:none;transition-delay:.45s}
+.panel-close{align-self:flex-start;margin-top:14px;border:0;background:none;color:#7bcef8;padding:8px 0;min-height:44px;font-size:14px;font-weight:600}
+.panel-close:hover{color:#fff}
+.panel .price-groups{grid-template-columns:1fr;gap:14px;max-width:400px}
+.panel .price-row{padding:7px 0}
+.panel .price-row dt small{display:inline;margin-left:6px}
+
+@media(max-width:1000px){
+  .panel .price-groups,.inline-list .price-groups{grid-template-columns:1fr}
+}
+@media(max-width:800px){
+  .card{grid-template-columns:1fr;gap:14px;min-height:0;margin-right:0}
+  .card-body{padding:30px 0 0}
+  .card h3{font-size:clamp(26px,5.6vw,38px);max-width:none}
+  .card-text{font-size:15.5px}
+  .card{--fig-cut:60px}
+  .figure{height:200px;grid-column:1;grid-row:2}
+  .price-value{font-size:21px}
+  /* na telefonu je kadar nizak za listu: B se ponaša kao A, lista se otvara u tekstu */
+  .v-b .panel{display:none}
+  .v-b .price-more span{transform:none}
+  .v-b .price-more[aria-expanded=true] span{transform:rotate(180deg)}
+}
+@media(prefers-reduced-motion:reduce){
+  .inline-list,.v-b .panel:before,.v-b .panel:after,.v-b .panel-inner,.price-more span{transition:none!important}
+}
+</style>
+</head>
+<body>
+
+<div class="mock-head">
+  <div>
+    <h1>Cene u sekciji „Naše usluge”</h1>
+    <p>Mokap, nije deo sajta. Svaka kartica dobija red sa cenom na istom mestu, ispod površina. Klik na „Sve cene” otvara listu. Varijante se razlikuju samo po tome gde se lista otvara.</p>
+  </div>
+  <div class="switch" role="group" aria-label="Varijanta">
+    <button type="button" data-variant="a" aria-pressed="false">A · Cena u tekstu</button>
+    <button type="button" data-variant="b" aria-pressed="true">B · Cenovnik u kadru</button>
+  </div>
+</div>
+<p class="mock-note">Gore: usluga sa cenom (Kuća / stan → Dubinsko pranje). Dole: usluga bez cene (Mašinsko pranje podova).</p>
+
+<div class="dark-rail v-b" id="rail">
+  <div class="rail-top"><span>KUĆA / STAN</span></div>
+
+  <!-- kartica sa cenom -->
+  <article class="card">
+    <div class="card-body">
+      <span class="card-number">01</span>
+      <h3>Dubinsko pranje</h3>
+      <p class="card-text">Nameštaj, dušeci, tepisi i druge meke podloge.</p>
+      <p class="surfaces">Nameštaj / Dušeci / Tepisi</p>
+      <div class="price-line">
+        <span class="price-label">Cena</span>
+        <span class="price-value"><small>od</small>250 din</span>
+        <button type="button" class="price-more" aria-expanded="false" aria-controls="list-a panel-b">Sve cene <span aria-hidden="true">↓</span></button>
+      </div>
+      <div class="inline-list" id="list-a"><div>
+        <div class="price-groups" data-prices></div>
+        <p class="price-foot">Cene su u dinarima, po komadu.</p>
+      </div></div>
+    </div>
+    <figure class="figure"><img src="../dist/service-furniture.jpg" alt="Dubinsko pranje tapaciranog nameštaja"></figure>
+    <div class="panel" id="panel-b" role="region" aria-label="Cene za dubinsko pranje">
+      <div class="panel-inner">
+        <div class="price-groups" data-prices></div>
+        <p class="price-foot">Cene su u dinarima, po komadu.</p>
+        <button type="button" class="panel-close">← Nazad na fotografiju</button>
+      </div>
+    </div>
+  </article>
+
+  <!-- kartica bez cene -->
+  <article class="card">
+    <div class="card-body">
+      <span class="card-number">02</span>
+      <h3>Mašinsko pranje podova</h3>
+      <p class="card-text">Čišćenje tvrdih podnih površina, uz postupak prilagođen materijalu.</p>
+      <p class="surfaces">Tvrde podne površine</p>
+      <div class="price-line">
+        <span class="price-label">Cena</span>
+        <span class="price-value is-quote">određuje se na proceni</span>
+      </div>
+    </div>
+    <figure class="figure"><img src="../dist/service-floors.jpg" alt="Mašinsko pranje tvrdog poda"></figure>
+  </article>
+
+  <div class="rail-bottom"><span>01 / 04</span><a href="#">Zatraži procenu ↗</a></div>
+</div>
+
+<script>
+const PRICES = [
+  { group: 'Nameštaj', rows: [
+    ['Garnitura', 'po mestu', '1.000'],
+    ['Fotelja', '', '500'],
+    ['Stolica', '', '250'],
+    ['Tepih', '', null]
+  ]},
+  { group: 'Dušeci', rows: [
+    ['Mono dušek', '', '1.000'],
+    ['Bračni dušek', 'jedna strana', '1.500'],
+    ['Bračni dušek', 'obe strane', '2.500']
+  ]}
+];
+document.querySelectorAll('[data-prices]').forEach(box => {
+  box.innerHTML = PRICES.map(g =>
+    `<div class="price-group"><h4>${g.group}</h4><dl>` +
+    g.rows.map(([name, note, price]) =>
+      `<div class="price-row"><dt>${name}${note ? `<small>${note}</small>` : ''}</dt>` +
+      (price ? `<dd>${price} din</dd>` : `<dd class="is-quote">na proceni</dd>`) + `</div>`
+    ).join('') + `</dl></div>`
+  ).join('');
+});
+
+const rail = document.getElementById('rail');
+const more = document.querySelector('.price-more');
+const list = document.getElementById('list-a');
+const panel = document.getElementById('panel-b');
+const wide = matchMedia('(min-width: 801px)');
+const isB = () => rail.classList.contains('v-b') && wide.matches;
+
+function setOpen(open) {
+  more.setAttribute('aria-expanded', String(open));
+  more.firstChild.textContent = open ? 'Sakrij cene ' : 'Sve cene ';
+  more.querySelector('span').textContent = isB() ? '→' : '↓';
+  list.classList.toggle('is-open', open && !isB());
+  panel.classList.toggle('is-open', open && isB());
+  if (open && isB()) panel.querySelector('.panel-close').focus({ preventScroll: true });
+}
+more.addEventListener('click', () => setOpen(more.getAttribute('aria-expanded') !== 'true'));
+panel.querySelector('.panel-close').addEventListener('click', () => { setOpen(false); more.focus(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && more.getAttribute('aria-expanded') === 'true') { setOpen(false); more.focus(); } });
+
+document.querySelectorAll('.switch button').forEach(button => button.addEventListener('click', () => {
+  document.querySelectorAll('.switch button').forEach(b => b.setAttribute('aria-pressed', String(b === button)));
+  rail.classList.toggle('v-b', button.dataset.variant === 'b');
+  setOpen(false);
+}));
+wide.addEventListener('change', () => setOpen(false));
+setOpen(false);
+</script>
+</body>
+</html>

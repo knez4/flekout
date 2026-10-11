@@ -4,12 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#ffffff">
-<title>Flekout — mašinsko pranje i dubinsko čišćenje, Beograd</title>
+<title>Flekout Clean — mašinsko pranje i dubinsko čišćenje, Beograd</title>
 <meta name="description" content="Dubinsko pranje nameštaja i dušeka, mašinsko pranje podova i čišćenje stanova, zgrada i kancelarija u Beogradu. Cene unapred, procena u roku od 48 sati.">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="sr_RS">
-<meta property="og:site_name" content="Flekout">
-<meta property="og:title" content="Flekout — mašinsko pranje i dubinsko čišćenje, Beograd">
+<meta property="og:site_name" content="Flekout Clean">
+<meta property="og:title" content="Flekout Clean — mašinsko pranje i dubinsko čišćenje, Beograd">
 <meta property="og:description" content="Dubinsko pranje nameštaja i dušeka, mašinsko pranje podova i čišćenje stanova, zgrada i kancelarija u Beogradu.">
 <meta name="twitter:card" content="summary">
 <link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
@@ -19,9 +19,11 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap">
 <link rel="stylesheet" href="style.css"><link rel="stylesheet" href="service-rail.css"><link rel="stylesheet" href="pricing.css"><link rel="stylesheet" href="why.css"><link rel="stylesheet" href="process.css"><link rel="stylesheet" href="contact.css">
 <script src="motion.js" defer></script>
-<!-- Cene se menjaju na DVA mesta: ovde i u sekciji #cenovnik. -->
+<!-- Cene se menjaju na DVA mesta: ovde i u sekciji #cenovnik.
+     Kontakt podaci (telefon, mejl, adresa, radno vreme) su PRIVREMENI i stoje
+     ovde, u headeru i u futeru — svuda sa atributom data-placeholder. -->
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"LocalBusiness","name":"Flekout","description":"Mašinsko pranje i čišćenje tvrdih i mekih podloga.","areaServed":{"@type":"City","name":"Beograd"},"priceRange":"RSD",
+{"@context":"https://schema.org","@type":"LocalBusiness","name":"Flekout Clean","telephone":"+381601234567","email":"kontakt@flekout.rs","address":{"@type":"PostalAddress","streetAddress":"Primer ulica 12","postalCode":"11000","addressLocality":"Beograd","addressCountry":"RS"},"openingHours":"Mo-Sa 08:00-20:00","description":"Mašinsko pranje i čišćenje tvrdih i mekih podloga.","areaServed":{"@type":"City","name":"Beograd"},"priceRange":"RSD",
 "makesOffer":[
 {"@type":"Offer","name":"Dubinsko pranje garniture — po sedećem mestu","price":"1000","priceCurrency":"RSD"},
 {"@type":"Offer","name":"Dubinsko pranje fotelje","price":"500","priceCurrency":"RSD"},
@@ -34,7 +36,7 @@
 </head>
 <body>
 <a class="skip" href="#usluge">Pređi na usluge</a>
-<header><a href="#pocetak" class="brand" aria-label="Flekout početna"><img src="logo-black.png" width="140" height="31" alt="FLEKOUT"></a><nav aria-label="Glavna navigacija"><a href="#usluge" class="nav-optional">Naše usluge</a><a href="#cenovnik">Cenovnik</a><a href="#kontakt">Kontakt ↗</a></nav></header>
+<header><a href="#pocetak" class="brand" aria-label="Flekout početna"><img src="logo-black.png" width="140" height="31" alt="FLEKOUT"></a><nav aria-label="Glavna navigacija"><a href="#usluge" class="nav-optional">Naše usluge</a><a href="#cenovnik">Cenovnik</a><a href="tel:+381601234567" class="nav-phone" data-placeholder>060 123 4567</a><a href="#kontakt">Kontakt ↗</a></nav></header>
 <main>
 <section class="journey" id="pocetak" aria-label="Flekout — Čistoća kroz pokret">
 <div class="stage">
@@ -118,7 +120,7 @@
  <div class="fc-reflection" aria-hidden="true"></div>
  <div class="fc-eyebrow">05 / KONTAKT</div>
  <h2 id="contact-title"><span>Čist prostor počinje</span>jednim dogovorom.</h2>
- <p class="fc-intro">Reci nam šta treba da očistimo. Pošalji nekoliko detalja i javićemo ti se da dogovorimo procenu.</p>
+ <p class="fc-intro">Reci nam šta treba da očistimo. Pošalji nekoliko detalja i javićemo ti se da dogovorimo procenu. Ako ti je brže, pozovi nas na <a href="tel:+381601234567" data-placeholder>060 123 4567</a>.</p>
  <form aria-label="Upit za čišćenje">
   <input type="hidden" name="space" value="Kuća / stan"><input type="hidden" name="contact_method" value="Poziv"><input type="hidden" name="app" value="" disabled>
   <fieldset><legend>Šta želiš da očistimo?</legend><div class="fc-choices">
@@ -140,7 +142,15 @@
   <p class="fc-prototype">Probna verzija forme: slanje upita još nije povezano. Uneti podaci i fotografije se ne šalju.</p>
   <p class="fc-demo-result" role="status" aria-live="polite" hidden></p>
  </form>
- <div class="fc-foot"><a href="#pocetak" aria-label="Povratak na početak">FLEKOUT ↗</a><span>FLEKOUT / Mašinsko pranje i čišćenje</span></div>
+ <footer class="fc-foot">
+  <div class="fc-foot-grid">
+   <div><strong>Flekout Clean</strong><span>Mašinsko pranje i čišćenje</span></div>
+   <div><span class="fc-foot-label">Adresa</span><span data-placeholder>Primer ulica 12, 11000 Beograd</span></div>
+   <div><span class="fc-foot-label">Kontakt</span><a href="tel:+381601234567" data-placeholder>060 123 4567</a><a href="mailto:kontakt@flekout.rs" data-placeholder>kontakt@flekout.rs</a></div>
+   <div><span class="fc-foot-label">Radno vreme</span><span data-placeholder>Pon – Sub, 08 – 20 h</span></div>
+  </div>
+  <div class="fc-foot-bottom"><span>© 2026 Flekout Clean</span><a href="#pocetak">Nazad na vrh ↑</a></div>
+ </footer>
 </section>
 </main>
 <script src="service-rail.js"></script>

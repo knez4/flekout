@@ -43,6 +43,7 @@ mockups/         privremeni fajlovi za dogovor o dizajnu, ne deo sajta
   zasto-mi.html    sekcija 02 "Zašto Flekout" — izgled i mehanika brisanja
   proces.html      sekcija 03 "Proces" — linija, markeri i paneli koraka
   forma.html       sekcija 04 "Kontakt" — forma, brz kontakt i potvrda
+  cene-u-uslugama.html  cene unutar "Naše usluge" — varijante A i B
 ```
 
 ## Pokretanje
@@ -148,7 +149,10 @@ stavka bez potvrđene cene, red dobija atribut `data-todo-price` i prikazuje
 - **Slanje forme nije povezano.** Svi izbori su već u `FormData` (`space`,
   `contact_method`, `app`); treba servis ili backend koji prima upit i
   fotografije.
-- **Podaci o firmi:** telefon u headeru, adresa, radno vreme, politika
-  privatnosti (forma prima lične podatke), ime "Flekout" ili "Flekout Clean".
+- **Kontakt podaci su PRIVREMENI** (izmišljeni telefon, mejl, adresa, radno
+  vreme). Svi stoje u `dist/index.html` sa atributom `data-placeholder`
+  (`grep data-placeholder`) i u JSON-LD bloku u `<head>`. Ime je "Flekout Clean".
+- **Politika privatnosti** — forma prima lične podatke, pa treba stranica i
+  link u futeru.
 - **Domen.** Bez njega nema `og:image`, `og:url`, `canonical` ni `sitemap.xml`.
 - **Sadržaj za proveru sa klijentom:** "48 h", "garancija", "ista ekipa".
