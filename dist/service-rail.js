@@ -139,15 +139,15 @@
   ];
 
   const LAST = 3;                 /* indeks poslednjeg podtipa */
-  const TAIL = 0.5;               /* koliko koraka poslednji podtip stoji pre otpuštanja */
+  const TAIL = 0.35;              /* koliko koraka poslednji podtip stoji pre otpuštanja */
   /* JASTUK NA ULAZU: koliko piksela sekcija stoji zakačena pre nego što traka
      uopšte krene. Bez njega horizontalni pomeraj počinje u istom pikselu u kojem
      se završi vertikalno otkrivanje, pa zamah dolaska odnese prvi podtip.
      Mera je u pikselima, a ne u delu koraka, jer zamah dolaska je fizička
      razdaljina i ne zavisi od toga koliko je PER_CARD podešen. */
-  const LEAD = 450;
-  /* Izmereno: jedan zavrtaj točka je 100px, korak je ~0.9 ekrana (630px na 700px
-     visine) = 15.9%. Prag od 25% znači: jedan usamljen zavrtaj se vrati nazad
+  const LEAD = 250;
+  /* Izmereno: jedan zavrtaj točka je 100px, korak je 0.85 ekrana (595px na 700px
+     visine) = 16.8%. Prag od 25% znači: jedan usamljen zavrtaj se vrati nazad
      (sekcija pruža otpor), dva ga nose na sledeći podtip. Ovo je JEDINI broj koji
      se dira ako osećaj treba da bude tvrđi (više) ili mekši (manje). */
   const SETTLE = 0.25;
@@ -155,8 +155,9 @@
   /* SENZIBILITET horizontalnog skrola: koliko ekrana vertikalnog skrola vredi
      jedan podtip. Veće = traka se sporije pomera i treba više zavrtaja točka.
      Pošto je prag smirivanja procenat od koraka, veći broj ujedno pojačava i
-     otpor. GLIDE je samo zaglađivanje pokreta i ne utiče na senzibilitet. */
-  const PER_CARD = 1.7;
+     otpor. GLIDE je samo zaglađivanje pokreta i ne utiče na senzibilitet.
+     Sa 0.85 cela sekcija traje oko četiri ekrana (ranije 1.7 → 7.5 ekrana). */
+  const PER_CARD = 0.85;
   const CUT = 0.3014;             /* nagib nav-a: 22px na 73px visine = 16.8° */
   const clamp = (v, min = 0, max = 1) => Math.max(min, Math.min(max, v));
   const pad = n => String(n).padStart(2, '0');
@@ -332,7 +333,7 @@
     }
 
     introH = intro.offsetHeight;
-    step = Math.max(520, innerHeight * PER_CARD);
+    step = Math.max(480, innerHeight * PER_CARD);
     total = LEAD + step * LAST + step * TAIL;
     section.style.height = cinematic ? (introH + total + sticky.offsetHeight) + 'px' : 'auto';
 
@@ -438,6 +439,23 @@
       : clamp(now + (event.key === 'ArrowRight' ? 1 : -1), 0, LAST);
     goTo(next);
   });
+
+  /* Prevlačenje u stranu na dodir: u zakačenom režimu prst vuče stranicu
+     vertikalno, pa horizontalni potez ne bi radio ništa. Ovde ga prevodimo u
+     prelaz na susedni podtip. Van zakačenog režima traka ima svoj skrol. */
+  let touchX = 0, touchY = 0;
+  viewport.addEventListener('touchstart', event => {
+    touchX = event.touches[0].clientX;
+    touchY = event.touches[0].clientY;
+  }, { passive: true });
+  viewport.addEventListener('touchend', event => {
+    if (!cinematic) return;
+    const dx = event.changedTouches[0].clientX - touchX;
+    const dy = event.changedTouches[0].clientY - touchY;
+    if (Math.abs(dx) < 40 || Math.abs(dx) < Math.abs(dy) * 1.5) return;
+    const now = clamp(Math.round((scrollY - slideStart()) / step), 0, LAST);
+    goTo(clamp(now + (dx < 0 ? 1 : -1), 0, LAST));
+  }, { passive: true });
 
   build(active);
   layout();

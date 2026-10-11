@@ -1,4 +1,4 @@
-const journey=document.querySelector('.journey'),stage=document.querySelector('.stage'),svg=document.querySelector('.portal'),word=document.querySelector('#word'),swept=document.querySelector('#swept-rect'),unswept=document.querySelector('#unswept-rect'),header=document.querySelector('header'),video=document.querySelector('video'),toggle=document.querySelector('#video-toggle'),reduced=matchMedia('(prefers-reduced-motion: reduce)');
+const journey=document.querySelector('.journey'),stage=document.querySelector('.stage'),svg=document.querySelector('.portal'),swept=document.querySelector('#swept-rect'),unswept=document.querySelector('#unswept-rect'),header=document.querySelector('header'),video=document.querySelector('video'),toggle=document.querySelector('#video-toggle'),reduced=matchMedia('(prefers-reduced-motion: reduce)');
 let width=0,height=0,queued=false,manuallyPaused=false,visible=true;
 const clamp=v=>Math.max(0,Math.min(1,v));
 function render(){queued=false;const p=reduced.matches?0:clamp(-journey.getBoundingClientRect().top/Math.max(1,journey.offsetHeight-height));const sweep=clamp((p-.06)/.76),edge=width*(1-sweep);swept.setAttribute('x',edge);swept.setAttribute('width',width-edge);unswept.setAttribute('width',edge);const gray=Math.round(255-25*sweep);header.style.backgroundColor=`rgb(${gray} ${gray} ${gray})`;document.querySelector('.intro-meta').style.opacity=1-clamp(sweep*5);document.querySelector('.hero-bottom').classList.toggle('dark',sweep>.98);}
@@ -10,3 +10,15 @@ toggle?.addEventListener('click',()=>{if(video.paused){manuallyPaused=false;vide
 video.addEventListener('play',label);video.addEventListener('pause',label);video.addEventListener('error',()=>{if(toggle){toggle.textContent='Video nije dostupan';toggle.disabled=true;}});
 new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;playback();}).observe(stage);
 document.addEventListener('visibilitychange',playback);reduced.addEventListener('change',()=>{resize();playback();});addEventListener('scroll',schedule,{passive:true});new ResizeObserver(resize).observe(stage);resize();playback();
+/* Navigacija: link sekcije koja je trenutno na sredini ekrana dobija aria-current. */
+(()=>{
+  const links=[...document.querySelectorAll('nav a[href^="#"]')];
+  const targets=links.map(a=>document.querySelector(a.getAttribute('href'))).filter(Boolean);
+  const seen=new Set();
+  const io=new IntersectionObserver(entries=>{
+    entries.forEach(e=>e.isIntersecting?seen.add(e.target):seen.delete(e.target));
+    const current=targets.find(t=>seen.has(t));
+    links.forEach(a=>a.setAttribute('aria-current',String(!!current&&a.getAttribute('href')==='#'+current.id)));
+  },{rootMargin:'-45% 0px -50% 0px'});
+  targets.forEach(t=>io.observe(t));
+})();

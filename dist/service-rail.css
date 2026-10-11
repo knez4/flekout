@@ -19,11 +19,11 @@
 /* --- naslov: prvi red uvod (siv), drugi red obećanje (crn, veći) --- */
 .rail-heading{display:flex;justify-content:space-between;align-items:flex-end;gap:32px;margin-bottom:24px}
 .services-rail .rail-heading h2{font-size:clamp(42px,4.8vw,72px);font-weight:500;letter-spacing:-.05em;line-height:1.06;margin:16px 0 0}
-.h2-lead{display:block;font-size:.62em;letter-spacing:-.04em;color:#828b91;margin-bottom:.1em}
+.h2-lead{display:block;font-size:.62em;letter-spacing:-.04em;color:var(--lead);margin-bottom:.1em}
 .h2-punch{display:block;color:#1b2226}
 
 /* --- jezičci: izbor prostora --- */
-.choose-label{display:block;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#8b9398;margin:0 0 11px}
+.choose-label{display:block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#8b9398;margin:0 0 11px}
 .space-options{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;align-items:start;margin-bottom:0}
 .space-option{
   --h:var(--tab-h);
@@ -41,10 +41,11 @@
 .space-option strong{font-weight:500;font-size:clamp(18px,1.9vw,28px);letter-spacing:-.035em;align-self:end}
 .space-option .short{display:none}
 .space-option:hover .tab-face{background:#e1e7ea}
+.space-option:active{transform:translateY(1px)}
 /* Aktivan jezičak je viši za tačno onoliko koliko je razmak — pa dodiruje tamnu
    traku i čita se kao da je zakačen za sadržaj koji je otvorio. */
 .space-option[aria-pressed=true]{--h:calc(var(--tab-h) + 14px);margin-bottom:0;color:#fff}
-.space-option[aria-pressed=true] .tab-face{background:#168ccd}
+.space-option[aria-pressed=true] .tab-face{background:var(--blue-ink)}
 .space-option:focus-visible{outline:2px solid #168ccd;outline-offset:4px}
 
 /* --- tamna traka --- */
@@ -57,7 +58,7 @@
 .rail-window{overflow-x:auto;scrollbar-width:thin;scrollbar-color:#168ccd #263945;scroll-snap-type:x mandatory;padding-bottom:14px}
 .rail-window:focus-visible{outline:2px solid #168ccd;outline-offset:6px}
 /* u zakačenom režimu traka ide do same desne ivice — kadar seče ekran */
-.is-cinematic .rail-window{overflow:hidden;scroll-snap-type:none;padding-bottom:0;margin-right:-6vw}
+.is-cinematic .rail-window{overflow:hidden;scroll-snap-type:none;padding-bottom:0;margin-right:-6vw;touch-action:pan-y}
 .rail-track{display:flex;gap:0;width:100%;will-change:transform}
 
 /* --- kartica podtipa: tekst levo, kadar desno --- */
@@ -125,7 +126,7 @@
 .space-option strong{font-size:13px;letter-spacing:-.02em;line-height:1.25}
 .space-option .long{display:none}
 .space-option .short{display:inline}
-.space-number{font-size:10px}
+.space-number{font-size:12px}
 .is-cinematic .rail-window{margin-right:-6vw}
 .rail-card{grid-template-columns:1fr;gap:14px;align-items:start;min-height:0;padding-bottom:4px}
 .rail-card-body{padding:44px 0 0}
@@ -139,7 +140,7 @@
 .is-tight .rail-heading h2{font-size:30px;margin-top:10px}
 .is-cinematic .rail-heading{margin-bottom:14px}
 .is-cinematic .dark-rail{padding-bottom:14px}
-.rail-top{top:14px;font-size:11.5px;gap:14px}
+.rail-top{top:14px;font-size:12px;gap:14px}
 .is-tight .rail-card-body{padding-top:38px}
 .rail-bottom{gap:12px;padding-top:13px;margin-top:10px}
 .rail-bottom a{font-size:13px}

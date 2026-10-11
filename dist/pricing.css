@@ -1,0 +1,45 @@
+/* ============================================================================
+   FLEKOUT — sekcija 02 "Cenovnik"
+
+   Dve sive ploče, naziv levo i cena desno. Cene su u boji teksta — plava je
+   samo na dugmetu, jer plava znači "čisto" i poziv na akciju, ne "cena".
+   Ploče su pravougaone: rez od 16.8° nosi samo dugme (porodica "kontejner
+   sa tekstom"), da ga ne razvodnimo.
+
+   Redovi sa atributom data-todo-price čekaju cenu od klijenta.
+============================================================================ */
+.pricing{padding:110px 6vw 120px;background:#fff}
+.pricing-inner{max-width:1560px;margin:0 auto}
+.pricing h2{margin:40px 0 0;font-weight:500;line-height:1.06;letter-spacing:-.05em;font-size:clamp(36px,3.8vw,56px)}
+.pricing .h2-lead{font-size:.62em}
+
+.price-boards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(14px,2vw,28px);margin-top:56px;align-items:start}
+.price-board{background:#eceff1;padding:34px clamp(22px,3vw,44px) 26px}
+.price-board h3{margin:0 0 18px;font-size:clamp(23px,2.2vw,32px);font-weight:500;letter-spacing:-.035em}
+.price-list{margin:0}
+.price-row{display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:15px 0;border-top:1px solid #d3d9dc}
+.price-row dt{font-size:17px;line-height:1.4;color:var(--ink)}
+.price-row dt small{display:block;font-size:13px;color:var(--muted);margin-top:2px}
+.price-row dd{margin:0;font-size:20px;font-weight:600;letter-spacing:-.02em;font-variant-numeric:tabular-nums;white-space:nowrap;color:var(--ink)}
+.price-row[data-todo-price] dd{color:#8a949a;font-weight:500}
+
+.pricing-foot{display:flex;justify-content:space-between;align-items:center;gap:24px;margin-top:30px}
+.pricing-foot p{margin:0;font-size:15px;line-height:1.7;color:var(--muted);max-width:46ch}
+.pricing-cta{position:relative;isolation:isolate;display:inline-flex;align-items:center;gap:34px;min-height:53px;padding:15px 34px;color:#fff;font-size:15px;font-weight:600;white-space:nowrap;transition:transform .2s}
+.pricing-cta:before{content:"";position:absolute;inset:0;z-index:-1;background:var(--blue-ink);transition:background .2s;
+  clip-path:polygon(0 0,calc(100% - 16px) 0,100% 100%,16px 100%)}
+.pricing-cta span{transition:transform .2s}
+.pricing-cta:hover:before{background:#0b6a9e}
+.pricing-cta:hover span{transform:translate(3px,-3px)}
+.pricing-cta:active{transform:translateY(1px)}
+
+@media(max-width:800px){
+  .pricing{padding:72px 6vw 80px}
+  .pricing h2{margin-top:28px;font-size:clamp(30px,6.6vw,42px)}
+  .price-boards{grid-template-columns:1fr;margin-top:36px}
+  .price-board{padding:26px 20px 18px}
+  .price-row dt{font-size:16px}
+  .price-row dd{font-size:18px}
+  .pricing-foot{flex-direction:column;align-items:stretch}
+  .pricing-cta{justify-content:space-between}
+}

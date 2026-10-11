@@ -12,15 +12,21 @@ servira kakav jeste.
 ```
 dist/            sajt koji se servira
   index.html       jedan dokument, sve sekcije
-  style.css        osnova: hero, header, završna sekcija, dijalog
+  style.css        osnova: tokeni boja, header, hero
   service-rail.css stilovi sekcije "Naše usluge"
-  motion.js        hero — maska logotipa preko videa, kontrola videa, dijalog
+  motion.js        hero — maska logotipa preko videa, dugme za pauzu; aktivni link u navigaciji
   service-rail.js  sekcija "Naše usluge" — traka podtipova, sadržaj i mehanika
+  pricing.css      sekcija "Cenovnik"
   why.css          sekcija "Zašto Flekout"
   why.js           sekcija "Zašto Flekout" — otkrivanje redova brisanjem
+  process.css/.js  sekcija "Kako radimo"
+  contact.css/.js  sekcija "Kontakt" — forma (slanje još nije povezano)
+  icons/           Viber i WhatsApp (simple-icons, CC0)
+  favicon-32.png, apple-touch-icon.png, robots.txt
   services.js      detaljan katalog usluga (postupak, površine, oprema)
                    NIJE učitan u trenutnoj verziji, čuva se za sledeću fazu
-  *.jpg / *.mp4    fotografije i video (privremeni, vidi "Otvoreno")
+  *.jpg / *.mp4    fotografije i video (privremeni, vidi "Otvoreno");
+                   video je 720p bez zvuka, ~1.1 MB
   logo-*.png       logotip u upotrebi na sajtu
 
 brand/           identitet
@@ -30,6 +36,8 @@ brand/           identitet
   service-photos/  izvorne fotografije usluga
   export_logos.py  skripta kojom su pravljeni izvozi
   README.md        napomene o identitetu
+
+.claude/skills/  dizajn skillovi (taste-skill), pravila upotrebe u CLAUDE.md
 
 mockups/         privremeni fajlovi za dogovor o dizajnu, ne deo sajta
   zasto-mi.html    sekcija 02 "Zašto Flekout" — izgled i mehanika brisanja
@@ -58,18 +66,15 @@ Dogovoreni redosled celog sajta:
 
 | | sekcija | status |
 |---|---|---|
-| 01 | Hero | urađeno |
-| 02 | Naše usluge | urađeno |
+| — | Hero | urađeno |
+| 01 | Naše usluge | urađeno |
+| 02 | Cenovnik | urađeno, čeka cene (vidi "Otvoreno") |
 | 03 | Zašto Flekout | urađeno |
-| 04 | Proces — od upita do čistog prostora | u dogovoru |
-| 05 | Forma | nije rađeno |
+| 04 | Kako radimo | urađeno |
+| 05 | Kontakt | urađeno, slanje nije povezano |
 
 Sekcija **Pre / Posle** dolazi kasnije, kad klijent obezbedi fotografije, i ide
-između 02 i 03.
-
-Brojevi u `eyebrow` natpisima ne broje hero: Usluge su `01`, Zašto Flekout `02`,
-završna sekcija je privremeno `03`. Kad Proces dođe, on uzima `03`, a završna
-prelazi na `04`.
+posle Usluga. Brojevi u `eyebrow` natpisima ne broje hero.
 
 ---
 
@@ -85,7 +90,9 @@ Rez sme da živi u dve porodice i nigde više:
 - **ivica / maska** — kadar u traci, brisanje u "Zašto Flekout"
 
 **Plava `#168ccd` znači "čisto".** Aktivna usluga, otkriveni deo, poziv na
-akciju. Nigde kao ukras.
+akciju. Nigde kao ukras. Ispod belog teksta (dugmad, aktivni izbori) ide
+tamnija `#0f7ab5` (`--blue-ink`, 4.7:1); `#168ccd` ostaje za linije i markere.
+Tokeni su na vrhu `style.css`.
 
 **Tamna traka `#17252e`.** Tekst na njoj `#d7e1e6`, prigušeni `#91a6b4`.
 
@@ -105,12 +112,16 @@ Sve stoji na vrhu `dist/service-rail.js`:
 
 | konstanta | šta radi |
 |---|---|
-| `PER_CARD` | koliko ekrana skrola vredi jedan podtip (senzibilitet) |
+| `PER_CARD` | koliko ekrana skrola vredi jedan podtip (senzibilitet), sada `0.85` |
 | `LEAD` | jastuk na ulazu u pikselima — traka miruje dok se ne pređe |
 | `TAIL` | koliko poslednji podtip stoji pre nego što sekcija pusti skrol |
 | `SETTLE` | prag u smeru kretanja; ispod njega se vraća nazad |
 | `GLIDE` | koliko traka po kadru sustiže skrol — manje znači više klizanja |
 | `CUT` | nagib reza, `.3014` |
+
+Cela sekcija traje oko četiri ekrana. Na telefonu se usluge listaju i
+prevlačenjem u stranu. Prve četiri kartice (Kuća / stan) su ispisane u HTML-u,
+pa se vide i bez JavaScripta; JS ih na učitavanju zameni istim sadržajem.
 
 Sekcija se sama meri i, ako sadržaj ne staje u ekran, prvo stisne tipografiju
 (`.is-tight`), a tek onda odustaje od zakačenog režima i pada na običnu
@@ -118,16 +129,26 @@ horizontalnu listu sa snap-om.
 
 ---
 
+## Sekcija "Cenovnik"
+
+Cene se menjaju na **dva mesta** u `dist/index.html`: u sekciji `#cenovnik` i u
+`application/ld+json` bloku u `<head>` (podaci za pretraživače). Red koji još
+čeka cenu ima atribut `data-todo-price` i prikazuje "— din"; kad cena stigne,
+upiši je i obriši atribut.
+
+---
+
 ## Otvoreno
 
+- **Cene.** Poznate su samo za bračni dušek (1.500 jedna strana, 2.500 obe).
+  Fotelja, dvosed, trosed, ugaona garnitura, stolica i dušek za jednu osobu
+  čekaju klijenta. Proveriti i spisak stavki i da li su cene sa PDV-om.
 - **Fotografije su privremene.** Četiri kadra rotiraju kroz dvanaest podtipova.
   Svaki podtip treba svoj pravi snimak sa terena.
-- **Kontakt nije povezan.** Dugme otvara dijalog sa porukom da je prototip.
-  Treba forma, broj telefona u headeru i radno vreme.
-- **Nema dugmeta za pauzu videa.** Video u hero sekciji se vrti duže od pet
-  sekundi bez kontrole, što pada na WCAG 2.2.2.
-- **Brojevi u sadržaju su placeholder** — trajanja, minimumi, godine iskustva.
-  Proveriti svaki sa klijentom pre nego što sajt ode uživo.
-- **`dist/hero.png` (2.4 MB) se nigde ne koristi** — kandidat za brisanje.
-- **Kontrast**: bela na plavoj `#168ccd` daje 3.74:1. Prolazi za veliki tekst,
-  ne prolazi za sitniji. `#0f7ab5` daje 4.71:1 uz praktično istu boju.
+- **Slanje forme nije povezano.** Svi izbori su već u `FormData` (`space`,
+  `contact_method`, `app`); treba servis ili backend koji prima upit i
+  fotografije.
+- **Podaci o firmi:** telefon u headeru, adresa, radno vreme, politika
+  privatnosti (forma prima lične podatke), ime "Flekout" ili "Flekout Clean".
+- **Domen.** Bez njega nema `og:image`, `og:url`, `canonical` ni `sitemap.xml`.
+- **Sadržaj za proveru sa klijentom:** "48 h", "garancija", "ista ekipa".
