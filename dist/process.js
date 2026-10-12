@@ -31,6 +31,8 @@
       const cut = Math.min(h * .3014, w * .14), y = narrow() ? 34 : 54;
       row.panel.style.setProperty('--panel-cut', `${cut}px`);
       const x = 1 + cut * (y - 1) / Math.max(1, h - 2);
+      /* grana se završava tačno na kosoj ivici panela, ne ulazi u njega */
+      row.panel.style.setProperty('--edge-x', `${x}px`);
       const d = `M ${x} ${y} L 1 1 L ${w-cut-1} 1 L ${w-1} ${h-1} L ${cut+1} ${h-1} Z`;
       row.panel.querySelectorAll('path').forEach(path => path.setAttribute('d', d));
       row.length = row.path.getTotalLength();

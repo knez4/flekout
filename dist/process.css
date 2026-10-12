@@ -17,7 +17,8 @@ main .eyebrow::before{content:"";display:inline-block;width:15px;height:7px;back
 .process-number span{position:relative;font-size:20px;font-weight:500}
 .process-panel{position:relative;min-height:146px;isolation:isolate;background:#eceff1}
 .process.is-ready .process-panel{background:transparent}
-.process-panel::before,.process-panel::after{content:"";position:absolute;left:-58px;top:54px;width:80px;height:2px;background:var(--process-gray);z-index:-1}
+.process-panel{--reach:58px}
+.process-panel::before,.process-panel::after{content:"";position:absolute;left:calc(-1 * var(--reach));top:54px;width:calc(var(--reach) + var(--edge-x,0px));height:2px;background:var(--process-gray);z-index:-1}
 .process-panel::after{background:var(--process-blue);transform:scaleX(var(--branch));transform-origin:left}
 .process-panel svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible;z-index:-1}
 .process-base{fill:#eceff1;stroke:var(--process-gray);stroke-width:1}
@@ -36,7 +37,8 @@ main .eyebrow::before{content:"";display:inline-block;width:15px;height:7px;back
  .process-number{top:24px;width:44px;height:40px;clip-path:polygon(0 0,calc(100% - 12px) 0,100% 100%,12px 100%)}
  .process-number span{font-size:15px}
  .process-panel{min-height:0}
- .process-panel::before,.process-panel::after{left:-30px;top:34px;width:44px}
+ .process-panel{--reach:30px}
+ .process-panel::before,.process-panel::after{top:34px}
  .process-copy{padding:18px max(26px,calc(var(--panel-cut,24px) + 10px)) 20px calc(var(--panel-cut,24px) + 10px)}
  .process h3{font-size:20px;margin-bottom:6px}
  .process-panel p{font-size:15px;line-height:1.55}
@@ -46,5 +48,5 @@ main .eyebrow::before{content:"";display:inline-block;width:15px;height:7px;back
  .process-step::before,.process-step::after{left:16px}
  .process-number{width:34px;height:36px;top:26px;clip-path:polygon(0 0,calc(100% - 10px) 0,100% 100%,10px 100%)}
  .process-number span{font-size:14px}
- .process-panel::before,.process-panel::after{left:-24px;width:34px}
+ .process-panel{--reach:24px}
 }

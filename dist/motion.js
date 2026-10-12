@@ -2,7 +2,11 @@ const journey=document.querySelector('.journey'),stage=document.querySelector('.
 let width=0,height=0,queued=false,manuallyPaused=false,visible=true;
 const clamp=v=>Math.max(0,Math.min(1,v));
 function render(){queued=false;const p=reduced.matches?0:clamp(-journey.getBoundingClientRect().top/Math.max(1,journey.offsetHeight-height));const sweep=clamp((p-.06)/.76),edge=width*(1-sweep);swept.setAttribute('x',edge);swept.setAttribute('width',width-edge);unswept.setAttribute('width',edge);const gray=Math.round(255-25*sweep);header.style.backgroundColor=`rgb(${gray} ${gray} ${gray})`;const fade=1-clamp(sweep*4);copy.style.opacity=fade;copy.style.visibility=fade<.02?'hidden':'visible';stage.style.setProperty('--scrim',fade.toFixed(3));document.querySelector('.hero-bottom').classList.toggle('dark',sweep>.98);}
-function resize(){width=stage.clientWidth;height=stage.clientHeight;svg.setAttribute('viewBox',`0 0 ${width} ${height}`);const logoWidth=width*.94,logoHeight=logoWidth*449/2048;document.querySelectorAll('.hero-logo').forEach(logo=>{logo.setAttribute('x',width*.03);logo.setAttribute('y',height*.52-logoHeight/2);logo.setAttribute('width',logoWidth);logo.setAttribute('height',logoHeight);});document.querySelectorAll('.canvas').forEach(r=>{r.setAttribute('width',width);r.setAttribute('height',height);});[swept,unswept].forEach(r=>r.setAttribute('height',height));const m=document.querySelector('#letter-mask');m.setAttribute('x',0);m.setAttribute('y',0);m.setAttribute('width',width);m.setAttribute('height',height);render();}
+/* Logo stoji u slobodnom prostoru između headera (i dugmeta za video na
+   telefonu) i naslova pri dnu, nikad preko teksta. Na širokim a niskim
+   ekranima ga ograničava visina, ne širina. */
+function logoBox(){const ratio=449/2048,gap=Math.max(18,height*.03);let top=header.offsetTop+header.offsetHeight+gap;const hb=document.querySelector('.hero-bottom');if(hb&&hb.offsetTop<height/2)top=Math.max(top,hb.offsetTop+hb.offsetHeight+gap);const bottom=(copy?copy.offsetTop:height)-gap*1.4;const avail=Math.max(40,bottom-top);let lw=width*.94,lh=lw*ratio;if(lh>avail){lh=avail;lw=lh/ratio;}return{lw,lh,lx:(width-lw)/2,ly:top+(avail-lh)/2};}
+function resize(){width=stage.clientWidth;height=stage.clientHeight;svg.setAttribute('viewBox',`0 0 ${width} ${height}`);const {lw:logoWidth,lh:logoHeight,lx,ly}=logoBox();document.querySelectorAll('.hero-logo').forEach(logo=>{logo.setAttribute('x',lx);logo.setAttribute('y',ly);logo.setAttribute('width',logoWidth);logo.setAttribute('height',logoHeight);});document.querySelectorAll('.canvas').forEach(r=>{r.setAttribute('width',width);r.setAttribute('height',height);});[swept,unswept].forEach(r=>r.setAttribute('height',height));const m=document.querySelector('#letter-mask');m.setAttribute('x',0);m.setAttribute('y',0);m.setAttribute('width',width);m.setAttribute('height',height);render();}
 function schedule(){if(!queued){queued=true;requestAnimationFrame(render);}}
 function label(){if(!toggle)return;toggle.textContent=video.paused?'Pokreni video ▷':'Pauziraj video Ⅱ';toggle.setAttribute('aria-label',video.paused?'Pokreni video':'Pauziraj video');}
 function playback(){if(manuallyPaused||reduced.matches||!visible||document.hidden)video.pause();else video.play().catch(label);label();}
@@ -34,3 +38,4 @@ document.addEventListener('visibilitychange',playback);reduced.addEventListener(
   },{rootMargin:'0px 0px -12% 0px'});
   blockers.forEach(b=>io.observe(b));
 })();
+document.fonts&&document.fonts.ready.then(resize);
