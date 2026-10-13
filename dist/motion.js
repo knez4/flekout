@@ -87,3 +87,12 @@
   }, { rootMargin: '0px 0px -12% 0px' });
   blockers.forEach(b => io.observe(b));
 })();
+
+/* Izbor prostora u heroju: otvara isti jezičak u "Naše usluge" i vodi tamo. */
+document.querySelectorAll('[data-go-space]').forEach(link => link.addEventListener('click', event => {
+  const tab = document.querySelector(`.space-option[data-space="${link.dataset.goSpace}"]`);
+  if (!tab) return;
+  event.preventDefault();
+  tab.click();
+  document.querySelector('#usluge').scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+}));

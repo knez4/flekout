@@ -33,7 +33,7 @@ p{text-wrap:pretty}
 .site-head{position:fixed;top:22px;left:4%;width:92%;height:73px;z-index:10;display:flex;align-items:center;justify-content:space-between;gap:20px;
   padding:0 14px 0 42px;color:var(--ink);clip-path:polygon(0 0,calc(100% - 22px) 0,100% 100%,22px 100%);
   background:transparent;transition:background-color .35s}
-.site-head.is-solid{background:rgba(236,239,241,.94);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.site-head.is-solid{background:rgba(236,239,241,.6);-webkit-backdrop-filter:blur(18px) saturate(1.4);backdrop-filter:blur(18px) saturate(1.4)}
 .brand img{display:block;width:140px;height:auto}
 .brand{transition:opacity .3s,transform .3s}
 .site-head.is-top .brand{opacity:0;transform:translateY(-6px);pointer-events:none}
@@ -52,7 +52,9 @@ nav{display:flex;align-items:center;gap:34px;font-size:14px;font-weight:600}
    učitavanju tamna ploča sa plavim sečivom obriše slova i otkrije video,
    isti potez kao u "Zašto Flekout". Naslov i poziv su ispod, tamni na belom.
    Logo je visok najviše koliko ekran dozvoljava, pa nikad ne gura tekst. */
-.hero{min-height:100svh;display:grid;grid-template-rows:1fr auto;gap:clamp(28px,5vh,64px);padding:128px 4% 40px;background:var(--paper)}
+.hero{position:relative;isolation:isolate;overflow:hidden;min-height:100svh;display:grid;grid-template-rows:1fr auto auto;gap:clamp(20px,3.4vh,40px);padding:128px 4% 40px;background:var(--paper)}
+/* tekstura: ista tehnička mreža i kose plave linije kao u "Kako radimo" */
+.hero-bg{position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:.5}
 .hero-mark{position:relative;align-self:center;justify-self:center;width:min(100%,calc((100svh - 470px) / .2192));min-width:min(100%,560px)}
 .hero-window{position:relative;overflow:hidden;aspect-ratio:2048/449;background:#33454f;
   -webkit-mask:url(logo-black.svg) center/100% 100% no-repeat;mask:url(logo-black.svg) center/100% 100% no-repeat}
@@ -66,15 +68,29 @@ nav{display:flex;align-items:center;gap:34px;font-size:14px;font-weight:600}
   transition:transform 1.5s cubic-bezier(.65,.05,.25,1) .3s}
 .hero.has-wipe .hero-plate:after{content:"";position:absolute;inset:0 0 0 5px;background:var(--night);clip-path:inherit}
 .hero.is-clean .hero-plate{transform:translateX(102%)}
-.hero-toggle{position:absolute;right:0;top:calc(100% + 12px);display:grid;place-items:center;width:40px;height:40px;padding:0;border:1px solid #d5dbde;border-radius:50%;background:#fff;color:var(--ink);transition:border-color .2s,color .2s}
+/* red ispod logotipa: brz izbor prostora (vodi na usluge) i pauza videa */
+.hero-row{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px 16px}
+.hero-spaces{display:flex;flex-wrap:wrap;gap:8px}
+.hero-space{display:inline-flex;align-items:center;gap:10px;height:44px;padding:0 18px 0 14px;border:1px solid #dfe4e7;background:rgba(255,255,255,.75);font-size:14px;font-weight:600;transition:border-color .2s,color .2s}
+.hero-space svg{width:20px;height:20px;transition:color .2s}
+.hero-space:hover{border-color:var(--ink)}
+.hero-space:hover svg{color:var(--blue-ink)}
+.hero-space:active{transform:translateY(1px)}
+.hero-toggle{display:grid;place-items:center;width:44px;height:44px;padding:0;border:1px solid #dfe4e7;background:rgba(255,255,255,.75);color:var(--ink);transition:border-color .2s}
 .hero-toggle:hover{border-color:var(--ink)}
 .hero-toggle svg{width:18px;height:18px}
 .hero-toggle .icon-play,.hero-toggle.is-paused .icon-pause{display:none}
 .hero-toggle.is-paused .icon-play{display:block}
 
-.hero-copy{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:24px clamp(32px,5vw,96px);align-items:end;padding-top:28px;border-top:1px solid #e3e7e9}
+.hero-copy{position:relative;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:24px clamp(32px,5vw,96px);align-items:end;padding-top:28px;border-top:1px solid #e3e7e9}
+/* znak na početku linije: plavi kosi rez, kao u natpisima sekcija */
+.hero-copy:before{content:"";position:absolute;top:-4px;left:0;width:22px;height:7px;background:var(--blue);transform:skewX(16.8deg);transform-origin:left}
 .hero-copy h1{margin:0;font-size:clamp(30px,3.1vw,50px);font-weight:500;line-height:1.06;letter-spacing:-.045em;max-width:21ch}
-.hero-side p{margin:0 0 22px;font-size:17px;line-height:1.6;color:var(--muted);max-width:40ch}
+.hero-side p{margin:0 0 14px;font-size:17px;line-height:1.6;color:var(--muted);max-width:40ch}
+.hero-side .hero-price{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 14px;margin:0 0 24px;padding:12px 0 0;border-top:1px dashed #d5dbde;max-width:40ch}
+.hero-price span{font-size:14px;color:var(--muted)}
+.hero-price strong{font-size:22px;font-weight:600;letter-spacing:-.02em;color:var(--ink);font-variant-numeric:tabular-nums}
+.hero-price small{font-size:14px;font-weight:500;color:var(--muted)}
 .hero-actions{display:flex;flex-wrap:wrap;align-items:center;gap:14px 28px}
 .hero-cta{position:relative;isolation:isolate;display:inline-flex;align-items:center;gap:30px;min-height:52px;padding:14px 32px;color:#fff;font-size:15px;font-weight:600;transition:transform .2s}
 .hero-cta:before{content:"";position:absolute;inset:0;z-index:-1;background:var(--blue-ink);transition:background .2s;
@@ -98,9 +114,14 @@ nav{display:flex;align-items:center;gap:34px;font-size:14px;font-weight:600}
   nav{gap:16px}
   .nav-cta{height:42px;padding:0 20px;font-size:13px;margin-left:0}
   .nav-cta:before{clip-path:polygon(0 0,calc(100% - 12px) 0,100% 100%,12px 100%)}
-  .hero{min-height:0;grid-template-rows:auto auto;padding:104px 6vw 40px;gap:52px}
+  .hero{min-height:0;grid-template-rows:auto auto auto;padding:104px 6vw 40px;gap:26px}
   .hero-mark{min-width:0;width:100%}
-  .hero-toggle{top:calc(100% + 8px);width:36px;height:36px}
+  /* telefon: tri prostora i pauza u jednom redu, ikonica iznad naziva */
+  .hero-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr)) 44px;gap:6px;align-items:stretch}
+  .hero-spaces{display:contents}
+  .hero-space{flex-direction:column;justify-content:center;gap:4px;height:auto;min-height:58px;padding:8px 4px;font-size:12.5px;text-align:center}
+  .hero-space svg{width:20px;height:20px}
+  .hero-toggle{width:44px;height:auto}
   .hero-copy{padding-top:22px}
   .hero-copy h1{font-size:clamp(28px,8vw,34px)}
   .hero-side p{font-size:15px;margin-bottom:18px}
