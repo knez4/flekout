@@ -175,16 +175,19 @@
 .is-compact .rail-step{padding:8px 0}
 
 @media(max-width:800px){
-.services.services-rail{--tab-h:62px}
-.services-rail.is-tight{--tab-h:56px}
-.services-rail.is-compact{--tab-h:50px}
+.services.services-rail{--tab-h:50px}
+.services-rail.is-tight{--tab-h:46px}
+.services-rail.is-compact{--tab-h:42px}
 .rail-intro{padding:44px 6vw 0}
 .rail-sticky{padding:16px 6vw 40px}
 .rail-heading{display:block}
 .services-rail .rail-heading h2{font-size:clamp(30px,6.6vw,46px)}
-.space-options{gap:8px}
-.space-option{padding:11px 8px 11px calc(var(--tab-cut) + 10px);gap:8px}
-.space-option strong{font-size:13px;letter-spacing:-.02em;line-height:1.25}
+/* telefon: tri jednaka jezička, natpis centriran u vidljivom delu ploče
+   (između dve kose ivice), isti raspored za aktivan i neaktivan */
+.space-options{gap:6px;align-items:end}
+.space-option,.is-tight .space-option,.is-compact .space-option{display:flex;align-items:center;justify-content:center;margin-bottom:6px;padding:0 calc(var(--tab-cut) / 2 + 4px)}
+.space-option[aria-pressed=true]{--h:calc(var(--tab-h) + 6px);margin-bottom:0;padding-bottom:6px}
+.space-option strong,.is-compact .space-option strong{align-self:center;font-size:14px;font-weight:600;letter-spacing:-.01em;line-height:1.2;text-align:center;white-space:nowrap}
 .space-option .long{display:none}
 .space-option .short{display:inline}
 .is-cinematic .rail-window{margin-right:-6vw}
@@ -193,7 +196,7 @@
 .rail-card h3{font-size:clamp(26px,5.6vw,38px);max-width:none;margin:12px 0 10px}
 .rail-card p{font-size:15.5px;max-width:none}
 .rail-card .rail-surfaces{margin-top:12px;font-size:12.5px}
-.rail-card-figure{height:clamp(120px,var(--card-h),200px);margin-right:0}
+.rail-card-figure{height:clamp(120px,var(--card-h),300px);margin-right:0}
 .rail-card-figure{grid-column:1;grid-row:2}
 .rail-price{margin-top:14px;padding-top:12px;max-width:none}
 .rail-price-value{font-size:20px}

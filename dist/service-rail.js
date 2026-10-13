@@ -455,7 +455,8 @@
       section.style.removeProperty('--card-h');
     } else {
       const free = innerHeight - headerSpace - sticky.offsetHeight;
-      offsetTop = headerSpace + Math.max(0, Math.round(free / 2) - 4);
+      /* na telefonu blok stoji odmah ispod headera; centriranje bi ostavilo rupu */
+      offsetTop = innerWidth <= 800 ? headerSpace : headerSpace + Math.max(0, Math.round(free / 2) - 4);
       section.style.setProperty('--rail-top', offsetTop + 'px');
     }
 

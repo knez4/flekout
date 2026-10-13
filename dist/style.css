@@ -101,7 +101,7 @@ nav{display:flex;align-items:center;gap:34px;font-size:14px;font-weight:600}
   .nav-cta{height:42px;padding:0 20px;font-size:13px;margin-left:0}
   .nav-cta:before{clip-path:polygon(0 0,calc(100% - 12px) 0,100% 100%,12px 100%)}
 }
-@media(max-width:370px){.nav-mid{display:none}}
+@media(max-width:650px){.nav-mid{display:none}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important}.hero .hero-frame,.hero .hero-blade,.hero .hero-frame video{transform:none!important}}
 
 /* --- plutajuće "Pozovi" na telefonu ---------------------------------------

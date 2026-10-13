@@ -27,7 +27,8 @@ dist/            sajt koji se servira
   services.js      detaljan katalog usluga (postupak, površine, oprema)
                    NIJE učitan u trenutnoj verziji, čuva se za sledeću fazu
   *.jpg / *.mp4    fotografije i video (privremeni, vidi "Otvoreno");
-                   video je 720p bez zvuka, ~1.1 MB
+                   hero-1080.mp4 (računar, ~4.3 MB) i hero-720.mp4 (telefon,
+                   ~2.2 MB), oba bez zvuka; pregledač bira preko <source media>
   logo-*.svg       logotip (vektor, trasiran iz PNG-a; original za štampu tražiti od dizajnera)
   fonts/           Manrope, varijabilni, lokalno (SIL OFL)
   *-800/1400.webp  fotografije usluga za srcset (telefon / računar)
@@ -173,6 +174,9 @@ cene određuje polje `prices` u `GROUPS`.
   posle Usluga. Recenzije se NE izmišljaju.
 - **Persiranje "ti" ili "vi".** Sajt je na "ti"; za zgrade i firme možda bolje
   "vi". Odluka klijenta.
+- **Hero video** je i dalje isti stock snimak, sada u punoj 1080p rezoluciji.
+  Kvalitetniji besplatan snimak (Pexels, Pixabay, Mixkit) nije mogao da se
+  preuzme jer okruženje blokira te domene; može ručno, ili pravi snimak sa terena.
 - **Hero video i fotografije usluga** su generičke (video pokazuje ručno
   brisanje, a firma radi mašinski). Jedan dan snimanja na terenu.
 - **Politika privatnosti** (`dist/politika-privatnosti.html`) je nacrt: treba
