@@ -16,8 +16,8 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preload" href="fonts/manrope-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/manrope-latin-ext-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="style.css?v=20261013e"><link rel="stylesheet" href="service-rail.css?v=20261013e"><link rel="stylesheet" href="why.css?v=20261013e"><link rel="stylesheet" href="process.css?v=20261013e"><link rel="stylesheet" href="contact.css?v=20261013e"><link rel="stylesheet" href="footer.css?v=20261013e">
-<script src="motion.js?v=20261013e" defer></script>
+<link rel="stylesheet" href="style.css?v=20261013g"><link rel="stylesheet" href="service-rail.css?v=20261013g"><link rel="stylesheet" href="why.css?v=20261013g"><link rel="stylesheet" href="process.css?v=20261013g"><link rel="stylesheet" href="contact.css?v=20261013g"><link rel="stylesheet" href="footer.css?v=20261013g">
+<script src="motion.js?v=20261013g" defer></script>
 <!-- Cene se menjaju na DVA mesta: ovde i u PRICES na vrhu service-rail.js.
      Kontakt podaci (telefon, mejl, adresa, radno vreme) su PRIVREMENI i stoje
      ovde, u headeru i u futeru — svuda sa atributom data-placeholder. -->
@@ -46,29 +46,15 @@
 </header>
 <main>
 <section class="hero" id="pocetak" aria-labelledby="hero-title">
-<div class="hero-bg" aria-hidden="true"><div class="process-grid"></div><div class="process-cuts"></div></div>
-<div class="hero-mark">
-<div class="hero-window">
-<video id="cleaning-video" autoplay muted loop playsinline preload="auto" poster="cleaning-poster.webp" aria-hidden="true"><source src="cleaning-preview.mp4" type="video/mp4"></video>
-<span class="hero-plate" aria-hidden="true"></span>
+<div class="hero-text">
+<h1 id="hero-title"><span class="hero-line">Bez</span> <span class="hero-line">fleke.</span><span class="sr-only"> Mašinsko pranje i dubinsko čišćenje u Beogradu.</span></h1>
+<p class="hero-lead">Mašinsko pranje i dubinsko čišćenje stanova, zgrada i kancelarija u Beogradu.</p>
+<div class="hero-actions"><a href="#kontakt" class="hero-cta">Zatraži procenu <span aria-hidden="true">↗</span></a><a href="#usluge" class="hero-link" data-open-prices>Cene od 250 din</a></div>
 </div>
-<span class="sr-only">Flekout</span>
-</div>
-<div class="hero-row">
-<div class="hero-spaces" role="group" aria-label="Izaberi prostor">
-<a href="#usluge" class="hero-space" data-go-space="dom"><svg xmlns="http://www.w3.org/2000/svg" class="" width="24" height="24" aria-hidden="true" focusable="false" viewBox="0 0 256 256" fill="currentColor"><path d="M240,210H222V131.17l5.76,5.76a6,6,0,0,0,8.48-8.49L137.9,30.09a14,14,0,0,0-19.8,0L19.76,128.44a6,6,0,0,0,8.48,8.49L34,131.17V210H16a6,6,0,0,0,0,12H240a6,6,0,0,0,0-12ZM46,119.17l80.58-80.59a2,2,0,0,1,2.84,0L210,119.17V210H158V152a6,6,0,0,0-6-6H104a6,6,0,0,0-6,6v58H46ZM146,210H110V158h36Z"/></svg><span>Kuća / stan</span></a>
-<a href="#usluge" class="hero-space" data-go-space="zgrade"><svg xmlns="http://www.w3.org/2000/svg" class="" width="24" height="24" aria-hidden="true" focusable="false" viewBox="0 0 256 256" fill="currentColor"><path d="M240,210H222V96a14,14,0,0,0-14-14H142V32a14,14,0,0,0-21.77-11.64l-80,53.33A14,14,0,0,0,34,85.34V210H16a6,6,0,0,0,0,12H240a6,6,0,0,0,0-12ZM208,94a2,2,0,0,1,2,2V210H142V94ZM46,85.34a2,2,0,0,1,.89-1.66l80-53.34A2,2,0,0,1,130,32V210H46ZM110,112v16a6,6,0,0,1-12,0V112a6,6,0,0,1,12,0Zm-32,0v16a6,6,0,0,1-12,0V112a6,6,0,0,1,12,0Zm0,56v16a6,6,0,0,1-12,0V168a6,6,0,0,1,12,0Zm32,0v16a6,6,0,0,1-12,0V168a6,6,0,0,1,12,0Z"/></svg><span>Zgrada</span></a>
-<a href="#usluge" class="hero-space" data-go-space="posao"><svg xmlns="http://www.w3.org/2000/svg" class="" width="24" height="24" aria-hidden="true" focusable="false" viewBox="0 0 256 256" fill="currentColor"><path d="M106,112a6,6,0,0,1,6-6h32a6,6,0,0,1,0,12H112A6,6,0,0,1,106,112ZM230,72V200a14,14,0,0,1-14,14H40a14,14,0,0,1-14-14V72A14,14,0,0,1,40,58H82V48a22,22,0,0,1,22-22h48a22,22,0,0,1,22,22V58h42A14,14,0,0,1,230,72ZM94,58h68V48a10,10,0,0,0-10-10H104A10,10,0,0,0,94,48ZM38,72v42.79A186,186,0,0,0,128,138a185.91,185.91,0,0,0,90-23.22V72a2,2,0,0,0-2-2H40A2,2,0,0,0,38,72ZM218,200V128.37A198.12,198.12,0,0,1,128,150a198.05,198.05,0,0,1-90-21.62V200a2,2,0,0,0,2,2H216A2,2,0,0,0,218,200Z"/></svg><span>Kancelarija</span></a>
-</div>
+<div class="hero-media">
+<div class="hero-frame"><video id="cleaning-video" autoplay muted loop playsinline preload="auto" poster="cleaning-poster.webp" aria-hidden="true"><source src="cleaning-preview.mp4" type="video/mp4"></video></div>
+<span class="hero-blade" aria-hidden="true"></span>
 <button type="button" id="video-toggle" class="hero-toggle" aria-label="Pauziraj video"><svg xmlns="http://www.w3.org/2000/svg" class="icon-pause" width="24" height="24" aria-hidden="true" focusable="false" viewBox="0 0 256 256" fill="currentColor"><path d="M200,34H160a14,14,0,0,0-14,14V208a14,14,0,0,0,14,14h40a14,14,0,0,0,14-14V48A14,14,0,0,0,200,34Zm2,174a2,2,0,0,1-2,2H160a2,2,0,0,1-2-2V48a2,2,0,0,1,2-2h40a2,2,0,0,1,2,2ZM96,34H56A14,14,0,0,0,42,48V208a14,14,0,0,0,14,14H96a14,14,0,0,0,14-14V48A14,14,0,0,0,96,34Zm2,174a2,2,0,0,1-2,2H56a2,2,0,0,1-2-2V48a2,2,0,0,1,2-2H96a2,2,0,0,1,2,2Z"/></svg><svg xmlns="http://www.w3.org/2000/svg" class="icon-play" width="24" height="24" aria-hidden="true" focusable="false" viewBox="0 0 256 256" fill="currentColor"><path d="M231.36,116.19,87.28,28.06a14,14,0,0,0-14.18-.27A13.69,13.69,0,0,0,66,39.87V216.13a13.69,13.69,0,0,0,7.1,12.08,14,14,0,0,0,14.18-.27l144.08-88.13a13.82,13.82,0,0,0,0-23.62Zm-6.26,13.38L81,217.7a2,2,0,0,1-2.06,0,1.78,1.78,0,0,1-1-1.61V39.87a1.78,1.78,0,0,1,1-1.61A2.06,2.06,0,0,1,80,38a2,2,0,0,1,1,.31L225.1,126.43a1.82,1.82,0,0,1,0,3.14Z"/></svg></button>
-</div>
-<div class="hero-copy">
-<h1 id="hero-title">Mašinsko pranje i dubinsko čišćenje u Beogradu.</h1>
-<div class="hero-side">
-<p>Stanovi, zgrade i kancelarije. Na procenu dolazimo u roku od 48 sati.</p>
-<p class="hero-price"><span>Dubinsko pranje nameštaja</span><strong><small>od</small> 250 din</strong></p>
-<div class="hero-actions"><a href="#kontakt" class="hero-cta">Zatraži procenu <span aria-hidden="true">↗</span></a><a href="#usluge" class="hero-link" data-open-prices>Pogledaj cene</a></div>
-</div>
 </div>
 </section>
 <section class="services services-rail" id="usluge" aria-labelledby="services-title">
@@ -172,8 +158,8 @@
  </div>
 </footer>
 
-<script src="service-rail.js?v=20261013e"></script>
-<script src="why.js?v=20261013e"></script>
-<script src="process.js?v=20261013e"></script>
-<script src="contact.js?v=20261013e"></script>
+<script src="service-rail.js?v=20261013g"></script>
+<script src="why.js?v=20261013g"></script>
+<script src="process.js?v=20261013g"></script>
+<script src="contact.js?v=20261013g"></script>
 </body></html>

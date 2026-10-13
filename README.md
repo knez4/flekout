@@ -143,12 +143,11 @@ horizontalnu listu sa snap-om.
 
 ## Hero
 
-Beo i miran. Video se vidi samo kroz slova FLEKOUT (CSS maska `logo-black.svg`),
-a pri učitavanju tamna ploča sa plavim sečivom obriše slova (isti potez kao u
-"Zašto Flekout"). Ispod je naslov levo i opis sa dugmetom desno, na hairline
-liniji. Visinu logotipa ograničava visina ekrana, pa nikad ne gura tekst.
-Header je na vrhu providan i bez logotipa (logo je hero); posle skrola dobija
-sivu podlogu i logo. Glavni poziv u navigaciji je dugme "Zatraži procenu".
+Jedna poruka, jedna akcija. Levo na belom: veliki naslov "Bez fleke.", jedan
+red o usluzi, dugme "Zatraži procenu" i link "Cene od 250 din". Desno: video u
+visokom kadru čija leva ivica ide pod 16.8°, sa plavim sečivom duž ivice. Pri
+učitavanju kadar uđe zdesna. Nema teksta preko videa, logo je samo u headeru.
+Header je uvek providan sa zamućenjem (backdrop-filter).
 
 ## Cene u sekciji "Naše usluge"
 

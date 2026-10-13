@@ -1,37 +1,44 @@
 /* ============================================================================
    FLEKOUT — hero, header, navigacija, plutajuće "Pozovi"
 
-   Hero: video se vidi kroz slova (CSS maska). Pri učitavanju ploča obriše
-   slova (klasa .is-clean); bez JS-a ili uz smanjeno kretanje ploče nema i
-   video se vidi odmah. Video se pauzira van ekrana i u pozadinskom tabu.
+   Hero: video u kadru sa kosom levom ivicom (16.8°). Pri učitavanju kadar
+   uđe zdesna (klasa .is-clean); bez JS-a ili uz smanjeno kretanje stoji odmah.
+   Video se pauzira van ekrana i u pozadinskom tabu.
 ============================================================================ */
 (() => {
   const hero = document.querySelector('.hero');
-  const mark = document.querySelector('.hero-mark');
+  const media = document.querySelector('.hero-media');
   const head = document.querySelector('.site-head');
   const video = document.querySelector('#cleaning-video');
   const toggle = document.querySelector('#video-toggle');
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   if (!hero || !video) return;
 
-  /* --- brisanje pri učitavanju --- */
+  /* kosa ivica kadra: pomeraj = visina × .3014, pa je ugao uvek 16.8° */
+  const measure = () => hero.style.setProperty('--cut', Math.round(media.offsetHeight * .3014) + 'px');
+  new ResizeObserver(measure).observe(media);
+  measure();
+
+  /* --- brisanje pri učitavanju: kadar uđe zdesna --- */
   if (!reduced.matches) {
     hero.classList.add('has-wipe');
-    const clean = () => requestAnimationFrame(() => requestAnimationFrame(() => hero.classList.add('is-clean')));
-    /* sačekaj prvi kadar videa da se ne otkrije prazno, ali najduže 1.2 s */
     let done = false;
-    const go = () => { if (!done) { done = true; clean(); } };
+    const go = () => {
+      if (done) return;
+      done = true;
+      requestAnimationFrame(() => requestAnimationFrame(() => hero.classList.add('is-clean')));
+    };
+    /* sačekaj prvi kadar videa da se ne otkrije prazno, ali najduže 1 s */
     if (video.readyState >= 2) go(); else video.addEventListener('loadeddata', go, { once: true });
-    setTimeout(go, 1200);
+    setTimeout(go, 1000);
   }
 
   /* --- video: pauza, vidljivost, smanjeno kretanje --- */
   let manuallyPaused = false, visible = true;
   function label() {
     if (!toggle) return;
-    const paused = video.paused;
-    toggle.classList.toggle('is-paused', paused);
-    toggle.setAttribute('aria-label', paused ? 'Pokreni video' : 'Pauziraj video');
+    toggle.classList.toggle('is-paused', video.paused);
+    toggle.setAttribute('aria-label', video.paused ? 'Pokreni video' : 'Pauziraj video');
   }
   function playback() {
     if (manuallyPaused || reduced.matches || !visible || document.hidden) video.pause();
@@ -47,14 +54,9 @@
   video.addEventListener('error', () => { if (toggle) toggle.hidden = true; });
   document.addEventListener('visibilitychange', playback);
   reduced.addEventListener('change', playback);
+  new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; playback(); }).observe(hero);
 
-  /* --- header: bez logotipa dok je hero logo u kadru, podloga posle vrha --- */
-  new IntersectionObserver(([entry]) => {
-    visible = entry.isIntersecting;
-    head?.classList.toggle('is-top', entry.isIntersecting);
-    playback();
-  }, { rootMargin: '-80px 0px 0px 0px' }).observe(mark || hero);
-
+  /* --- header: malo gušća podloga kad se skroluje --- */
   const solid = () => head?.classList.toggle('is-solid', scrollY > 12);
   addEventListener('scroll', solid, { passive: true });
   solid();
