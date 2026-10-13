@@ -1,8 +1,9 @@
 /* ============================================================================
    FLEKOUT — hero, header, navigacija, plutajuće "Pozovi"
 
-   Hero: video u kadru sa kosom levom ivicom (16.8°). Pri učitavanju kadar
-   uđe zdesna (klasa .is-clean); bez JS-a ili uz smanjeno kretanje stoji odmah.
+   Hero: video u kadru sa kosom levom ivicom (16.8°). Pri učitavanju se kadar
+   otvara zdesna nalevo (klasa .is-clean); bez JS-a ili uz smanjeno kretanje
+   stoji otvoren odmah.
    Video se pauzira van ekrana i u pozadinskom tabu.
 ============================================================================ */
 (() => {
@@ -19,7 +20,7 @@
   new ResizeObserver(measure).observe(media);
   measure();
 
-  /* --- brisanje pri učitavanju: kadar uđe zdesna --- */
+  /* --- otvaranje pri učitavanju: kadar se otvara zdesna, ništa ne klizi --- */
   if (!reduced.matches) {
     hero.classList.add('has-wipe');
     let done = false;
@@ -30,7 +31,7 @@
     };
     /* sačekaj prvi kadar videa da se ne otkrije prazno, ali najduže 1 s */
     if (video.readyState >= 2) go(); else video.addEventListener('loadeddata', go, { once: true });
-    setTimeout(go, 1000);
+    setTimeout(go, 500);
   }
 
   /* --- video: pauza, vidljivost, smanjeno kretanje --- */

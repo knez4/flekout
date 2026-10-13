@@ -67,15 +67,22 @@ nav{display:flex;align-items:center;gap:34px;font-size:14px;font-weight:600}
 
 /* kadar ide od vrha do dna i do desne ivice; levo je kos */
 .hero-media{position:relative;margin-left:calc(-1 * var(--cut) * .55)}
-.hero-frame,.hero-blade{position:absolute;inset:0;clip-path:polygon(var(--cut) 0,100% 0,100% 100%,0 100%)}
+.hero-frame,.hero-blade{position:absolute;inset:0}
+/* --open: koliko je kadar još zatvoren (100% = zatvoren, 0% = otvoren).
+   Kosa ivica i sečivo se pomeraju zajedno; video stoji u mestu. */
+@property --open{syntax:"<percentage>";inherits:true;initial-value:0%}
+.hero-frame{clip-path:polygon(calc(var(--cut) + var(--open)) 0,100% 0,100% 100%,var(--open) 100%)}
 .hero-frame{overflow:hidden;background:#33454f}
 .hero-frame video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 /* sečivo: 5px plave duž kose ivice */
-.hero-blade{background:var(--blue);clip-path:polygon(var(--cut) 0,calc(var(--cut) + 5px) 0,5px 100%,0 100%);pointer-events:none}
-/* brisanje pri učitavanju: kadar uđe zdesna, video stoji u mestu */
-.hero.has-wipe .hero-frame,.hero.has-wipe .hero-blade{transform:translateX(102%);transition:transform 1.4s cubic-bezier(.7,0,.2,1) .15s}
-.hero.has-wipe .hero-frame video{transform:translateX(-102%);transition:transform 1.4s cubic-bezier(.7,0,.2,1) .15s}
-.hero.is-clean .hero-frame,.hero.is-clean .hero-blade,.hero.is-clean .hero-frame video{transform:none}
+.hero-blade{background:var(--blue);pointer-events:none;
+  clip-path:polygon(calc(var(--cut) + var(--open)) 0,calc(var(--cut) + var(--open) + 5px) 0,calc(var(--open) + 5px) 100%,var(--open) 100%)}
+/* otvaranje pri učitavanju: sečivo pređe zdesna nalevo pod 16.8° i za sobom
+   otvori video. Video i kadar se ne pomeraju. */
+.hero.has-wipe{--open:100%}
+.hero.has-wipe.is-clean{--open:0%;transition:--open 1.4s cubic-bezier(.65,0,.25,1) .1s}
+.hero.has-wipe .hero-toggle{opacity:0;transition:opacity .4s ease 1.3s}
+.hero.has-wipe.is-clean .hero-toggle{opacity:1}
 .hero-toggle{position:absolute;right:4%;bottom:clamp(28px,5vh,48px);z-index:2;display:grid;place-items:center;width:44px;height:44px;padding:0;border:1px solid rgba(255,255,255,.7);background:rgba(23,37,46,.28);color:#fff;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);transition:background .2s}
 .hero-toggle:hover{background:rgba(23,37,46,.5)}
 .hero-toggle svg{width:18px;height:18px}
@@ -86,13 +93,17 @@ nav{display:flex;align-items:center;gap:34px;font-size:14px;font-weight:600}
 
 @media(max-width:1000px){.nav-wide{display:none}}
 @media(max-width:800px){
-  /* telefon: kadar gore (kosa leva ivica ostaje), tekst ispod */
-  .hero{grid-template-columns:1fr;grid-template-rows:auto auto;height:auto;min-height:0;max-height:none}
-  .hero-media{order:-1;height:58svh;min-height:340px;margin-left:0}
-  .hero-text{align-self:start;padding:30px 6vw 48px calc(4vw + 22px)}
-  .hero h1{font-size:clamp(60px,19vw,96px)}
-  .hero-lead{font-size:16px;margin:18px 0 24px}
-  .hero-toggle{right:6vw;bottom:16px;width:40px;height:40px}
+  /* telefon: isti redosled čitanja kao na računaru. Gore naslov i poziv
+     (vidljivi bez skrolovanja), ispod kadar uz desnu ivicu sa kosom levom
+     ivicom, kao "desna kolona" spuštena ispod teksta. Header nikad preko videa. */
+  .hero{grid-template-columns:1fr;grid-template-rows:auto auto;height:auto;min-height:0;max-height:none;padding-bottom:28px}
+  .hero-text{align-self:start;padding:112px 6vw 30px calc(4vw + 22px)}
+  .hero h1{font-size:clamp(64px,20vw,104px);line-height:.88}
+  .hero-lead{font-size:16px;margin:18px 0 22px;max-width:30ch}
+  .hero-actions{gap:10px 22px}
+  .hero-cta{min-height:50px;padding:12px 28px}
+  .hero-media{height:clamp(280px,46svh,440px);margin-left:12vw}
+  .hero-toggle{right:6vw;bottom:14px;width:40px;height:40px}
 }
 @media(max-width:650px){
   .site-head{top:14px;height:62px;padding:0 8px 0 22px;clip-path:polygon(0 0,calc(100% - 18px) 0,100% 100%,18px 100%)}
@@ -102,7 +113,7 @@ nav{display:flex;align-items:center;gap:34px;font-size:14px;font-weight:600}
   .nav-cta:before{clip-path:polygon(0 0,calc(100% - 12px) 0,100% 100%,12px 100%)}
 }
 @media(max-width:650px){.nav-mid{display:none}}
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important}.hero .hero-frame,.hero .hero-blade,.hero .hero-frame video{transform:none!important}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important}.hero{--open:0%!important}}
 
 /* --- plutajuće "Pozovi" na telefonu ---------------------------------------
    Telefon je glavni kanal za ovu vrstu usluge. Dugme se pojavi kad hero ode
