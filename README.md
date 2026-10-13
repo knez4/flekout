@@ -14,7 +14,7 @@ dist/            sajt koji se servira
   index.html       jedan dokument, sve sekcije
   style.css        osnova: tokeni boja, header, hero
   service-rail.css stilovi sekcije "Naše usluge"
-  motion.js        hero — maska logotipa preko videa, dugme za pauzu; aktivni link u navigaciji
+  motion.js        hero (video kroz slova, brisanje pri učitavanju, pauza), header, aktivni link, "Pozovi"
   service-rail.js  sekcija "Naše usluge" — traka podtipova, sadržaj i mehanika
   why.css          sekcija "Zašto Flekout"
   why.js           sekcija "Zašto Flekout" — otkrivanje redova brisanjem
@@ -140,6 +140,15 @@ Sekcija se sama meri i, ako sadržaj ne staje u ekran, prvo stisne tipografiju
 horizontalnu listu sa snap-om.
 
 ---
+
+## Hero
+
+Beo i miran. Video se vidi samo kroz slova FLEKOUT (CSS maska `logo-black.svg`),
+a pri učitavanju tamna ploča sa plavim sečivom obriše slova (isti potez kao u
+"Zašto Flekout"). Ispod je naslov levo i opis sa dugmetom desno, na hairline
+liniji. Visinu logotipa ograničava visina ekrana, pa nikad ne gura tekst.
+Header je na vrhu providan i bez logotipa (logo je hero); posle skrola dobija
+sivu podlogu i logo. Glavni poziv u navigaciji je dugme "Zatraži procenu".
 
 ## Cene u sekciji "Naše usluge"
 
