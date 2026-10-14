@@ -32,7 +32,7 @@
       ],
       tools: 'Podoperač sa rotacionom četkom i usisom vode · pH‑neutralni preparati',
       meta: { trajanje: 'od 2 h', minimum: 'od 30 m²', procena: 'besplatna' },
-      image: 'service-floors.jpg',
+      image: 'service-office-floors.jpg',
       alt: 'Mašinsko čišćenje poda u svetloj kancelariji'
     },
     {
@@ -50,7 +50,7 @@
       ],
       tools: 'Mašina za dubinsku ekstrakciju · preparati bezbedni za tekstil i decu',
       meta: { trajanje: 'od 1.5 h', minimum: 'od 1 komada', procena: 'besplatna' },
-      image: 'service-furniture.jpg',
+      image: 'service-home-deep.jpg',
       alt: 'Dubinsko pranje tapaciranog nameštaja'
     },
     {
@@ -68,7 +68,7 @@
       ],
       tools: 'Ekstrakciona mašina · antibakterijski tretman po dogovoru',
       meta: { trajanje: 'od 1 h', minimum: 'od 1 komada', procena: 'besplatna' },
-      image: 'service-furniture.jpg',
+      image: 'service-home-deep.jpg',
       alt: 'Dubinsko pranje dušeka'
     },
     {
@@ -86,7 +86,7 @@
       ],
       tools: 'Teleskopski sistem sa demineralizovanom vodom · profesionalni brisači',
       meta: { trajanje: 'od 1 h', minimum: 'od 5 prozora', procena: 'besplatna' },
-      image: 'service-glass.jpg',
+      image: 'service-home-windows.jpg',
       alt: 'Čišćenje staklene pregrade'
     },
     {
@@ -104,7 +104,7 @@
       ],
       tools: 'Industrijski usisivači · podoperač · rastvarači za građevinske naslage',
       meta: { trajanje: 'od 4 h', minimum: 'po prostoru', procena: 'besplatna' },
-      image: 'service-space.jpg',
+      image: 'service-home-general.jpg',
       alt: 'Prostor posle građevinskog čišćenja'
     },
     {
@@ -122,7 +122,7 @@
       ],
       tools: 'Ekstrakciona mašina · tretman ozonom po dogovoru',
       meta: { trajanje: 'od 2 h', minimum: 'po vozilu', procena: 'besplatna' },
-      image: 'service-furniture.jpg',
+      image: 'service-home-deep.jpg',
       alt: 'Dubinsko pranje enterijera vozila'
     },
     {
@@ -140,7 +140,7 @@
       ],
       tools: 'Profesionalna hemija · mikrofiber sistem · podoperač po potrebi',
       meta: { trajanje: 'od 3 h', minimum: 'po prostoru', procena: 'besplatna' },
-      image: 'service-space.jpg',
+      image: 'service-home-general.jpg',
       alt: 'Uredan stan u neutralnim tonovima'
     },
     {
@@ -158,7 +158,7 @@
       ],
       tools: 'Podoperač · mašina za pranje stepeništa · industrijski usisivači',
       meta: { trajanje: 'od 3 h', minimum: 'po objektu', procena: 'besplatna' },
-      image: 'service-floors.jpg',
+      image: 'service-building-common.jpg',
       alt: 'Čišćenje zajedničkog hodnika u zgradi'
     },
     {
@@ -176,7 +176,7 @@
       ],
       tools: 'Profesionalni perač pod pritiskom · rotacione dizne',
       meta: { trajanje: 'od 4 h', minimum: 'po objektu', procena: 'besplatna' },
-      image: 'service-glass.jpg',
+      image: 'service-building-glass.jpg',
       alt: 'Pranje spoljne površine pod pritiskom'
     },
     {
@@ -194,7 +194,7 @@
       ],
       tools: 'Oprema ostaje na lokaciji po dogovoru · mesečni izveštaj',
       meta: { trajanje: 'po planu', minimum: 'ugovor od 1 meseca', procena: 'besplatna' },
-      image: 'service-space.jpg',
+      image: 'service-office-cleaning.jpg',
       alt: 'Održavana kancelarija u neutralnim tonovima'
     }
   ];

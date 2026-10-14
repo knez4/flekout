@@ -48,29 +48,29 @@
           text: 'Nameštaj, dušeci, tepisi i druge meke podloge.',
           surfaces: 'Nameštaj / Dušeci / Tepisi',
           prices: ['furnitureHome', 'mattresses'],
-          image: 'service-furniture.jpg',
-          alt: 'Dubinsko pranje tapaciranog nameštaja'
+          image: 'service-home-deep.jpg',
+          alt: 'Usisivač za dubinsko čišćenje na tepihu'
         },
         {
           title: 'Mašinsko pranje podova',
           text: 'Čišćenje tvrdih podnih površina, uz postupak prilagođen materijalu.',
           surfaces: 'Tvrde podne površine',
-          image: 'service-floors.jpg',
-          alt: 'Mašinsko pranje tvrdog poda'
+          image: 'service-home-floors.jpg',
+          alt: 'Pranje drvenog poda u stanu'
         },
         {
           title: 'Pranje prozora i stakla',
           text: 'Pranje prozora, staklenih pregrada i drugih staklenih površina u domu.',
           surfaces: 'Prozori / Pregrade / Staklo',
-          image: 'service-glass.jpg',
-          alt: 'Pranje staklene površine'
+          image: 'service-home-windows.jpg',
+          alt: 'Pranje prozora u stanu'
         },
         {
           title: 'Generalno čišćenje',
           text: 'Kompletno čišćenje doma, prema dogovorenom obimu.',
           surfaces: 'Kuhinja / Kupatilo / Prostorije',
-          image: 'service-space.jpg',
-          alt: 'Uredan prostor posle generalnog čišćenja'
+          image: 'service-home-general.jpg',
+          alt: 'Čišćenje lavaboa u kupatilu'
         }
       ]
     },
@@ -81,29 +81,29 @@
           title: 'Čišćenje ulaza i stepeništa',
           text: 'Čišćenje hodnika, stepenica, rukohvata i zajedničkih prostora.',
           surfaces: 'Ulazi / Hodnici / Stepeništa',
-          image: 'service-space.jpg',
-          alt: 'Čist zajednički prostor u zgradi'
+          image: 'service-building-stairs.jpg',
+          alt: 'Stepenište u zgradi'
         },
         {
           title: 'Mašinsko pranje podova i garaža',
           text: 'Mašinsko čišćenje većih tvrdih površina u objektu.',
           surfaces: 'Podovi / Garaže',
-          image: 'service-floors.jpg',
-          alt: 'Mašinsko pranje velike podne površine'
+          image: 'service-building-garage.jpg',
+          alt: 'Čista podzemna garaža'
         },
         {
           title: 'Pranje staklenih površina',
           text: 'Pranje staklenih ulaznih vrata, prozora i pregrada.',
           surfaces: 'Ulazna vrata / Prozori / Pregrade',
-          image: 'service-glass.jpg',
-          alt: 'Pranje staklenih ulaznih vrata'
+          image: 'service-building-glass.jpg',
+          alt: 'Staklena ulazna vrata'
         },
         {
           title: 'Održavanje zajedničkih prostora',
           text: 'Redovno čišćenje po dogovorenom rasporedu i obimu rada.',
           surfaces: 'Zajednički prostori / Redovno održavanje',
-          image: 'service-furniture.jpg',
-          alt: 'Održavanje zajedničkog prostora'
+          image: 'service-building-common.jpg',
+          alt: 'Kolica za čišćenje u hodniku'
         }
       ]
     },
@@ -114,30 +114,30 @@
           title: 'Čišćenje kancelarija',
           text: 'Čišćenje radnih i zajedničkih prostorija poslovnog prostora.',
           surfaces: 'Kancelarije / Zajedničke prostorije',
-          image: 'service-space.jpg',
-          alt: 'Uredna kancelarija'
+          image: 'service-office-cleaning.jpg',
+          alt: 'Čistačica briše prašinu u kancelariji'
         },
         {
           title: 'Dubinsko pranje nameštaja i tepiha',
           text: 'Dubinsko pranje kancelarijskih stolica, garnitura, tepiha i itisona.',
           surfaces: 'Stolice / Garniture / Tepisi / Itisoni',
           prices: ['furnitureOffice'],
-          image: 'service-furniture.jpg',
-          alt: 'Dubinsko pranje kancelarijskog nameštaja'
+          image: 'service-office-deep.jpg',
+          alt: 'Usisavanje itisona u poslovnom prostoru'
         },
         {
           title: 'Mašinsko pranje podova',
           text: 'Mašinsko čišćenje tvrdih podnih površina poslovnog prostora.',
           surfaces: 'Tvrde podne površine',
-          image: 'service-floors.jpg',
-          alt: 'Mašinsko pranje poda u poslovnom prostoru'
+          image: 'service-office-floors.jpg',
+          alt: 'Mašina za pranje poda u poslovnom prostoru'
         },
         {
           title: 'Pranje staklenih površina',
           text: 'Pranje prozora, staklenih pregrada i vrata.',
           surfaces: 'Prozori / Pregrade / Vrata',
-          image: 'service-glass.jpg',
-          alt: 'Pranje staklene pregrade'
+          image: 'service-office-glass.jpg',
+          alt: 'Staklena pregrada u kancelariji'
         }
       ]
     }

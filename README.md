@@ -26,14 +26,18 @@ dist/            sajt koji se servira
   favicon-32.png, apple-touch-icon.png, robots.txt
   services.js      detaljan katalog usluga (postupak, površine, oprema)
                    NIJE učitan u trenutnoj verziji, čuva se za sledeću fazu
-  *.jpg / *.mp4    fotografije i video (privremeni, vidi "Otvoreno");
-                   hero-1080.mp4 (računar, ~3.9 MB) i hero-mobile.mp4
-                   (telefon, ~2.2 MB, uspravni isečak 720×1080 iz originala),
-                   kodirani za glatko puštanje: ključni kadar na 2 s, H.264
-                   High 4.0, ograničen protok; oba bez zvuka; pregledač bira preko <source media>
+  *.jpg / *.mp4    fotografije i video (privremeni, vidi "Izvori fotografija i videa");
+                   hero-1080.mp4 (računar, 2560×1440, ~4.4 MB, H.264 High 5.0)
+                   i hero-mobile.mp4 (telefon, uspravni isečak 1080×1620 iz 4K
+                   izvora, ~2.7 MB, H.264 High 4.0); petlja od 12 s, ključni
+                   kadar na 2 s, ograničen protok, faststart, bez zvuka;
+                   pregledač bira preko <source media>. Poster
+                   cleaning-poster.webp/.jpg je prvi kadar.
+                   Video i poster imaju ?v= oznaku u index.html (keš).
   logo-*.svg       logotip (vektor, trasiran iz PNG-a; original za štampu tražiti od dizajnera)
   fonts/           Manrope, varijabilni, lokalno (SIL OFL)
-  *-800/1400.webp  fotografije usluga za srcset (telefon / računar)
+  service-*.jpg    po jedna fotografija za svaku od 12 usluga (4:3, 1400×1050),
+  *-800/1400.webp  plus WebP za srcset (telefon / računar)
   politika-privatnosti.html  NACRT, čeka pravnika i podatke firme
 
 brand/           identitet
@@ -203,11 +207,11 @@ cene određuje polje `prices` u `GROUPS`.
   posle Usluga. Recenzije se NE izmišljaju.
 - **Persiranje "ti" ili "vi".** Sajt je na "ti"; za zgrade i firme možda bolje
   "vi". Odluka klijenta.
-- **Hero video** je i dalje isti stock snimak, sada u punoj 1080p rezoluciji.
-  Kvalitetniji besplatan snimak (Pexels, Pixabay, Mixkit) nije mogao da se
-  preuzme jer okruženje blokira te domene; može ručno, ili pravi snimak sa terena.
-- **Hero video i fotografije usluga** su generičke (video pokazuje ručno
-  brisanje, a firma radi mašinski). Jedan dan snimanja na terenu.
+- **Hero video i fotografije usluga** su stock sa Pixabay-a (vidi tabelu ispod).
+  Pixabay nema profesionalan snimak mašinskog pranja u 4K, pa video pokazuje
+  mop i kofu (4K, boje smirene: plava kofa i crvena drška su obezbojene da ne
+  bodu plavu brenda). Ni za mašinsko pranje poda u stanu nema fotografije sa
+  mašinom, pa stoji ravni mop. Jedan dan snimanja na terenu rešava oba.
 - **Politika privatnosti** (`dist/politika-privatnosti.html`) je nacrt: treba
   podatke firme, rok čuvanja, servis za formu i pregled pravnika.
 - **"Garancija na uslugu"** treba konkretizovati (šta tačno klijent dobija).
@@ -215,8 +219,9 @@ cene određuje polje `prices` u `GROUPS`.
 - **Cene** su od klijenta: garnitura 1.000 po sedećem mestu, fotelja 500,
   stolica 250, mono dušek 1.000, bračni dušek 1.500 / 2.500. Ostaje pitanje
   da li su sa PDV-om.
-- **Fotografije su privremene.** Četiri kadra rotiraju kroz dvanaest podtipova.
-  Svaki podtip treba svoj pravi snimak sa terena.
+- **Fotografije su privremene.** Svaki od dvanaest podtipova ima svoju stock
+  fotografiju; treba ih zameniti pravim snimcima sa terena (isti nazivi fajlova,
+  pa se kod ne menja).
 - **Slanje forme nije povezano.** Svi izbori su već u `FormData` (`space`,
   `contact_method`, `app`); treba servis ili backend koji prima upit i
   fotografije.
@@ -231,3 +236,25 @@ cene određuje polje `prices` u `GROUPS`.
   link u futeru.
 - **Domen.** Bez njega nema `og:image`, `og:url`, `canonical` ni `sitemap.xml`.
 - **Sadržaj za proveru sa klijentom:** "48 h", "garancija", "ista ekipa".
+
+## Izvori fotografija i videa
+
+Sve je sa Pixabay-a (besplatno za komercijalnu upotrebu, bez obaveznog
+potpisa autora). Za zamenu pravim snimkom: isti naziv fajla, ista razmera
+(fotografije 4:3, 1400×1050 + `-800.webp` i `-1400.webp`).
+
+| fajl | sadržaj | Pixabay ID | stranica |
+|---|---|---|---|
+| `hero-1080.mp4`, `hero-mobile.mp4`, `cleaning-poster.*` | mop i kofa na pločicama, 4K; obezbojeni plavi i crveni tonovi, petlja 1,3-13,3 s sa pretapanjem | 34822 | https://pixabay.com/videos/id-34822/ |
+| `service-home-deep` | usisivač na čupavom tepihu | 2116241 | https://pixabay.com/photos/vacuum-cleaner-carpet-2116241/ |
+| `service-home-floors` | ravni mop na drvenom podu | 268126 | https://pixabay.com/photos/cleaning-washing-mop-268126/ |
+| `service-home-windows` | pranje prozora, sprej i krpa | 5928694 | https://pixabay.com/photos/woman-window-cleaning-person-5928694/ |
+| `service-home-general` | čišćenje lavaboa u kupatilu | 2799496 | https://pixabay.com/photos/cleanliness-maid-maintains-cleaning-2799496/ |
+| `service-building-stairs` | betonsko stepenište sa rukohvatom | 6517488 | https://pixabay.com/photos/stairs-architecture-structure-6517488/ |
+| `service-building-garage` | svetla podzemna garaža | 1271917 | https://pixabay.com/photos/multi-storey-car-park-parking-spot-1271917/ |
+| `service-building-glass` | staklena vrata, kvaka | 123176 | https://pixabay.com/photos/door-lock-door-door-knob-jack-123176/ |
+| `service-building-common` | kolica za čišćenje u hodniku | 1706439 | https://pixabay.com/photos/clean-dare-cleaning-1706439/ |
+| `service-office-cleaning` | čistačica u kancelariji | 1909978 | https://pixabay.com/photos/cleaning-job-office-services-1909978/ |
+| `service-office-deep` | usisavanje itisona | 3165015 | https://pixabay.com/photos/vacuum-cleaner-vacuuming-cleaning-3165015/ |
+| `service-office-floors` | mašina za pranje poda (vozeća) | 2791153 | https://pixabay.com/photos/industrial-floor-cleaners-equipment-2791153/ |
+| `service-office-glass` | kancelarija sa staklenom pregradom | 21419 | https://pixabay.com/photos/office-window-space-21419/ |
