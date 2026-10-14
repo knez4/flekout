@@ -139,6 +139,12 @@ Sve stoji na vrhu `dist/service-rail.js`:
 | `GLIDE` | koliko traka po kadru sustiže skrol — manje znači više klizanja |
 | `CUT` | nagib reza, `.3014` |
 
+**Kompas** u donjoj traci (`.rail-cue`) prevodi pokret, jer skrol nadole ovde
+pomera sadržaj u stranu: na prvoj usluzi "Skroluj za sledeću uslugu" ↓ (na
+telefonu "Skroluj ili prevuci"), usput "Sledeće: <naziv>" →, na poslednjoj
+"Nastavi nadole" ↓. Ikonica je miš ili ruka prema uređaju; klik vodi na
+sledeću uslugu, a na kraju izvodi iz sekcije. Logika je u `updateCue()`.
+
 Cela sekcija traje oko četiri ekrana. Na telefonu se usluge listaju i
 prevlačenjem u stranu. Prve četiri kartice (Kuća / stan) su ispisane u HTML-u,
 pa se vide i bez JavaScripta; JS ih na učitavanju zameni istim sadržajem.

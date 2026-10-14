@@ -33,6 +33,9 @@
   const counter  = section.querySelector('.rail-position');
   const stepsBox = section.querySelector('.rail-steps');
   const buttons  = [...section.querySelectorAll('.space-option')];
+  const cue      = section.querySelector('.rail-cue');
+  const cueText  = cue?.querySelector('.rail-cue-text');
+  const touch    = matchMedia('(hover: none)');
   const reduced  = matchMedia('(prefers-reduced-motion: reduce)');
 
   /* Četiri odobrena podtipa po nadtipu. Svaki ima svoju fotografiju. */
@@ -197,6 +200,7 @@
   function build(groupIndex) {
     active = groupIndex;
     openCard = null;
+    cueKey = '';
     const group = GROUPS[groupIndex];
 
     buttons.forEach((b, i) => b.setAttribute('aria-pressed', String(i === groupIndex)));
@@ -341,8 +345,33 @@
     if (open) panel.querySelector('.rail-prices-close').focus({ preventScroll: true });
   }
 
+  /* ---- kompas: prevodi pokret i kaže šta sledi -------------------------
+     Skrol nadole ovde pomera sadržaj u stranu, a to korisnik ne očekuje.
+     Zato kompas u donjoj traci menja poruku prema mestu u traci:
+       start  "Skroluj za sledeću uslugu" ↓  (prevod pokreta)
+       next   "Sledeće: <naziv>" →           (cilj, razlog da nastavi)
+       end    "Nastavi nadole" ↓             (izlaz iz trake)
+       swipe  bez zakačenog režima: "Prevuci za sledeću uslugu" →
+     Kompas je i dugme: vodi na sledeću uslugu, a na kraju izvodi iz sekcije. */
+  let cueKey = '';
+  function updateCue(slide, index) {
+    if (!cue) return;
+    let state, text;
+    if (index >= LAST && slide > LAST - .5) { state = 'end'; text = 'Nastavi nadole'; }
+    else if (!cinematic) { state = 'swipe'; text = 'Prevuci za sledeću uslugu'; }
+    else if (slide < .35) { state = 'start'; text = touch.matches ? 'Skroluj ili prevuci za sledeću' : 'Skroluj za sledeću uslugu'; }
+    else { state = 'next'; text = 'Sledeće: ' + GROUPS[active].items[Math.min(LAST, index + 1)].title; }
+    const key = state + text;
+    if (key === cueKey) return;
+    cueKey = key;
+    cue.dataset.state = state;
+    cueText.textContent = text;
+    cue.setAttribute('aria-label', state === 'end' ? 'Nastavi na sledeću sekciju' : state === 'next' ? text : 'Sledeća usluga');
+  }
+
   function paint(slide) {
     const index = clamp(Math.round(slide), 0, LAST);
+    updateCue(slide, index);
     /* ploča se zatvara čim kartica ode iz kadra */
     if (openCard && cards.indexOf(openCard) !== index) setPrices(openCard, false);
     counter.textContent = `${pad(index + 1)} / ${pad(LAST + 1)}`;
@@ -546,6 +575,18 @@
     if (cinematic && pinned) { stopSettle(); scrollTo({ top: railStart(), behavior: 'instant' }); }
     render();
   }));
+
+  cue?.addEventListener('click', () => {
+    if (cue.dataset.state === 'end') {
+      const top = scrollY + section.getBoundingClientRect().bottom - headerSpace + 8;
+      scrollTo({ top, behavior: reduced.matches ? 'instant' : 'smooth' });
+      return;
+    }
+    const now = cinematic
+      ? clamp(Math.round((scrollY - slideStart()) / step), 0, LAST)
+      : Math.round(viewport.scrollLeft / Math.max(1, viewport.clientWidth));
+    goTo(clamp(now + 1, 0, LAST));
+  });
 
   stepsBox.addEventListener('click', event => {
     const button = event.target.closest('.rail-step');

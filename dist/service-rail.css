@@ -52,8 +52,6 @@
 .rail-bottom{display:flex;justify-content:space-between;align-items:center;gap:24px}
 /* Oba natpisa levo — desna polovina gornje ivice pripada kadru. */
 .rail-top{position:absolute;top:20px;left:6vw;z-index:2;display:flex;gap:28px;align-items:baseline;font-size:13px;letter-spacing:.06em;color:#cfdde5}
-.rail-hint{color:#8ba4b2;letter-spacing:.04em;display:none}
-.is-cinematic .rail-hint{display:inline}
 .rail-window{overflow-x:auto;scrollbar-width:none;scroll-snap-type:x mandatory;padding-bottom:14px}
 .rail-window::-webkit-scrollbar{display:none}
 .rail-window:focus-visible{outline:2px solid #168ccd;outline-offset:6px}
@@ -138,7 +136,30 @@
 .rail-step .track i{position:absolute;inset:0;background:#168ccd;transform-origin:left;transform:scaleX(var(--f,0))}
 .rail-step:hover .track{background:#587585}
 .rail-step:focus-visible{outline:2px solid #168ccd;outline-offset:3px}
+.rail-progress{display:flex;align-items:center;gap:24px;flex:1;min-width:0}
 .rail-bottom a{font-size:14px;flex-shrink:0}
+
+/* --- kompas -------------------------------------------------------------
+   Okvir kao dugmad za prostor u formi (tanka linija), ikonica miša ili ruke
+   prema uređaju, strelica koja pokazuje smer. Strelica blago poskakuje samo
+   dok treba naučiti pokret (start) i kad je vreme za izlaz (end). */
+.rail-cue{display:inline-flex;align-items:center;gap:10px;height:42px;padding:0 16px 0 12px;border:1px solid #3d5563;background:rgba(255,255,255,.04);
+  color:#e6eef2;font-size:14px;font-weight:600;white-space:nowrap;min-width:0;max-width:min(46ch,48vw);transition:border-color .2s,background .2s}
+.rail-cue:hover{border-color:#168ccd;background:rgba(22,140,205,.12)}
+.rail-cue:focus-visible{outline:2px solid #168ccd;outline-offset:3px}
+.rail-cue svg{width:20px;height:20px;flex:none}
+.rail-cue-icon,.rail-cue-arrow{display:inline-flex}
+.rail-cue-text{overflow:hidden;text-overflow:ellipsis;min-width:0}
+.rail-cue-arrow{color:#7bcef8}
+.cue-hand{display:none}
+@media(hover:none){.cue-mouse{display:none}.cue-hand{display:block}}
+.cue-right{display:none}
+.rail-cue[data-state=next] .cue-down,.rail-cue[data-state=swipe] .cue-down{display:none}
+.rail-cue[data-state=next] .cue-right,.rail-cue[data-state=swipe] .cue-right{display:block}
+.rail-cue[data-state=end] .rail-cue-icon{display:none}
+.rail-cue[data-state=start] .rail-cue-arrow,.rail-cue[data-state=end] .rail-cue-arrow{animation:cue-down 1.5s cubic-bezier(.45,0,.35,1) infinite}
+.rail-cue[data-state=start]{border-color:#5d7685}
+@keyframes cue-down{0%,100%{transform:translateY(-3px);opacity:.6}50%{transform:translateY(3px);opacity:1}}
 .rail-bottom a:hover{color:#7bcef8}
 
 /* --- .is-tight: JS ga pali kad izmeri da sadržaj ne staje u ekran --- */
@@ -215,11 +236,16 @@
 .is-tight .rail-card-body{padding-top:38px}
 .rail-bottom{gap:12px;padding-top:13px;margin-top:10px}
 .rail-bottom a{font-size:13px}
+/* telefon: poziv je već u headeru; mesto dobija kompas */
+.rail-cta{display:none}
+.rail-progress{gap:12px;flex:none}
+.rail-cue{flex:1;justify-content:center;max-width:none;height:40px;font-size:13px;padding:0 10px}
 .rail-steps{max-width:90px;gap:5px}
 .rail-step{padding:10px 0}
 }
 
 @media(prefers-reduced-motion:reduce){
+.rail-cue-arrow{animation:none!important}
 .tab-face{transition:none}
 .rail-track{will-change:auto;transform:none!important}
 .rail-card-body,.rail-card-figure img{transform:none}
