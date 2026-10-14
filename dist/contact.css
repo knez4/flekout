@@ -71,11 +71,9 @@
 /* --- dno forme --- */
 #kontakt .fc-bottom{margin-top:27px;display:flex;align-items:center;justify-content:space-between;gap:22px}
 #kontakt .fc-note{font-size:12px;line-height:1.65;color:#a9bac4;max-width:260px;margin:0}
-#kontakt .fc-submit{position:relative;isolation:isolate;border:0;background:transparent;color:#fff;min-height:53px;padding:15px 30px;display:flex;justify-content:space-between;align-items:center;gap:34px;font-size:14px;font-weight:600;white-space:nowrap}
+#kontakt .fc-submit{position:relative;isolation:isolate;border:0;background:transparent;color:#fff;min-height:53px;padding:15px 30px;display:flex;justify-content:center;align-items:center;gap:34px;font-size:14px;font-weight:600;white-space:nowrap}
 #kontakt .fc-submit:before{content:'';position:absolute;inset:0;z-index:-1;background:var(--blue-ink);transition:background .2s;clip-path:polygon(0 0,calc(100% - 16px) 0,100% 100%,16px 100%)}
-#kontakt .fc-submit span{transition:transform .2s}
 #kontakt .fc-submit:hover:before{background:#0b6a9e}
-#kontakt .fc-submit:hover span{transform:translate(3px,-3px)}
 #kontakt .fc-submit:active{transform:translateY(1px)}
 #kontakt .fc-prototype{font-size:12px;color:#b8c9d3;line-height:1.6;margin:20px 0 0}
 #kontakt .fc-demo-result{margin:22px 0 0;padding:15px;background:#203e50;color:#a2dfff;font-size:13px;line-height:1.6}

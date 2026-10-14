@@ -36,8 +36,7 @@ p{text-wrap:pretty}
 .brand img{display:block;width:140px;height:auto}
 nav{display:flex;align-items:center;gap:34px;font-size:14px;font-weight:600}
 .nav-link{padding:6px 0;text-underline-offset:6px}
-.nav-link:hover,.nav-link[aria-current=true]{text-decoration:underline}
-.nav-link[aria-current=true]{text-decoration-color:var(--blue);text-decoration-thickness:2px}
+.nav-link:hover{text-decoration:underline}
 .nav-cta{position:relative;isolation:isolate;display:inline-flex;align-items:center;height:48px;padding:0 30px;margin-left:6px;color:#fff;white-space:nowrap;transition:transform .2s}
 .nav-cta:before{content:"";position:absolute;inset:0;z-index:-1;background:var(--blue-ink);transition:background .2s;
   clip-path:polygon(0 0,calc(100% - 14px) 0,100% 100%,14px 100%)}
@@ -68,9 +67,7 @@ nav{display:flex;align-items:center;gap:34px;font-size:14px;font-weight:600}
 .hero-cta{position:relative;isolation:isolate;display:inline-flex;align-items:center;gap:30px;min-height:54px;padding:14px 34px;color:#fff;font-size:15px;font-weight:600;transition:transform .2s}
 .hero-cta:before{content:"";position:absolute;inset:0;z-index:-1;background:var(--blue-ink);transition:background .2s;
   clip-path:polygon(0 0,calc(100% - 16px) 0,100% 100%,16px 100%)}
-.hero-cta span{transition:transform .2s}
 .hero-cta:hover:before{background:#0b6a9e}
-.hero-cta:hover span{transform:translate(3px,-3px)}
 .hero-cta:active{transform:translateY(1px)}
 .hero-link{font-size:15px;font-weight:600;padding:12px 0;text-decoration:underline;text-decoration-color:#b9c3c8;text-underline-offset:6px;font-variant-numeric:tabular-nums;transition:text-decoration-color .2s}
 .hero-link:hover{text-decoration-color:var(--ink)}
@@ -134,6 +131,19 @@ nav{display:flex;align-items:center;gap:34px;font-size:14px;font-weight:600}
   .site-head.is-cta-hidden{padding-right:8px}
 }
 @media(max-width:650px){.nav-mid{display:none}}
+/* --- učitavanje -----------------------------------------------------------
+   Beli ekran sa logom koji se puni plavom dok se hero video ne učita. Logo se
+   pokaže tek posle 350 ms, pa ga brza veza i video iz keša nikad ne vide:
+   ekran samo kratko izbledi. Bez JS-a klasa .is-loading ne postoji. */
+.loader{display:none}
+.is-loading .loader,.loader.is-leaving{display:grid;place-items:center;position:fixed;inset:0;z-index:100;background:#fff}
+.is-loading{overflow:hidden}
+.loader.is-leaving{opacity:0;pointer-events:none;transition:opacity .45s ease}
+.loader-logo{width:min(220px,52vw);aspect-ratio:1228/269;opacity:0;animation:loader-in .3s .35s forwards;
+  background:linear-gradient(90deg,var(--blue) var(--fill,0%),#dbe2e6 0);
+  -webkit-mask:url(logo-black.svg) center/contain no-repeat;mask:url(logo-black.svg) center/contain no-repeat}
+@keyframes loader-in{to{opacity:1}}
+
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important}.hero{--open:0%!important}}
 
 /* --- plutajuće "Pozovi" na telefonu ---------------------------------------

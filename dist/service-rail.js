@@ -352,7 +352,7 @@
         '<h3 id="price-sheet-title"></h3></div>' +
         '<button type="button" class="price-sheet-close" data-close aria-label="Zatvori cene"><span aria-hidden="true"></span></button></div>' +
         '<div class="price-sheet-body"></div>' +
-        '<a href="#kontakt" class="price-sheet-cta">Zatraži procenu <span aria-hidden="true">↗</span></a>' +
+        '<a href="#kontakt" class="price-sheet-cta">Zatraži procenu</a>' +
       '</div>';
     document.body.append(sheet);
     sheet.addEventListener('click', e => { if (e.target.closest('[data-close]')) closeSheet(); });

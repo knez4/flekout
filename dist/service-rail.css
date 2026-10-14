@@ -284,7 +284,7 @@
 .price-sheet-body dd{margin:0;font-size:17px;font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap}
 .price-sheet-body dd.is-quote{font-weight:500;color:#91a6b4;font-size:15px}
 .price-sheet-body .rail-prices-foot{margin:0;font-size:13px;line-height:1.5;color:#91a6b4}
-.price-sheet-cta{position:relative;isolation:isolate;display:flex;justify-content:space-between;align-items:center;min-height:52px;margin-top:18px;padding:0 28px;color:#fff;font-size:15px;font-weight:600}
+.price-sheet-cta{position:relative;isolation:isolate;display:flex;justify-content:center;align-items:center;min-height:52px;margin-top:18px;padding:0 28px;color:#fff;font-size:15px;font-weight:600}
 .price-sheet-cta:before{content:"";position:absolute;inset:0;z-index:-1;background:#0f7ab5;clip-path:polygon(0 0,calc(100% - 16px) 0,100% 100%,16px 100%)}
 html.has-sheet{overflow:hidden}
 @media(min-width:801px){.price-sheet{display:none!important}}

@@ -1,5 +1,5 @@
 /* ============================================================================
-   FLEKOUT — hero, header, navigacija, plutajuće "Pozovi"
+   FLEKOUT — učitavanje, hero, header, plutajuće "Pozovi"
 
    Hero: video u kadru sa kosom levom ivicom (16.8°). Pri učitavanju se kadar
    otvara zdesna nalevo (klasa .is-clean); bez JS-a ili uz smanjeno kretanje
@@ -27,17 +27,63 @@
   measure();
 
   /* --- otvaranje pri učitavanju: kadar se otvara zdesna, ništa ne klizi --- */
+  const root = document.documentElement;
+  const loader = document.querySelector('.loader');
+  const loading = root.classList.contains('is-loading') && !!loader;
+  let done = false;
+  const go = () => {
+    if (done || reduced.matches) return;
+    done = true;
+    requestAnimationFrame(() => requestAnimationFrame(() => hero.classList.add('is-clean')));
+  };
   if (!reduced.matches) {
     hero.classList.add('has-wipe');
-    let done = false;
-    const go = () => {
-      if (done) return;
-      done = true;
-      requestAnimationFrame(() => requestAnimationFrame(() => hero.classList.add('is-clean')));
+    /* bez ekrana za učitavanje: sačekaj prvi kadar videa, ali najduže 0,5 s */
+    if (!loading) {
+      if (video.readyState >= 2) go(); else video.addEventListener('loadeddata', go, { once: true });
+      setTimeout(go, 500);
+    }
+  }
+
+  /* --- ekran za učitavanje: logo se puni plavom dok video ne može da ide bez
+     zastoja (ili najduže 7 s). Puni se stvarnim napretkom učitavanja, uz blago
+     puzanje da ne stoji u mestu. Ako je video spreman za manje od 350 ms, logo
+     se i ne pokaže. Ako pregledač blokira puštanje (npr. iOS režim uštede
+     baterije), ne čekamo: hero ostaje sa posterom do prvog dodira. --- */
+  let finishLoading = () => {};
+  if (loading) {
+    const logo = loader.querySelector('.loader-logo');
+    const t0 = performance.now();
+    let fill = 0, finished = false, left = false;
+    const buffered = () => {
+      const d = video.duration;
+      if (!d || !video.buffered.length) return 0;
+      return Math.min(1, video.buffered.end(video.buffered.length - 1) / Math.min(d, 5));
     };
-    /* sačekaj prvi kadar videa da se ne otkrije prazno, ali najduže 1 s */
-    if (video.readyState >= 2) go(); else video.addEventListener('loadeddata', go, { once: true });
-    setTimeout(go, 500);
+    const ready = t => video.readyState >= 4 || (video.readyState >= 3 && t > 2500);
+    const leave = () => {
+      if (left) return;
+      left = true;
+      loader.classList.add('is-leaving');
+      root.classList.remove('is-loading');
+      setTimeout(go, 120);
+      setTimeout(() => loader.remove(), 500);
+    };
+    finishLoading = () => { finished = true; };
+    const tick = now => {
+      if (left) return;
+      if (!root.classList.contains('is-loading')) { leave(); return; }
+      const t = now - t0;
+      if (!finished && (ready(t) || t > 7000)) finished = true;
+      if (finished && t < 350) { leave(); return; }
+      const creep = .55 * (1 - Math.exp(-t / 2200));
+      const target = finished ? 1 : Math.max(creep, buffered() * .92);
+      fill += (target - fill) * (finished ? .2 : .08);
+      logo.style.setProperty('--fill', (fill * 100).toFixed(1) + '%');
+      if (finished && fill > .985) leave(); else requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+    video.addEventListener('error', finishLoading);
   }
 
   /* --- video: uvek se pušta sam. Pauzira ga samo korisnik (dugme), skrol van
@@ -56,7 +102,7 @@
   }
   const wantsPlay = () => !manuallyPaused && visible && !document.hidden;
   function playback() {
-    if (wantsPlay()) { const p = video.play(); if (p) p.catch(label); }
+    if (wantsPlay()) { const p = video.play(); if (p) p.catch(() => { label(); finishLoading(); }); }
     else video.pause();
     label();
   }
@@ -68,7 +114,9 @@
   video.addEventListener('pause', label);
   ['loadeddata', 'canplay'].forEach(e => video.addEventListener(e, () => { if (wantsPlay() && video.paused) playback(); }));
   const nudge = () => { if (wantsPlay() && video.paused) playback(); };
-  ['touchstart', 'pointerdown', 'scroll', 'keydown'].forEach(e => addEventListener(e, nudge, { passive: true }));
+  /* touchend/click/keydown su "korisnička aktivacija": tek tada iOS u režimu
+     uštede baterije dozvoljava puštanje */
+  ['touchstart', 'touchend', 'pointerdown', 'pointerup', 'click', 'scroll', 'keydown'].forEach(e => addEventListener(e, nudge, { passive: true }));
   video.addEventListener('error', () => { if (toggle) toggle.hidden = true; });
   document.addEventListener('visibilitychange', playback);
   new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; playback(); }).observe(hero);
@@ -91,19 +139,6 @@
     new IntersectionObserver(([e]) => show(e.isIntersecting), { rootMargin: `-${top}px 0px 0px 0px` }).observe(heroCta);
   }
   playback();
-})();
-
-/* Navigacija: link sekcije koja je trenutno na sredini ekrana dobija aria-current. */
-(() => {
-  const links = [...document.querySelectorAll('nav .nav-link[href^="#"]:not([data-open-prices])')];
-  const targets = links.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
-  const seen = new Set();
-  const io = new IntersectionObserver(entries => {
-    entries.forEach(e => e.isIntersecting ? seen.add(e.target) : seen.delete(e.target));
-    const current = targets.find(t => seen.has(t));
-    links.forEach(a => a.setAttribute('aria-current', String(!!current && a.getAttribute('href') === '#' + current.id)));
-  }, { rootMargin: '-45% 0px -50% 0px' });
-  targets.forEach(t => io.observe(t));
 })();
 
 /* Plutajuće "Pozovi" (samo telefon, vidi style.css): vidljivo posle heroja,
