@@ -16,8 +16,14 @@
   if (!hero || !video) return;
 
   /* kosa ivica kadra: pomeraj = visina × .3014, pa je ugao uvek 16.8° */
-  const measure = () => hero.style.setProperty('--cut', Math.round(media.offsetHeight * .3014) + 'px');
+  const text = document.querySelector('.hero-text');
+  const measure = () => {
+    hero.style.setProperty('--cut', Math.round(media.offsetHeight * .3014) + 'px');
+    /* telefon: kosa ivica belog panela, isti ugao iz visine panela */
+    if (text) hero.style.setProperty('--pcut', Math.round(text.offsetHeight * .3014) + 'px');
+  };
   new ResizeObserver(measure).observe(media);
+  if (text) new ResizeObserver(measure).observe(text);
   measure();
 
   /* --- otvaranje pri učitavanju: kadar se otvara zdesna, ništa ne klizi --- */
@@ -34,16 +40,24 @@
     setTimeout(go, 500);
   }
 
-  /* --- video: pauza, vidljivost, smanjeno kretanje --- */
+  /* --- video: uvek se pušta sam. Pauzira ga samo korisnik (dugme), skrol van
+     heroja i pozadinski tab. Smanjeno kretanje ukida samo animaciju otvaranja,
+     ne i video (on ima dugme za pauzu, WCAG 2.2.2). Ako pregledač odbije
+     automatsko puštanje (štednja baterije, ušteda podataka), pokušavamo ponovo
+     čim se video učita i na prvi dodir, skrol ili klik. --- */
+  video.muted = true;
+  video.defaultMuted = true;
+  video.playsInline = true;
   let manuallyPaused = false, visible = true;
   function label() {
     if (!toggle) return;
     toggle.classList.toggle('is-paused', video.paused);
     toggle.setAttribute('aria-label', video.paused ? 'Pokreni video' : 'Pauziraj video');
   }
+  const wantsPlay = () => !manuallyPaused && visible && !document.hidden;
   function playback() {
-    if (manuallyPaused || reduced.matches || !visible || document.hidden) video.pause();
-    else video.play().catch(label);
+    if (wantsPlay()) { const p = video.play(); if (p) p.catch(label); }
+    else video.pause();
     label();
   }
   toggle?.addEventListener('click', () => {
@@ -52,9 +66,11 @@
   });
   video.addEventListener('play', label);
   video.addEventListener('pause', label);
+  ['loadeddata', 'canplay'].forEach(e => video.addEventListener(e, () => { if (wantsPlay() && video.paused) playback(); }));
+  const nudge = () => { if (wantsPlay() && video.paused) playback(); };
+  ['touchstart', 'pointerdown', 'scroll', 'keydown'].forEach(e => addEventListener(e, nudge, { passive: true }));
   video.addEventListener('error', () => { if (toggle) toggle.hidden = true; });
   document.addEventListener('visibilitychange', playback);
-  reduced.addEventListener('change', playback);
   new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; playback(); }).observe(hero);
 
   /* --- header: malo gušća podloga kad se skroluje --- */

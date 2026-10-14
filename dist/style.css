@@ -93,17 +93,26 @@ nav{display:flex;align-items:center;gap:34px;font-size:14px;font-weight:600}
 
 @media(max-width:1000px){.nav-wide{display:none}}
 @media(max-width:800px){
-  /* telefon: isti redosled čitanja kao na računaru. Gore naslov i poziv
-     (vidljivi bez skrolovanja), ispod kadar uz desnu ivicu sa kosom levom
-     ivicom, kao "desna kolona" spuštena ispod teksta. Header nikad preko videa. */
-  .hero{grid-template-columns:1fr;grid-template-rows:auto auto;height:auto;min-height:0;max-height:none;padding-bottom:28px}
-  .hero-text{align-self:start;padding:112px 6vw 30px calc(4vw + 22px)}
-  .hero h1{font-size:clamp(64px,20vw,104px);line-height:.88}
-  .hero-lead{font-size:16px;margin:18px 0 22px;max-width:30ch}
-  .hero-actions{gap:10px 22px}
-  .hero-cta{min-height:50px;padding:12px 28px}
-  .hero-media{height:clamp(280px,46svh,440px);margin-left:12vw}
-  .hero-toggle{right:6vw;bottom:14px;width:40px;height:40px}
+  /* telefon: isti sklad kao na računaru (belo levo, video desno, kosa ivica
+     između), samo složen u jedan ekran. Video ide preko celog heroja, a beli
+     panel sa tekstom sedi dole levo; njegova desna ivica je kosa pod 16.8° i
+     nosi plavo sečivo. Tekst i video se vide zajedno, bez skrolovanja.
+     --pcut meri JS iz visine panela. */
+  .hero{display:block;height:100svh;min-height:600px;max-height:none;--pcut:100px}
+  .hero-media{position:absolute;inset:0;margin:0}
+  .hero-frame{clip-path:polygon(var(--open) 0,100% 0,100% 100%,var(--open) 100%)}
+  .hero-blade{display:none}
+  .hero-text{position:absolute;left:0;right:0;bottom:0;z-index:2;isolation:isolate;
+    padding:30px calc(var(--pcut) + 8px) calc(26px + env(safe-area-inset-bottom,0px)) calc(4vw + 22px);
+    background:var(--blue);clip-path:polygon(0 0,100% 0,calc(100% - var(--pcut)) 100%,0 100%)}
+  .hero-text:before{content:"";position:absolute;inset:0 5px 0 0;z-index:-1;background:var(--paper);
+    clip-path:polygon(0 0,100% 0,calc(100% - var(--pcut) + 1.5px) 100%,0 100%)}
+  .hero h1{font-size:clamp(54px,16.5vw,84px);line-height:.88}
+  .hero-lead{font-size:15px;line-height:1.5;margin:14px 0 18px;max-width:30ch}
+  .hero-actions{gap:8px 20px}
+  .hero-cta{min-height:50px;padding:12px 26px;gap:22px}
+  .hero-link{padding:8px 0}
+  .hero-toggle{right:12px;bottom:calc(14px + env(safe-area-inset-bottom,0px));width:40px;height:40px}
 }
 @media(max-width:650px){
   .site-head{top:14px;height:62px;padding:0 8px 0 22px;clip-path:polygon(0 0,calc(100% - 18px) 0,100% 100%,18px 100%)}
