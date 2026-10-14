@@ -77,6 +77,19 @@
   const solid = () => head?.classList.toggle('is-solid', scrollY > 12);
   addEventListener('scroll', solid, { passive: true });
   solid();
+
+  /* --- dugme "Zatraži procenu" u headeru: sklonjeno dok je na ekranu isto
+     dugme iz heroja, pa se ne vide dva ista poziva odjednom --- */
+  const heroCta = document.querySelector('.hero-cta');
+  if (head && heroCta) {
+    const show = inView => head.classList.toggle('is-cta-hidden', inView);
+    const r = heroCta.getBoundingClientRect();
+    show(r.bottom > head.getBoundingClientRect().bottom && r.top < innerHeight);
+    requestAnimationFrame(() => requestAnimationFrame(() => head.classList.add('cta-ready')));
+    /* hero dugme se računa kao vidljivo samo ispod headera */
+    const top = Math.round(head.getBoundingClientRect().bottom);
+    new IntersectionObserver(([e]) => show(e.isIntersecting), { rootMargin: `-${top}px 0px 0px 0px` }).observe(heroCta);
+  }
   playback();
 })();
 

@@ -43,6 +43,16 @@ nav{display:flex;align-items:center;gap:34px;font-size:14px;font-weight:600}
   clip-path:polygon(0 0,calc(100% - 14px) 0,100% 100%,14px 100%)}
 .nav-cta:hover:before{background:#0b6a9e}
 .nav-cta:active{transform:translateY(1px)}
+/* Dugme u headeru se ne duplira sa onim u heroju: dok je hero dugme na ekranu,
+   ovo je sklonjeno (širina 0, van tab redosleda), a kad hero dugme ode iz
+   kadra, uđe u header. Prelaz se uključuje tek posle prvog kadra (.cta-ready)
+   da se pri učitavanju ništa ne pomera. Bez JS-a dugme je uvek tu. */
+.nav-cta{max-width:260px}
+.site-head.is-cta-hidden .nav-cta{max-width:0;padding-inline:0;margin-left:-34px;opacity:0;visibility:hidden;pointer-events:none}
+.site-head.is-cta-hidden{padding-right:44px}
+.site-head.cta-ready{transition:background-color .35s,padding .45s cubic-bezier(.2,.7,.2,1)}
+.site-head.cta-ready .nav-cta{transition:max-width .45s cubic-bezier(.2,.7,.2,1),padding .45s cubic-bezier(.2,.7,.2,1),margin .45s cubic-bezier(.2,.7,.2,1),opacity .3s .12s,visibility 0s,transform .2s}
+.site-head.cta-ready.is-cta-hidden .nav-cta{transition:max-width .4s cubic-bezier(.4,0,.2,1),padding .4s cubic-bezier(.4,0,.2,1),margin .4s cubic-bezier(.4,0,.2,1),opacity .15s,visibility 0s .4s,transform .2s}
 
 /* --- hero ------------------------------------------------------------------
    Jedna poruka, jedna akcija. Levo na belom: "Bez fleke.", jedan red o usluzi
@@ -120,6 +130,8 @@ nav{display:flex;align-items:center;gap:34px;font-size:14px;font-weight:600}
   nav{gap:16px}
   .nav-cta{height:42px;padding:0 20px;font-size:13px;margin-left:0}
   .nav-cta:before{clip-path:polygon(0 0,calc(100% - 12px) 0,100% 100%,12px 100%)}
+  .site-head.is-cta-hidden .nav-cta{margin-left:-16px}
+  .site-head.is-cta-hidden{padding-right:8px}
 }
 @media(max-width:650px){.nav-mid{display:none}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important}.hero{--open:0%!important}}

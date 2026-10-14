@@ -162,6 +162,9 @@ red o usluzi, dugme "Zatraži procenu" i link "Cene od 250 din". Desno: video u
 visokom kadru čija leva ivica ide pod 16.8°, sa plavim sečivom duž ivice. Pri
 učitavanju kadar uđe zdesna. Nema teksta preko videa, logo je samo u headeru.
 Header je uvek providan sa zamućenjem (backdrop-filter).
+Dugme "Zatraži procenu" u headeru je sklonjeno dok je hero dugme na ekranu
+(da se ne vide dva ista poziva); čim hero dugme ode iz kadra, uđe u header
+(klasa `.is-cta-hidden`, motion.js). Bez JS-a dugme je uvek u headeru.
 
 ## Cene u sekciji "Naše usluge"
 
