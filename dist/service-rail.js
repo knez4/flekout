@@ -38,6 +38,9 @@
   const touch    = matchMedia('(hover: none)');
   const reduced  = matchMedia('(prefers-reduced-motion: reduce)');
 
+  /* Oznaka verzije za fotografije: podići kad se slika zameni pod istim imenom. */
+  const IMG_V = '20261014n';
+
   /* Četiri odobrena podtipa po nadtipu. Svaki ima svoju fotografiju. */
   const GROUPS = [
     {
@@ -49,28 +52,28 @@
           surfaces: 'Nameštaj / Dušeci / Tepisi',
           prices: ['furnitureHome', 'mattresses'],
           image: 'service-home-deep.jpg',
-          alt: 'Usisivač za dubinsko čišćenje na tepihu'
+          alt: 'Ručni usisivač u svetloj sobi'
         },
         {
           title: 'Mašinsko pranje podova',
           text: 'Čišćenje tvrdih podnih površina, uz postupak prilagođen materijalu.',
           surfaces: 'Tvrde podne površine',
           image: 'service-home-floors.jpg',
-          alt: 'Pranje drvenog poda u stanu'
+          alt: 'Usisivač na svetlom podu u stanu'
         },
         {
           title: 'Pranje prozora i stakla',
           text: 'Pranje prozora, staklenih pregrada i drugih staklenih površina u domu.',
           surfaces: 'Prozori / Pregrade / Staklo',
           image: 'service-home-windows.jpg',
-          alt: 'Pranje prozora u stanu'
+          alt: 'Svetla soba sa velikim prozorom'
         },
         {
           title: 'Generalno čišćenje',
           text: 'Kompletno čišćenje doma, prema dogovorenom obimu.',
           surfaces: 'Kuhinja / Kupatilo / Prostorije',
           image: 'service-home-general.jpg',
-          alt: 'Čišćenje lavaboa u kupatilu'
+          alt: 'Čisto belo kupatilo'
         }
       ]
     },
@@ -89,21 +92,21 @@
           text: 'Mašinsko čišćenje većih tvrdih površina u objektu.',
           surfaces: 'Podovi / Garaže',
           image: 'service-building-garage.jpg',
-          alt: 'Čista podzemna garaža'
+          alt: 'Mašina za pranje velikih podnih površina'
         },
         {
           title: 'Pranje staklenih površina',
           text: 'Pranje staklenih ulaznih vrata, prozora i pregrada.',
           surfaces: 'Ulazna vrata / Prozori / Pregrade',
           image: 'service-building-glass.jpg',
-          alt: 'Staklena ulazna vrata'
+          alt: 'Svetao stakleni prolaz'
         },
         {
           title: 'Održavanje zajedničkih prostora',
           text: 'Redovno čišćenje po dogovorenom rasporedu i obimu rada.',
           surfaces: 'Zajednički prostori / Redovno održavanje',
           image: 'service-building-common.jpg',
-          alt: 'Kolica za čišćenje u hodniku'
+          alt: 'Uredan hodnik u zgradi'
         }
       ]
     },
@@ -115,7 +118,7 @@
           text: 'Čišćenje radnih i zajedničkih prostorija poslovnog prostora.',
           surfaces: 'Kancelarije / Zajedničke prostorije',
           image: 'service-office-cleaning.jpg',
-          alt: 'Čistačica briše prašinu u kancelariji'
+          alt: 'Uredna sala za sastanke'
         },
         {
           title: 'Dubinsko pranje nameštaja i tepiha',
@@ -123,21 +126,21 @@
           surfaces: 'Stolice / Garniture / Tepisi / Itisoni',
           prices: ['furnitureOffice'],
           image: 'service-office-deep.jpg',
-          alt: 'Usisavanje itisona u poslovnom prostoru'
+          alt: 'Kancelarijska stolica'
         },
         {
           title: 'Mašinsko pranje podova',
           text: 'Mašinsko čišćenje tvrdih podnih površina poslovnog prostora.',
           surfaces: 'Tvrde podne površine',
           image: 'service-office-floors.jpg',
-          alt: 'Mašina za pranje poda u poslovnom prostoru'
+          alt: 'Robot za čišćenje na svetlom podu'
         },
         {
           title: 'Pranje staklenih površina',
           text: 'Pranje prozora, staklenih pregrada i vrata.',
           surfaces: 'Prozori / Pregrade / Vrata',
           image: 'service-office-glass.jpg',
-          alt: 'Staklena pregrada u kancelariji'
+          alt: 'Sala za sastanke sa staklenom pregradom'
         }
       ]
     }
@@ -224,8 +227,8 @@
       const img = document.createElement('img');
       /* WebP u dve veličine: telefon povuče 800px, računar 1400px. */
       const base = item.image.replace(/\.jpg$/, '');
-      img.src = item.image;
-      img.srcset = `${base}-800.webp 800w, ${base}-1400.webp 1400w`;
+      img.src = `${item.image}?v=${IMG_V}`;
+      img.srcset = `${base}-800.webp?v=${IMG_V} 800w, ${base}-1400.webp?v=${IMG_V} 1400w`;
       img.sizes = '(max-width: 800px) 100vw, 50vw';
       img.alt = item.alt;
       img.width = 1400;

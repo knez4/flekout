@@ -64,6 +64,10 @@ Svi CSS i JS fajlovi se u `index.html` učitavaju sa `?v=...` (npr.
 oznaku** na svim linkovima, inače pregledač pokaže novi HTML sa starim
 stilovima (tako su ikonice u futeru jednom ispale ogromne).
 
+Fotografije usluga imaju svoju oznaku: `IMG_V` na vrhu `dist/service-rail.js`
+i `?v=` na četiri statične kartice u `index.html`. Podigni je kad zameniš
+sliku pod istim imenom. Video i poster imaju `?v=` u `index.html`.
+
 ## Pokretanje
 
 Bilo koji statični server iz korena `dist/`:
@@ -210,8 +214,8 @@ cene određuje polje `prices` u `GROUPS`.
 - **Hero video i fotografije usluga** su stock sa Pixabay-a (vidi tabelu ispod).
   Pixabay nema profesionalan snimak mašinskog pranja u 4K, pa video pokazuje
   mop i kofu (4K, boje smirene: plava kofa i crvena drška su obezbojene da ne
-  bodu plavu brenda). Ni za mašinsko pranje poda u stanu nema fotografije sa
-  mašinom, pa stoji ravni mop. Jedan dan snimanja na terenu rešava oba.
+  bodu plavu brenda). Fotografija dubinskog pranja nameštaja
+  mašinom (ekstraktor, parni čistač) na Pixabay-u nema, pa stoji ručni usisivač. Jedan dan snimanja na terenu rešava oba.
 - **Politika privatnosti** (`dist/politika-privatnosti.html`) je nacrt: treba
   podatke firme, rok čuvanja, servis za formu i pregled pravnika.
 - **"Garancija na uslugu"** treba konkretizovati (šta tačno klijent dobija).
@@ -243,18 +247,24 @@ Sve je sa Pixabay-a (besplatno za komercijalnu upotrebu, bez obaveznog
 potpisa autora). Za zamenu pravim snimkom: isti naziv fajla, ista razmera
 (fotografije 4:3, 1400×1050 + `-800.webp` i `-1400.webp`).
 
+Sve fotografije usluga imaju istu blagu obradu da deluju kao serija (ImageMagick):
+`-modulate 104,68,100 -level -4%,100%,1.08`, crveni kanal ×0.985, plavi ×1.015
+(oko -30% zasićenja, svetlije senke, blago hladno). Mašina za pod i robot imaju
+dodatno obezbojenje jer im je pozadina bila šarena. Izvori su na 1280 px, pa su
+blago uvećani na 1400.
+
 | fajl | sadržaj | Pixabay ID | stranica |
 |---|---|---|---|
 | `hero-1080.mp4`, `hero-mobile.mp4`, `cleaning-poster.*` | mop i kofa na pločicama, 4K; obezbojeni plavi i crveni tonovi, petlja 1,3-13,3 s sa pretapanjem | 34822 | https://pixabay.com/videos/id-34822/ |
-| `service-home-deep` | usisivač na čupavom tepihu | 2116241 | https://pixabay.com/photos/vacuum-cleaner-carpet-2116241/ |
-| `service-home-floors` | ravni mop na drvenom podu | 268126 | https://pixabay.com/photos/cleaning-washing-mop-268126/ |
-| `service-home-windows` | pranje prozora, sprej i krpa | 5928694 | https://pixabay.com/photos/woman-window-cleaning-person-5928694/ |
-| `service-home-general` | čišćenje lavaboa u kupatilu | 2799496 | https://pixabay.com/photos/cleanliness-maid-maintains-cleaning-2799496/ |
+| `service-home-deep` | ručni usisivač u svetloj sobi | 2537319 | https://pixabay.com/photos/the-push-rod-cleaner-wireless-2537319/ |
+| `service-home-floors` | usisivač na svetlom podu | 2799464 | https://pixabay.com/photos/cleanliness-maid-maintains-cleaning-2799464/ |
+| `service-home-windows` | svetla soba sa velikim prozorom | 2591358 | https://pixabay.com/photos/white-room-table-chairs-window-2591358/ |
+| `service-home-general` | belo kupatilo | 6900977 | https://pixabay.com/photos/real-estate-interior-bath-room-6900977/ |
 | `service-building-stairs` | betonsko stepenište sa rukohvatom | 6517488 | https://pixabay.com/photos/stairs-architecture-structure-6517488/ |
-| `service-building-garage` | svetla podzemna garaža | 1271917 | https://pixabay.com/photos/multi-storey-car-park-parking-spot-1271917/ |
-| `service-building-glass` | staklena vrata, kvaka | 123176 | https://pixabay.com/photos/door-lock-door-door-knob-jack-123176/ |
-| `service-building-common` | kolica za čišćenje u hodniku | 1706439 | https://pixabay.com/photos/clean-dare-cleaning-1706439/ |
-| `service-office-cleaning` | čistačica u kancelariji | 1909978 | https://pixabay.com/photos/cleaning-job-office-services-1909978/ |
-| `service-office-deep` | usisavanje itisona | 3165015 | https://pixabay.com/photos/vacuum-cleaner-vacuuming-cleaning-3165015/ |
-| `service-office-floors` | mašina za pranje poda (vozeća) | 2791153 | https://pixabay.com/photos/industrial-floor-cleaners-equipment-2791153/ |
-| `service-office-glass` | kancelarija sa staklenom pregradom | 21419 | https://pixabay.com/photos/office-window-space-21419/ |
+| `service-building-garage` | vozeća mašina za pranje poda (dodatno obezbojena) | 2791153 | https://pixabay.com/photos/industrial-floor-cleaners-equipment-2791153/ |
+| `service-building-glass` | stakleni prolaz | 863681 | https://pixabay.com/photos/corridor-glass-tunel-direction-863681/ |
+| `service-building-common` | beli hodnik u zgradi | 2684824 | https://pixabay.com/photos/apartments-passage-corridor-moon-2684824/ |
+| `service-office-cleaning` | bela sala za sastanke | 2181951 | https://pixabay.com/photos/chairs-conference-room-furniture-2181951/ |
+| `service-office-deep` | kancelarijska stolica | 6795420 | https://pixabay.com/photos/office-chair-conference-table-6795420/ |
+| `service-office-floors` | robot za čišćenje na pločicama (dodatno obezbojen) | 4827253 | https://pixabay.com/photos/vacuum-cleaner-robot-household-4827253/ |
+| `service-office-glass` | sala sa staklenom pregradom | 730679 | https://pixabay.com/photos/meeting-room-table-screen-730679/ |
