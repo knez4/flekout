@@ -332,11 +332,84 @@
   /* ---- pozicija trake ------------------------------------------------- */
   /* ---- cene ------------------------------------------------------------ */
   let openCard = null;
+  /* ---- telefon: cene u donjem panelu (bottom sheet) ---------------------
+     Na računaru ploča prebriše fotografiju u kartici. Na telefonu je kartica
+     uska, pa cene izlaze odozdo u panelu na dohvat palca: pozadina se
+     zatamni, panel se zatvara dugmetom, dodirom van njega, prevlačenjem
+     nadole ili Escape-om. Na dnu je poziv "Zatraži procenu", jer je cena
+     trenutak kad je klijent najspremniji da pošalje upit. */
+  const phone = matchMedia('(max-width: 800px)');
+  let sheet = null, sheetFor = null, lastFocus = null;
+  function buildSheet() {
+    sheet = document.createElement('div');
+    sheet.className = 'price-sheet';
+    sheet.hidden = true;
+    sheet.innerHTML =
+      '<div class="price-sheet-backdrop" data-close></div>' +
+      '<div class="price-sheet-panel" role="dialog" aria-modal="true" aria-labelledby="price-sheet-title">' +
+        '<div class="price-sheet-grip" data-drag><span></span></div>' +
+        '<div class="price-sheet-head" data-drag><div><span class="price-sheet-kicker">Cene</span>' +
+        '<h3 id="price-sheet-title"></h3></div>' +
+        '<button type="button" class="price-sheet-close" data-close aria-label="Zatvori cene"><span aria-hidden="true"></span></button></div>' +
+        '<div class="price-sheet-body"></div>' +
+        '<a href="#kontakt" class="price-sheet-cta">Zatraži procenu <span aria-hidden="true">↗</span></a>' +
+      '</div>';
+    document.body.append(sheet);
+    sheet.addEventListener('click', e => { if (e.target.closest('[data-close]')) closeSheet(); });
+    sheet.querySelector('.price-sheet-cta').addEventListener('click', () => closeSheet(false));
+    /* prevlačenje nadole zatvara */
+    const panelEl = sheet.querySelector('.price-sheet-panel');
+    let y0 = null, dy = 0;
+    panelEl.addEventListener('touchstart', e => { if (e.target.closest('[data-drag]')) { y0 = e.touches[0].clientY; dy = 0; panelEl.style.transition = 'none'; } }, { passive: true });
+    panelEl.addEventListener('touchmove', e => { if (y0 === null) return; dy = Math.max(0, e.touches[0].clientY - y0); panelEl.style.transform = `translateY(${dy}px)`; }, { passive: true });
+    panelEl.addEventListener('touchend', () => {
+      if (y0 === null) return;
+      y0 = null; panelEl.style.transition = ''; panelEl.style.transform = '';
+      if (dy > 70) closeSheet();
+    });
+  }
+  function openSheet(card) {
+    if (!sheet) buildSheet();
+    const panel = card.querySelector('.rail-prices');
+    const body = sheet.querySelector('.price-sheet-body');
+    body.replaceChildren(...[...panel.querySelectorAll('.rail-prices-group, .rail-prices-foot')].map(n => n.cloneNode(true)));
+    sheet.querySelector('#price-sheet-title').textContent = card.querySelector('h3').textContent;
+    sheetFor = card;
+    lastFocus = document.activeElement;
+    sheet.hidden = false;
+    document.documentElement.classList.add('has-sheet');
+    requestAnimationFrame(() => requestAnimationFrame(() => sheet.classList.add('is-open')));
+    sheet.querySelector('.price-sheet-close').focus({ preventScroll: true });
+  }
+  function closeSheet(restoreFocus = true) {
+    if (!sheet || sheet.hidden) return;
+    sheet.classList.remove('is-open');
+    document.documentElement.classList.remove('has-sheet');
+    const card = sheetFor;
+    sheetFor = null;
+    if (card) {
+      const more = card.querySelector('.rail-price-more');
+      more.setAttribute('aria-expanded', 'false');
+      more.firstChild.textContent = 'Sve cene ';
+      if (openCard === card) openCard = null;
+    }
+    setTimeout(() => { if (!sheet.classList.contains('is-open')) sheet.hidden = true; }, reduced.matches ? 0 : 320);
+    if (restoreFocus) (lastFocus || card?.querySelector('.rail-price-more'))?.focus({ preventScroll: true });
+  }
+
   function setPrices(card, open) {
     if (openCard && openCard !== card) setPrices(openCard, false);
     const more = card.querySelector('.rail-price-more');
     const panel = card.querySelector('.rail-prices');
     if (!more || !panel) return;
+    if (phone.matches) {
+      if (open) {
+        more.setAttribute('aria-expanded', 'true');
+        openCard = card;
+        openSheet(card);
+      } else if (sheetFor === card) closeSheet(false);
+      return;
+    }
     card.classList.toggle('is-pricing', open);
     panel.inert = !open;
     more.setAttribute('aria-expanded', String(open));
@@ -373,7 +446,7 @@
     const index = clamp(Math.round(slide), 0, LAST);
     updateCue(slide, index);
     /* ploča se zatvara čim kartica ode iz kadra */
-    if (openCard && cards.indexOf(openCard) !== index) setPrices(openCard, false);
+    if (openCard && !sheetFor && cards.indexOf(openCard) !== index) setPrices(openCard, false);
     counter.textContent = `${pad(index + 1)} / ${pad(LAST + 1)}`;
     /* segment se puni neprekidno, zajedno sa prstom */
     steps.forEach((button, i) => {
@@ -627,6 +700,7 @@
   }, { passive: true });
 
   document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && sheet && !sheet.hidden) { closeSheet(); return; }
     if (event.key === 'Escape' && openCard) {
       const card = openCard;
       setPrices(card, false);

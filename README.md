@@ -169,8 +169,10 @@ Nema posebnog cenovnika. Svaka kartica u tamnoj traci ima red "Cena" na istom
 mestu: usluga sa cenom pokazuje "od X din" i dugme "Sve cene", ostale kažu
 "određuje se na proceni".
 
-"Sve cene" otvara ploču koja plavim sečivom prebriše fotografiju (na telefonu
-celu karticu). Visina kartice se ne menja, pa zakačeni režim ostaje u ekranu.
+"Sve cene" otvara ploču koja plavim sečivom prebriše fotografiju. Na
+telefonu se cene otvaraju u donjem panelu (bottom sheet) sa dugmetom
+"Zatraži procenu"; zatvara se dugmetom, dodirom van panela, prevlačenjem
+nadole ili Escape-om. Visina kartice se ne menja, pa zakačeni režim ostaje u ekranu.
 Ploča se zatvara na "Zatvori cene", Escape ili čim kartica ode iz kadra.
 Link "Cene" u navigaciji vodi na prvu karticu i otvara ploču.
 
