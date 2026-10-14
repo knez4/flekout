@@ -27,10 +27,10 @@ dist/            sajt koji se servira
   services.js      detaljan katalog usluga (postupak, površine, oprema)
                    NIJE učitan u trenutnoj verziji, čuva se za sledeću fazu
   *.jpg / *.mp4    fotografije i video (privremeni, vidi "Otvoreno");
-                   hero-1080.mp4 (računar, ~4.1 MB, originalni snimak bez
-                   ponovnog kodiranja) i hero-mobile.mp4 (telefon, ~2.1 MB,
-                   uspravni isečak 720×1080 iz originala u punoj oštrini),
-                   oba bez zvuka; pregledač bira preko <source media>
+                   hero-1080.mp4 (računar, ~3.9 MB) i hero-mobile.mp4
+                   (telefon, ~2.2 MB, uspravni isečak 720×1080 iz originala),
+                   kodirani za glatko puštanje: ključni kadar na 2 s, H.264
+                   High 4.0, ograničen protok; oba bez zvuka; pregledač bira preko <source media>
   logo-*.svg       logotip (vektor, trasiran iz PNG-a; original za štampu tražiti od dizajnera)
   fonts/           Manrope, varijabilni, lokalno (SIL OFL)
   *-800/1400.webp  fotografije usluga za srcset (telefon / računar)
@@ -170,10 +170,11 @@ Dugme "Zatraži procenu" u headeru je sklonjeno dok je hero dugme na ekranu
 Aktivna sekcija se u navigaciji ne označava (odluka 14.10.).
 Dugmad za akciju nemaju strelicu: znak ↗ iOS crta kao emoji.
 
-Ekran za učitavanje: beli ekran sa logom koji se puni plavom dok video ne može
-da ide bez zastoja (najduže 7 s). Kad je video brzo spreman (keš, dobra veza),
-logo se ne pokaže. Ako iOS blokira automatsko puštanje (režim uštede
-baterije), ekran se odmah skloni i video krene na prvi dodir; to je
+Ekran za učitavanje: beli ekran sa logom koji se puni plavom. Uvek traje oko
+2 s (punjenje 1,6 s, kratka pauza, bleđenje). Ako video do tada nije spreman,
+punjenje stane na 60-90% i dovrši se kad video bude spreman, najkasnije posle
+6 s. Ako iOS blokira automatsko puštanje (režim uštede
+baterije), video se ne čeka i krene na prvi dodir; to je
 ograničenje telefona i ne može se zaobići.
 
 ## Cene u sekciji "Naše usluge"

@@ -45,22 +45,26 @@
     }
   }
 
-  /* --- ekran za učitavanje: logo se puni plavom dok video ne može da ide bez
-     zastoja (ili najduže 7 s). Puni se stvarnim napretkom učitavanja, uz blago
-     puzanje da ne stoji u mestu. Ako je video spreman za manje od 350 ms, logo
-     se i ne pokaže. Ako pregledač blokira puštanje (npr. iOS režim uštede
-     baterije), ne čekamo: hero ostaje sa posterom do prvog dodira. --- */
+  /* --- ekran za učitavanje: logo se puni plavom uvek bar 1,6 s (pa kratko
+     zastane i izbledi, ukupno oko 2,2 s), jer prekratak bljesak deluje kao
+     greška. Ako video do tada nije spreman da ide bez zastoja, punjenje stane
+     na 60-90% (prema učitanom delu) i dovrši se kad video bude spreman, a
+     najkasnije posle 6 s. Ako pregledač blokira puštanje (npr. iOS režim
+     uštede baterije), video se ne čeka: hero ostaje sa posterom do prvog
+     dodira. --- */
   let finishLoading = () => {};
   if (loading) {
     const logo = loader.querySelector('.loader-logo');
+    const MIN = 1600, HOLD = 220, MAX = 6000;
     const t0 = performance.now();
-    let fill = 0, finished = false, left = false;
+    let fill = 0, finished = false, left = false, full = 0;
+    const ease = x => x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
     const buffered = () => {
       const d = video.duration;
       if (!d || !video.buffered.length) return 0;
       return Math.min(1, video.buffered.end(video.buffered.length - 1) / Math.min(d, 5));
     };
-    const ready = t => video.readyState >= 4 || (video.readyState >= 3 && t > 2500);
+    const ready = t => video.readyState >= 4 || (video.readyState >= 3 && t > 3000);
     const leave = () => {
       if (left) return;
       left = true;
@@ -74,13 +78,16 @@
       if (left) return;
       if (!root.classList.contains('is-loading')) { leave(); return; }
       const t = now - t0;
-      if (!finished && (ready(t) || t > 7000)) finished = true;
-      if (finished && t < 350) { leave(); return; }
-      const creep = .55 * (1 - Math.exp(-t / 2200));
-      const target = finished ? 1 : Math.max(creep, buffered() * .92);
-      fill += (target - fill) * (finished ? .2 : .08);
+      if (!finished && (ready(t) || t > MAX)) finished = true;
+      const cap = finished ? 1 : .6 + .3 * buffered();
+      const target = Math.min(ease(Math.min(1, t / MIN)), cap);
+      fill += (target - fill) * .3;
       logo.style.setProperty('--fill', (fill * 100).toFixed(1) + '%');
-      if (finished && fill > .985) leave(); else requestAnimationFrame(tick);
+      if (finished && fill > .995) {
+        if (!full) full = now;
+        if (now - full >= HOLD) { leave(); return; }
+      }
+      requestAnimationFrame(tick);
     };
     requestAnimationFrame(tick);
     video.addEventListener('error', finishLoading);

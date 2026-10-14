@@ -132,14 +132,14 @@ nav{display:flex;align-items:center;gap:34px;font-size:14px;font-weight:600}
 }
 @media(max-width:650px){.nav-mid{display:none}}
 /* --- učitavanje -----------------------------------------------------------
-   Beli ekran sa logom koji se puni plavom dok se hero video ne učita. Logo se
-   pokaže tek posle 350 ms, pa ga brza veza i video iz keša nikad ne vide:
-   ekran samo kratko izbledi. Bez JS-a klasa .is-loading ne postoji. */
+   Beli ekran sa logom koji se puni plavom, uvek oko 2 s, a duže samo ako se
+   hero video još učitava (vidi motion.js). Bez JS-a klasa .is-loading ne
+   postoji. */
 .loader{display:none}
 .is-loading .loader,.loader.is-leaving{display:grid;place-items:center;position:fixed;inset:0;z-index:100;background:#fff}
 .is-loading{overflow:hidden}
 .loader.is-leaving{opacity:0;pointer-events:none;transition:opacity .45s ease}
-.loader-logo{width:min(220px,52vw);aspect-ratio:1228/269;opacity:0;animation:loader-in .3s .35s forwards;
+.loader-logo{width:min(220px,52vw);aspect-ratio:1228/269;opacity:0;animation:loader-in .3s forwards;
   background:linear-gradient(90deg,var(--blue) var(--fill,0%),#dbe2e6 0);
   -webkit-mask:url(logo-black.svg) center/contain no-repeat;mask:url(logo-black.svg) center/contain no-repeat}
 @keyframes loader-in{to{opacity:1}}
