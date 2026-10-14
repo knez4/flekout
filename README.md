@@ -112,12 +112,19 @@ Tokeni su na vrhu `style.css`.
 Tipografija: Manrope. Veličine opadaju kroz stranicu — Usluge su najglasnija
 sekcija (54px), Zašto mi tiša (46px), Proces informativan (~30px).
 
-## Sekcija "Zašto Flekout" — brojevi za podešavanje
+## Sekcija "Zašto Flekout" — brisanje vezano za skrol
 
-`--wipe` na vrhu `dist/why.css` je trajanje brisanja (1300ms). Okidač je u
-`dist/why.js`: proverava se pozicija svakog neotkrivenog reda i red se pali kad
-mu vrh pređe liniju na dve trećine visine ekrana. Skriveno stanje se pali tek
-kad JS doda klasu `is-ready` — ako skripta zakaže, sekcija ostaje čitljiva.
+Sečivo ne kreće samo posle okidača, nego prati skrol: red počinje da se
+briše kad mu vrh uđe u donju trećinu ekrana i završava kad stigne malo iznad
+sredine. Zona i glatkoća su na vrhu `dist/why.js`:
+
+| konstanta | šta radi |
+|---|---|
+| `zone()` | početak i kraj zone kao deo visine ekrana (računar .82 → .45, telefon .88 → .42) |
+| `GLIDE` | koliko prikaz po kadru sustiže skrol (manje = mekše i sporije) |
+
+Jednosmerno je: očišćen red ostaje čist i pri povratku naviše. Bez JS-a ili
+uz smanjeno kretanje sekcija stoji otkrivena.
 
 ## Sekcija "Naše usluge" — brojevi za podešavanje
 
