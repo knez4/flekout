@@ -27,9 +27,9 @@ dist/            sajt koji se servira
   services.js      detaljan katalog usluga (postupak, površine, oprema)
                    NIJE učitan u trenutnoj verziji, čuva se za sledeću fazu
   *.jpg / *.mp4    fotografije i video (privremeni, vidi "Izvori fotografija i videa");
-                   hero-1080.mp4 (računar, 2560×1440, ~4.4 MB, H.264 High 5.0)
-                   i hero-mobile.mp4 (telefon, uspravni isečak 1080×1620 iz 4K
-                   izvora, ~2.7 MB, H.264 High 4.0); petlja od 12 s, ključni
+                   hero-1080.mp4 (računar, 1920×1080, ~4.7 MB, H.264 High 4.0)
+                   i hero-mobile.mp4 (telefon, uspravni isečak 720×1080 iz
+                   1080p izvora, ~1.7 MB, H.264 High 4.0); petlja od 11,6 s, ključni
                    kadar na 2 s, ograničen protok, faststart, bez zvuka;
                    pregledač bira preko <source media>. Poster
                    cleaning-poster.webp/.jpg je prvi kadar.
@@ -212,9 +212,9 @@ cene određuje polje `prices` u `GROUPS`.
 - **Persiranje "ti" ili "vi".** Sajt je na "ti"; za zgrade i firme možda bolje
   "vi". Odluka klijenta.
 - **Hero video i fotografije usluga** su stock sa Pixabay-a (vidi tabelu ispod).
-  Pixabay nema profesionalan snimak mašinskog pranja u 4K, pa video pokazuje
-  mop i kofu (4K, boje smirene: plava kofa i crvena drška su obezbojene da ne
-  bodu plavu brenda). Fotografija dubinskog pranja nameštaja
+  Pixabay nema snimak mašine za pranje podova (ni u 4K ni u 1080p), pa video
+  pokazuje perač pod pritiskom u magli (jedini snimak mašinskog pranja, samo
+  1080p; otpaci na tlu su obezbojeni). Fotografija dubinskog pranja nameštaja
   mašinom (ekstraktor, parni čistač) na Pixabay-u nema, pa stoji ručni usisivač. Jedan dan snimanja na terenu rešava oba.
 - **Politika privatnosti** (`dist/politika-privatnosti.html`) je nacrt: treba
   podatke firme, rok čuvanja, servis za formu i pregled pravnika.
@@ -255,7 +255,7 @@ blago uvećani na 1400.
 
 | fajl | sadržaj | Pixabay ID | stranica |
 |---|---|---|---|
-| `hero-1080.mp4`, `hero-mobile.mp4`, `cleaning-poster.*` | mop i kofa na pločicama, 4K; obezbojeni plavi i crveni tonovi, petlja 1,3-13,3 s sa pretapanjem | 34822 | https://pixabay.com/videos/id-34822/ |
+| `hero-1080.mp4`, `hero-mobile.mp4`, `cleaning-poster.*` | perač pod pritiskom, magla nad pločnikom, 1080p; crveni, žuti i zeleni tonovi jako prigušeni, ostalo oko -30% zasićenja, blago hladno; petlja 8,3-19,9 s sa pretapanjem | 2333 | https://pixabay.com/videos/id-2333/ |
 | `service-home-deep` | ručni usisivač u svetloj sobi | 2537319 | https://pixabay.com/photos/the-push-rod-cleaner-wireless-2537319/ |
 | `service-home-floors` | usisivač na svetlom podu | 2799464 | https://pixabay.com/photos/cleanliness-maid-maintains-cleaning-2799464/ |
 | `service-home-windows` | svetla soba sa velikim prozorom | 2591358 | https://pixabay.com/photos/white-room-table-chairs-window-2591358/ |
