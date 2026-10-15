@@ -95,7 +95,7 @@
       const remove = document.createElement('button');
       remove.type = 'button';
       remove.textContent = '×';
-      remove.setAttribute('aria-label', 'Ukloni ' + photo.file.name);
+      remove.setAttribute('aria-label', 'Uklonite ' + photo.file.name);
       remove.addEventListener('click', () => {
         URL.revokeObjectURL(photo.url);
         photos.splice(index, 1);
@@ -109,9 +109,9 @@
   fileInput.addEventListener('change', () => {
     const errors = [];
     for (const file of fileInput.files) {
-      if (!['image/jpeg', 'image/png', 'image/webp'].includes(file.type)) { errors.push('Izaberi JPG, PNG ili WebP fotografiju.'); continue; }
+      if (!['image/jpeg', 'image/png', 'image/webp'].includes(file.type)) { errors.push('Izaberite JPG, PNG ili WebP fotografiju.'); continue; }
       if (file.size > 10 * 1024 * 1024) { errors.push('Fotografija ' + file.name + ' prelazi 10 MB.'); continue; }
-      if (photos.length >= 5) { errors.push('Možeš dodati najviše 5 fotografija.'); break; }
+      if (photos.length >= 5) { errors.push('Možete dodati najviše 5 fotografija.'); break; }
       photos.push({ file, url: URL.createObjectURL(file) });
     }
     error.textContent = [...new Set(errors)].join(' ');
@@ -127,7 +127,7 @@
     status.hidden = true;
     const contact = method === 'Email' ? emailInput.value.trim() : normalizePhone();
     if (method !== 'Email' && !/^\+?[1-9]\d{6,14}$/.test(contact)) {
-      phone.setCustomValidity('Proveri broj telefona i pozivni broj države.');
+      phone.setCustomValidity('Proverite broj telefona i pozivni broj države.');
       phone.setAttribute('aria-invalid', 'true');
       phone.reportValidity();
       return;

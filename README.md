@@ -168,11 +168,11 @@ horizontalnu listu sa snap-om.
 ## Hero
 
 Jedna poruka, jedna akcija. Levo na belom: veliki naslov "Bez fleke.", jedan
-red o usluzi, dugme "Zatraži procenu" i link "Cene od 250 din". Desno: video u
+red o usluzi, dugme "Zatražite procenu" i link "Cene od 150 din". Desno: video u
 visokom kadru čija leva ivica ide pod 16.8°, sa plavim sečivom duž ivice. Pri
 učitavanju kadar uđe zdesna. Nema teksta preko videa, logo je samo u headeru.
 Header je uvek providan sa zamućenjem (backdrop-filter).
-Dugme "Zatraži procenu" u headeru je sklonjeno dok je hero dugme na ekranu
+Dugme "Zatražite procenu" u headeru je sklonjeno dok je hero dugme na ekranu
 (da se ne vide dva ista poziva); čim hero dugme ode iz kadra, uđe u header
 (klasa `.is-cta-hidden`, motion.js). Bez JS-a dugme je uvek u headeru.
 Aktivna sekcija se u navigaciji ne označava (odluka 14.10.).
@@ -193,7 +193,7 @@ mestu: usluga sa cenom pokazuje "od X din" i dugme "Sve cene", ostale kažu
 
 "Sve cene" otvara ploču koja plavim sečivom prebriše fotografiju. Na
 telefonu se cene otvaraju u donjem panelu (bottom sheet) sa dugmetom
-"Zatraži procenu"; zatvara se dugmetom, dodirom van panela, prevlačenjem
+"Zatražite procenu"; zatvara se dugmetom, dodirom van panela, prevlačenjem
 nadole ili Escape-om. Visina kartice se ne menja, pa zakačeni režim ostaje u ekranu.
 Ploča se zatvara na "Zatvori cene", Escape ili čim kartica ode iz kadra.
 Link "Cene" u navigaciji vodi na prvu karticu i otvara ploču.
@@ -209,33 +209,37 @@ cene određuje polje `prices` u `GROUPS`.
 - **Recenzije i pre / posle.** Najveća rupa u poverenju. Čim klijent pošalje
   3 do 5 pravih recenzija (ili Google profil) i fotografije, ide nova sekcija
   posle Usluga. Recenzije se NE izmišljaju.
-- **Persiranje "ti" ili "vi".** Sajt je na "ti"; za zgrade i firme možda bolje
-  "vi". Odluka klijenta.
+- **Obraćanje je na "Vi"** (odluka 15.10.): Vi, Vas, Vam, Vaš velikim slovom,
+  dugmad u obliku "Zatražite procenu". Novi tekst pisati isto.
 - **Hero video i fotografije usluga** su stock sa Pixabay-a (vidi tabelu ispod).
   Pixabay nema snimak mašine za pranje podova (ni u 4K ni u 1080p), pa video
   pokazuje perač pod pritiskom u magli (jedini snimak mašinskog pranja, samo
   1080p; otpaci na tlu su obezbojeni). Fotografija dubinskog pranja nameštaja
   mašinom (ekstraktor, parni čistač) na Pixabay-u nema, pa stoji ručni usisivač. Jedan dan snimanja na terenu rešava oba.
-- **Politika privatnosti** (`dist/politika-privatnosti.html`) je nacrt: treba
-  podatke firme, rok čuvanja, servis za formu i pregled pravnika.
+- **Politika privatnosti** (`dist/politika-privatnosti.html`) je nacrt: podaci
+  firme su upisani, ostaje rok čuvanja, servis za formu i pregled pravnika.
 - **"Garancija na uslugu"** treba konkretizovati (šta tačno klijent dobija).
 
 - **Cene** su od klijenta: garnitura 1.000 po sedećem mestu, fotelja 500,
-  stolica 250, mono dušek 1.000, bračni dušek 1.500 / 2.500. Ostaje pitanje
-  da li su sa PDV-om.
+  stolica 250, tepih 350 po m², mono dušek 1.000, bračni dušek 1.500 / 2.500;
+  mašinsko pranje podova u stanu od 150 (tvrde) i od 250 (meke podloge) po m²;
+  prozori od 250 (kuća i kancelarija). Otvoreno: da li su cene sa PDV-om, i
+  jedinica za prozore (po prozoru ili po m²?) — na sajtu sada stoji samo "od 250 din".
 - **Fotografije su privremene.** Svaki od dvanaest podtipova ima svoju stock
   fotografiju; treba ih zameniti pravim snimcima sa terena (isti nazivi fajlova,
   pa se kod ne menja).
 - **Slanje forme nije povezano.** Svi izbori su već u `FormData` (`space`,
   `contact_method`, `app`); treba servis ili backend koji prima upit i
   fotografije.
-- **Kontakt podaci su PRIVREMENI** (izmišljeni telefon, mejl, adresa, radno
-  vreme). Svi stoje u `dist/index.html` sa atributom `data-placeholder`
-  (`grep data-placeholder`) i u JSON-LD bloku u `<head>`. Ime je "Flekout Clean".
+- **Podaci firme** (CompanyWall, 15.10.): Vladimir Vasiljković PR Agencija za
+  čišćenje Flekout Clean Barajevo, PIB 115064189, MB 68065461, Obrada Lazića 85,
+  11460 Boždarevac; mejl flekout.clean@gmail.com. **Telefon i radno vreme su i
+  dalje PRIVREMENI** (CompanyWall nema telefon) i nose `data-placeholder`
+  (`grep data-placeholder`), i u JSON-LD bloku u `<head>`.
 - **Potpis u futeru** ("Dizajn i izrada @knez4") vodi na GitHub profil;
   zameniti linkom ka portfoliju kad bude gotov.
-- **Tepih / itison** su u listi cena kao "na proceni"; kancelarijske stolice
-  su po istoj ceni kao obične (250). Potvrditi sa klijentom.
+- **Itison** je u listi cena kao "na proceni" (tepih je 350 po m²);
+  kancelarijske stolice su po istoj ceni kao obične (250). Potvrditi sa klijentom.
 - **Politika privatnosti** — forma prima lične podatke, pa treba stranica i
   link u futeru.
 - **Domen.** Bez njega nema `og:image`, `og:url`, `canonical` ni `sitemap.xml`.

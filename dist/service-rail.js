@@ -56,8 +56,9 @@
         },
         {
           title: 'Mašinsko pranje podova',
-          text: 'Čišćenje tvrdih podnih površina, uz postupak prilagođen materijalu.',
-          surfaces: 'Tvrde podne površine',
+          text: 'Mašinsko pranje tvrdih i mekih podloga, uz postupak prilagođen materijalu.',
+          surfaces: 'Tvrde podloge / Meke podloge',
+          prices: ['floorsHome'],
           image: 'service-home-floors.jpg',
           alt: 'Usisivač na svetlom podu u stanu'
         },
@@ -65,6 +66,7 @@
           title: 'Pranje prozora i stakla',
           text: 'Pranje prozora, staklenih pregrada i drugih staklenih površina u domu.',
           surfaces: 'Prozori / Pregrade / Staklo',
+          prices: ['windows'],
           image: 'service-home-windows.jpg',
           alt: 'Svetla soba sa velikim prozorom'
         },
@@ -130,8 +132,8 @@
         },
         {
           title: 'Mašinsko pranje podova',
-          text: 'Mašinsko čišćenje tvrdih podnih površina poslovnog prostora.',
-          surfaces: 'Tvrde podne površine',
+          text: 'Mašinsko pranje tvrdih i mekih podloga u poslovnom prostoru.',
+          surfaces: 'Tvrde podloge / Meke podloge',
           image: 'service-office-floors.jpg',
           alt: 'Robot za čišćenje na svetlom podu'
         },
@@ -139,6 +141,7 @@
           title: 'Pranje staklenih površina',
           text: 'Pranje prozora, staklenih pregrada i vrata.',
           surfaces: 'Prozori / Pregrade / Vrata',
+          prices: ['windows'],
           image: 'service-office-glass.jpg',
           alt: 'Sala za sastanke sa staklenom pregradom'
         }
@@ -147,6 +150,7 @@
   ];
 
   /* CENE — potvrdio klijent. null = "na proceni" (cena nije data).
+     Četvrti element 'od' znači početnu cenu ("od 150 din").
      Iste cene stoje i u application/ld+json bloku u index.html: menjaju se
      na OBA mesta. Usluga bez `prices` prikazuje "određuje se na proceni". */
   const PRICES = {
@@ -154,13 +158,21 @@
       ['Garnitura', 'po sedećem mestu', 1000],
       ['Fotelja', '', 500],
       ['Stolica', 'po komadu', 250],
-      ['Tepih', '', null]
+      ['Tepih', 'po m²', 350]
     ]},
     furnitureOffice: { title: 'Nameštaj i podne obloge', rows: [
       ['Garnitura', 'po sedećem mestu', 1000],
       ['Fotelja', '', 500],
       ['Stolica', 'po komadu', 250],
-      ['Tepih i itison', '', null]
+      ['Tepih', 'po m²', 350],
+      ['Itison', '', null]
+    ]},
+    floorsHome: { title: 'Podovi', rows: [
+      ['Tvrde podloge', 'po m²', 150, 'od'],
+      ['Meke podloge', 'po m²', 250, 'od']
+    ]},
+    windows: { title: 'Prozori', rows: [
+      ['Pranje prozora', '', 250, 'od']
     ]},
     mattresses: { title: 'Dušeci', rows: [
       ['Mono dušek', '', 1000],
@@ -284,13 +296,13 @@
         const h = document.createElement('h4');
         h.textContent = list.title;
         const dl = document.createElement('dl');
-        list.rows.forEach(([name, note, price]) => {
+        list.rows.forEach(([name, note, price, prefix]) => {
           const row = document.createElement('div');
           const dt = document.createElement('dt');
           dt.textContent = name;
           if (note) { const small = document.createElement('small'); small.textContent = note; dt.append(small); }
           const dd = document.createElement('dd');
-          dd.textContent = price == null ? 'na proceni' : money(price);
+          dd.textContent = price == null ? 'na proceni' : (prefix ? prefix + ' ' : '') + money(price);
           if (price == null) dd.className = 'is-quote';
           row.append(dt, dd);
           dl.append(row);
@@ -304,7 +316,7 @@
       const close = document.createElement('button');
       close.type = 'button';
       close.className = 'rail-prices-close';
-      close.innerHTML = '<span aria-hidden="true">←</span> Zatvori cene';
+      close.innerHTML = '<span aria-hidden="true">←</span> Zatvorite cene';
       inner.append(foot, close);
       panel.append(inner);
       card.append(panel);
@@ -353,9 +365,9 @@
         '<div class="price-sheet-grip" data-drag><span></span></div>' +
         '<div class="price-sheet-head" data-drag><div><span class="price-sheet-kicker">Cene</span>' +
         '<h3 id="price-sheet-title"></h3></div>' +
-        '<button type="button" class="price-sheet-close" data-close aria-label="Zatvori cene"><span aria-hidden="true"></span></button></div>' +
+        '<button type="button" class="price-sheet-close" data-close aria-label="Zatvorite cene"><span aria-hidden="true"></span></button></div>' +
         '<div class="price-sheet-body"></div>' +
-        '<a href="#kontakt" class="price-sheet-cta">Zatraži procenu</a>' +
+        '<a href="#kontakt" class="price-sheet-cta">Zatražite procenu</a>' +
       '</div>';
     document.body.append(sheet);
     sheet.addEventListener('click', e => { if (e.target.closest('[data-close]')) closeSheet(); });
@@ -416,7 +428,7 @@
     card.classList.toggle('is-pricing', open);
     panel.inert = !open;
     more.setAttribute('aria-expanded', String(open));
-    more.firstChild.textContent = open ? 'Sakrij cene ' : 'Sve cene ';
+    more.firstChild.textContent = open ? 'Sakrijte cene ' : 'Sve cene ';
     openCard = open ? card : null;
     if (open) panel.querySelector('.rail-prices-close').focus({ preventScroll: true });
   }
@@ -433,16 +445,16 @@
   function updateCue(slide, index) {
     if (!cue) return;
     let state, text;
-    if (index >= LAST && slide > LAST - .5) { state = 'end'; text = 'Nastavi nadole'; }
-    else if (!cinematic) { state = 'swipe'; text = 'Prevuci za sledeću uslugu'; }
-    else if (slide < .35) { state = 'start'; text = touch.matches ? 'Skroluj ili prevuci za sledeću' : 'Skroluj za sledeću uslugu'; }
+    if (index >= LAST && slide > LAST - .5) { state = 'end'; text = 'Nastavite nadole'; }
+    else if (!cinematic) { state = 'swipe'; text = 'Prevucite za sledeću uslugu'; }
+    else if (slide < .35) { state = 'start'; text = touch.matches ? 'Skrolujte ili prevucite' : 'Skrolujte za sledeću uslugu'; }
     else { state = 'next'; text = 'Sledeće: ' + GROUPS[active].items[Math.min(LAST, index + 1)].title; }
     const key = state + text;
     if (key === cueKey) return;
     cueKey = key;
     cue.dataset.state = state;
     cueText.textContent = text;
-    cue.setAttribute('aria-label', state === 'end' ? 'Nastavi na sledeću sekciju' : state === 'next' ? text : 'Sledeća usluga');
+    cue.setAttribute('aria-label', state === 'end' ? 'Nastavite na sledeću sekciju' : state === 'next' ? text : 'Sledeća usluga');
   }
 
   function paint(slide) {

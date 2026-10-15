@@ -105,7 +105,7 @@
   function label() {
     if (!toggle) return;
     toggle.classList.toggle('is-paused', video.paused);
-    toggle.setAttribute('aria-label', video.paused ? 'Pokreni video' : 'Pauziraj video');
+    toggle.setAttribute('aria-label', video.paused ? 'Pokrenite video' : 'Pauzirajte video');
   }
   const wantsPlay = () => !manuallyPaused && visible && !document.hidden;
   function playback() {
