@@ -172,7 +172,7 @@
       ['Meke podloge', 'po m²', 250, 'od']
     ]},
     windows: { title: 'Prozori', rows: [
-      ['Pranje prozora', '', 250, 'od']
+      ['Pranje prozora', 'po m²', 250, 'od']
     ]},
     mattresses: { title: 'Dušeci', rows: [
       ['Mono dušek', '', 1000],

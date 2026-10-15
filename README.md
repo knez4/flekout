@@ -223,8 +223,7 @@ cene određuje polje `prices` u `GROUPS`.
 - **Cene** su od klijenta: garnitura 1.000 po sedećem mestu, fotelja 500,
   stolica 250, tepih 350 po m², mono dušek 1.000, bračni dušek 1.500 / 2.500;
   mašinsko pranje podova u stanu od 150 (tvrde) i od 250 (meke podloge) po m²;
-  prozori od 250 (kuća i kancelarija). Otvoreno: da li su cene sa PDV-om, i
-  jedinica za prozore (po prozoru ili po m²?) — na sajtu sada stoji samo "od 250 din".
+  prozori od 250 po m² (kuća i kancelarija). Otvoreno: da li su cene sa PDV-om.
 - **Fotografije su privremene.** Svaki od dvanaest podtipova ima svoju stock
   fotografiju; treba ih zameniti pravim snimcima sa terena (isti nazivi fajlova,
   pa se kod ne menja).
