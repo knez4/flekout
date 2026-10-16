@@ -240,8 +240,7 @@ cene određuje polje `prices` u `GROUPS`.
   11460 Boždarevac; mejl flekout.clean@gmail.com, telefon +381 61 298 3645 (od klijenta),
   radno vreme pon - sub 08-20, nedelja neradna. Stoje u `dist/index.html`
   (kontakt, futer, dugme "Pozovite" i JSON-LD u `<head>`) i u politici privatnosti.
-- **Potpis u futeru** ("Dizajn i izrada @knez4") vodi na GitHub profil;
-  zameniti linkom ka portfoliju kad bude gotov.
+- **Potpis u futeru** (@knez4) vodi na portfolio https://knez4.github.io.
 - **Itison** je u listi cena kao "na proceni" (tepih je 350 po m²);
   kancelarijske stolice su po istoj ceni kao obične (250). Potvrditi sa klijentom.
 - **Politika privatnosti** — forma prima lične podatke, pa treba stranica i
