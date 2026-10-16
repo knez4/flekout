@@ -1,0 +1,15 @@
+// Cloudflare (Workers + statični fajlovi). Deploy ide sam posle svakog
+// push-a na main ("npx wrangler deploy" u Cloudflare podešavanjima).
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "flekout",
+  "compatibility_date": "2026-10-12",
+  "main": "worker.js",
+  "observability": { "enabled": true },
+  "assets": {
+    "directory": "dist",
+    "binding": "ASSETS",
+    // Worker se pokreće samo za video; sve ostalo služi Cloudflare direktno.
+    "run_worker_first": ["/*.mp4"]
+  }
+}

@@ -23,7 +23,7 @@
 .h2-punch{display:block;color:#1b2226}
 
 /* --- jezičci: izbor prostora --- */
-.choose-label{display:block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#8b9398;margin:0 0 11px}
+.choose-label{display:block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#6b7479;margin:0 0 11px}
 .space-options{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;align-items:start;margin-bottom:0}
 .space-option{
   --h:var(--tab-h);

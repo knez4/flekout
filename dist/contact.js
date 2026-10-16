@@ -163,6 +163,12 @@
     encodeURIComponent('Upit sa sajta: ' + fields.Prostor) + '&body=' +
     encodeURIComponent(Object.entries(fields).map(([k, v]) => k + ': ' + v).join('\n'));
 
+  /* povratak posle slanja sa fotografijama */
+  if (new URLSearchParams(location.search).get('upit') === 'poslat') {
+    say('Hvala! Upit i fotografije su poslati. Javićemo Vam se što pre da dogovorimo procenu.', 'ok');
+    history.replaceState(null, '', location.pathname + '#kontakt');
+  }
+
   form.addEventListener('submit', async event => {
     event.preventDefault();
     status.hidden = true;
@@ -192,11 +198,44 @@
     Object.entries(fields).forEach(([key, value]) => payload.append(key, value));
     if (method === 'Email') payload.append('_replyto', contact);
 
+    let leaving = false;
     submit.disabled = true;
     submit.textContent = 'Šaljemo...';
     try {
-      const files = await Promise.all(photos.map(photo => shrink(photo.file)));
-      files.forEach(file => payload.append('attachment', file));
+      /* Sa fotografijama: FormSubmit prima priloge samo iz klasičnog slanja
+         forme (AJAX ih odbacuje), pa šaljemo skrivenu formu i vraćamo se na
+         sajt (?upit=poslat). Bez fotografija ostaje slanje bez napuštanja
+         stranice. */
+      if (photos.length && typeof DataTransfer === 'function') {
+        const files = await Promise.all(photos.map(photo => shrink(photo.file)));
+        const native = document.createElement('form');
+        native.method = 'POST';
+        native.action = ENDPOINT.replace('/ajax/', '/');
+        native.enctype = 'multipart/form-data';
+        native.hidden = true;
+        const back = new URL(location.href);
+        back.search = '?upit=poslat';
+        back.hash = 'kontakt';
+        payload.append('_next', back.href);
+        payload.forEach((value, key) => {
+          const input = document.createElement('input');
+          input.type = 'hidden'; input.name = key; input.value = value;
+          native.append(input);
+        });
+        files.forEach((file, i) => {
+          const input = document.createElement('input');
+          input.type = 'file';
+          input.name = 'Fotografija ' + (i + 1);
+          const list = new DataTransfer();
+          list.items.add(file);
+          input.files = list.files;
+          native.append(input);
+        });
+        document.body.append(native);
+        leaving = true;
+        native.submit();
+        return;
+      }
       const response = await fetch(ENDPOINT, { method: 'POST', body: payload, headers: { Accept: 'application/json' } });
       const result = await response.json().catch(() => ({}));
       if (!response.ok || String(result.success) === 'false') throw new Error(result.message || response.status);
@@ -212,6 +251,7 @@
       console.warn('[Flekout forma] slanje nije uspelo:', error.message);
       say('Upit nije poslat. Pozovite nas na +381 61 298 3645 ili', 'error', mailtoFor(fields));
     } finally {
+      if (leaving) return;
       submit.disabled = false;
       submit.textContent = submitLabel;
     }

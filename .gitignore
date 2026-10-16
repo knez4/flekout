@@ -16,3 +16,6 @@ brand/*.zip
 Thumbs.db
 desktop.ini
 node_modules/
+
+# Cloudflare Wrangler (lokalni keš)
+.wrangler/
