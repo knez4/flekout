@@ -8,6 +8,8 @@
     path: element.querySelector('.process-blue'), progress: 0, length: 1, height: 1
   }));
   const clamp = value => Math.max(0, Math.min(1, value));
+  /* tačka spajanja grane i markera; mora da prati process.css */
+  const narrow = () => innerWidth <= 800;
   let frame = 0, needsMeasure = true;
   function measure() {
     // Equal card geometry per breakpoint; size from the longest text, never clip it.
@@ -26,9 +28,11 @@
     rows.forEach(row => {
       const w = row.panel.clientWidth, h = row.panel.clientHeight;
       // Preserve navbar angle until narrow/tall cards require a bounded cut.
-      const cut = Math.min(h * .3014, w * .14), y = 54;
+      const cut = Math.min(h * .3014, w * .14), y = narrow() ? 34 : 54;
       row.panel.style.setProperty('--panel-cut', `${cut}px`);
       const x = 1 + cut * (y - 1) / Math.max(1, h - 2);
+      /* grana se završava tačno na kosoj ivici panela, ne ulazi u njega */
+      row.panel.style.setProperty('--edge-x', `${x}px`);
       const d = `M ${x} ${y} L 1 1 L ${w-cut-1} 1 L ${w-1} ${h-1} L ${cut+1} ${h-1} Z`;
       row.panel.querySelectorAll('path').forEach(path => path.setAttribute('d', d));
       row.length = row.path.getTotalLength();
@@ -46,7 +50,7 @@
       const candidate = reduced.matches ? 1 : clamp((innerHeight * .82 - tops[i]) / Math.min(row.height, innerHeight * .44));
       row.progress = Math.max(row.progress, candidate);
       const p = row.progress;
-      const node = i === rows.length - 1 ? 1 : Math.min(1,79 / row.height);
+      const node = i === rows.length - 1 ? 1 : Math.min(1,(narrow() ? 45 : 79) / row.height);
       const stem = node * clamp(p/.22) + (1-node) * clamp((p-.85)/.15);
       row.element.style.setProperty('--stem', stem);
       row.element.style.setProperty('--badge', clamp((p-.16)/.18));

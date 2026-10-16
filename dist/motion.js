@@ -1,12 +1,172 @@
-const journey=document.querySelector('.journey'),stage=document.querySelector('.stage'),svg=document.querySelector('.portal'),word=document.querySelector('#word'),swept=document.querySelector('#swept-rect'),unswept=document.querySelector('#unswept-rect'),header=document.querySelector('header'),video=document.querySelector('video'),toggle=document.querySelector('#video-toggle'),reduced=matchMedia('(prefers-reduced-motion: reduce)');
-let width=0,height=0,queued=false,manuallyPaused=false,visible=true;
-const clamp=v=>Math.max(0,Math.min(1,v));
-function render(){queued=false;const p=reduced.matches?0:clamp(-journey.getBoundingClientRect().top/Math.max(1,journey.offsetHeight-height));const sweep=clamp((p-.06)/.76),edge=width*(1-sweep);swept.setAttribute('x',edge);swept.setAttribute('width',width-edge);unswept.setAttribute('width',edge);const gray=Math.round(255-25*sweep);header.style.backgroundColor=`rgb(${gray} ${gray} ${gray})`;document.querySelector('.intro-meta').style.opacity=1-clamp(sweep*5);document.querySelector('.hero-bottom').classList.toggle('dark',sweep>.98);}
-function resize(){width=stage.clientWidth;height=stage.clientHeight;svg.setAttribute('viewBox',`0 0 ${width} ${height}`);const logoWidth=width*.94,logoHeight=logoWidth*449/2048;document.querySelectorAll('.hero-logo').forEach(logo=>{logo.setAttribute('x',width*.03);logo.setAttribute('y',height*.52-logoHeight/2);logo.setAttribute('width',logoWidth);logo.setAttribute('height',logoHeight);});document.querySelectorAll('.canvas').forEach(r=>{r.setAttribute('width',width);r.setAttribute('height',height);});[swept,unswept].forEach(r=>r.setAttribute('height',height));const m=document.querySelector('#letter-mask');m.setAttribute('x',0);m.setAttribute('y',0);m.setAttribute('width',width);m.setAttribute('height',height);render();}
-function schedule(){if(!queued){queued=true;requestAnimationFrame(render);}}
-function label(){if(!toggle)return;toggle.textContent=video.paused?'Pokreni video ▷':'Pauziraj video Ⅱ';toggle.setAttribute('aria-label',video.paused?'Pokreni video':'Pauziraj video');}
-function playback(){if(manuallyPaused||reduced.matches||!visible||document.hidden)video.pause();else video.play().catch(label);label();}
-toggle?.addEventListener('click',()=>{if(video.paused){manuallyPaused=false;video.play().catch(label);}else{manuallyPaused=true;video.pause();}});
-video.addEventListener('play',label);video.addEventListener('pause',label);video.addEventListener('error',()=>{if(toggle){toggle.textContent='Video nije dostupan';toggle.disabled=true;}});
-new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;playback();}).observe(stage);
-document.addEventListener('visibilitychange',playback);reduced.addEventListener('change',()=>{resize();playback();});addEventListener('scroll',schedule,{passive:true});new ResizeObserver(resize).observe(stage);resize();playback();
+/* ============================================================================
+   FLEKOUT — učitavanje, hero, header, plutajuće "Pozovi"
+
+   Hero: video u kadru sa kosom levom ivicom (16.8°). Pri učitavanju se kadar
+   otvara zdesna nalevo (klasa .is-clean); bez JS-a ili uz smanjeno kretanje
+   stoji otvoren odmah.
+   Video se pauzira van ekrana i u pozadinskom tabu.
+============================================================================ */
+(() => {
+  const hero = document.querySelector('.hero');
+  const media = document.querySelector('.hero-media');
+  const head = document.querySelector('.site-head');
+  const video = document.querySelector('#cleaning-video');
+  const toggle = document.querySelector('#video-toggle');
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+  if (!hero || !video) return;
+
+  /* kosa ivica kadra: pomeraj = visina × .3014, pa je ugao uvek 16.8° */
+  const text = document.querySelector('.hero-text');
+  const measure = () => {
+    hero.style.setProperty('--cut', Math.round(media.offsetHeight * .3014) + 'px');
+    /* telefon: kosa ivica belog panela, isti ugao iz visine panela */
+    if (text) hero.style.setProperty('--pcut', Math.round(text.offsetHeight * .3014) + 'px');
+  };
+  new ResizeObserver(measure).observe(media);
+  if (text) new ResizeObserver(measure).observe(text);
+  measure();
+
+  /* --- otvaranje pri učitavanju: kadar se otvara zdesna, ništa ne klizi --- */
+  const root = document.documentElement;
+  const loader = document.querySelector('.loader');
+  const loading = root.classList.contains('is-loading') && !!loader;
+  let done = false;
+  const go = () => {
+    if (done || reduced.matches) return;
+    done = true;
+    requestAnimationFrame(() => requestAnimationFrame(() => hero.classList.add('is-clean')));
+  };
+  if (!reduced.matches) {
+    hero.classList.add('has-wipe');
+    /* bez ekrana za učitavanje: sačekaj prvi kadar videa, ali najduže 0,5 s */
+    if (!loading) {
+      if (video.readyState >= 2) go(); else video.addEventListener('loadeddata', go, { once: true });
+      setTimeout(go, 500);
+    }
+  }
+
+  /* --- ekran za učitavanje: logo se puni plavom uvek bar 1,6 s (pa kratko
+     zastane i izbledi, ukupno oko 2,2 s), jer prekratak bljesak deluje kao
+     greška. Ako video do tada nije spreman da ide bez zastoja, punjenje stane
+     na 60-90% (prema učitanom delu) i dovrši se kad video bude spreman, a
+     najkasnije posle 6 s. Ako pregledač blokira puštanje (npr. iOS režim
+     uštede baterije), video se ne čeka: hero ostaje sa posterom do prvog
+     dodira. --- */
+  let finishLoading = () => {};
+  if (loading) {
+    const logo = loader.querySelector('.loader-logo');
+    const MIN = 1600, HOLD = 220, MAX = 6000;
+    const t0 = performance.now();
+    let fill = 0, finished = false, left = false, full = 0;
+    const ease = x => x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+    const buffered = () => {
+      const d = video.duration;
+      if (!d || !video.buffered.length) return 0;
+      return Math.min(1, video.buffered.end(video.buffered.length - 1) / Math.min(d, 5));
+    };
+    const ready = t => video.readyState >= 4 || (video.readyState >= 3 && t > 3000);
+    const leave = () => {
+      if (left) return;
+      left = true;
+      loader.classList.add('is-leaving');
+      root.classList.remove('is-loading');
+      setTimeout(go, 120);
+      setTimeout(() => loader.remove(), 500);
+    };
+    finishLoading = () => { finished = true; };
+    const tick = now => {
+      if (left) return;
+      if (!root.classList.contains('is-loading')) { leave(); return; }
+      const t = now - t0;
+      if (!finished && (ready(t) || t > MAX)) finished = true;
+      const cap = finished ? 1 : .6 + .3 * buffered();
+      const target = Math.min(ease(Math.min(1, t / MIN)), cap);
+      fill += (target - fill) * .3;
+      logo.style.setProperty('--fill', (fill * 100).toFixed(1) + '%');
+      if (finished && fill > .995) {
+        if (!full) full = now;
+        if (now - full >= HOLD) { leave(); return; }
+      }
+      requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+    video.addEventListener('error', finishLoading);
+  }
+
+  /* --- video: uvek se pušta sam. Pauzira ga samo korisnik (dugme), skrol van
+     heroja i pozadinski tab. Smanjeno kretanje ukida samo animaciju otvaranja,
+     ne i video (on ima dugme za pauzu, WCAG 2.2.2). Ako pregledač odbije
+     automatsko puštanje (štednja baterije, ušteda podataka), pokušavamo ponovo
+     čim se video učita i na prvi dodir, skrol ili klik. --- */
+  video.muted = true;
+  video.defaultMuted = true;
+  video.playsInline = true;
+  let manuallyPaused = false, visible = true;
+  function label() {
+    if (!toggle) return;
+    toggle.classList.toggle('is-paused', video.paused);
+    toggle.setAttribute('aria-label', video.paused ? 'Pokrenite video' : 'Pauzirajte video');
+  }
+  const wantsPlay = () => !manuallyPaused && visible && !document.hidden;
+  function playback() {
+    if (wantsPlay()) { const p = video.play(); if (p) p.catch(() => { label(); finishLoading(); }); }
+    else video.pause();
+    label();
+  }
+  toggle?.addEventListener('click', () => {
+    if (video.paused) { manuallyPaused = false; video.play().catch(label); }
+    else { manuallyPaused = true; video.pause(); }
+  });
+  video.addEventListener('play', label);
+  video.addEventListener('pause', label);
+  ['loadeddata', 'canplay'].forEach(e => video.addEventListener(e, () => { if (wantsPlay() && video.paused) playback(); }));
+  const nudge = () => { if (wantsPlay() && video.paused) playback(); };
+  /* touchend/click/keydown su "korisnička aktivacija": tek tada iOS u režimu
+     uštede baterije dozvoljava puštanje */
+  ['touchstart', 'touchend', 'pointerdown', 'pointerup', 'click', 'scroll', 'keydown'].forEach(e => addEventListener(e, nudge, { passive: true }));
+  video.addEventListener('error', () => { if (toggle) toggle.hidden = true; });
+  document.addEventListener('visibilitychange', playback);
+  new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; playback(); }).observe(hero);
+
+  /* --- header: malo gušća podloga kad se skroluje --- */
+  const solid = () => head?.classList.toggle('is-solid', scrollY > 12);
+  addEventListener('scroll', solid, { passive: true });
+  solid();
+
+  /* --- dugme "Zatraži procenu" u headeru: sklonjeno dok je na ekranu isto
+     dugme iz heroja, pa se ne vide dva ista poziva odjednom --- */
+  const heroCta = document.querySelector('.hero-cta');
+  if (head && heroCta) {
+    const show = inView => head.classList.toggle('is-cta-hidden', inView);
+    const r = heroCta.getBoundingClientRect();
+    show(r.bottom > head.getBoundingClientRect().bottom && r.top < innerHeight);
+    requestAnimationFrame(() => requestAnimationFrame(() => head.classList.add('cta-ready')));
+    /* hero dugme se računa kao vidljivo samo ispod headera */
+    const top = Math.round(head.getBoundingClientRect().bottom);
+    new IntersectionObserver(([e]) => show(e.isIntersecting), { rootMargin: `-${top}px 0px 0px 0px` }).observe(heroCta);
+  }
+  playback();
+})();
+
+/* Plutajuće "Pozovi" (samo telefon, vidi style.css): vidljivo posle heroja,
+   skriveno dok su na ekranu usluge, forma ili futer. */
+(() => {
+  const fab = document.querySelector('.call-fab');
+  if (!fab) return;
+  const blockers = ['.hero', '.services-rail', '#kontakt', '.site-foot'].map(s => document.querySelector(s)).filter(Boolean);
+  const seen = new Set();
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => e.isIntersecting ? seen.add(e.target) : seen.delete(e.target));
+    fab.classList.toggle('is-visible', seen.size === 0);
+  }, { rootMargin: '0px 0px -12% 0px' });
+  blockers.forEach(b => io.observe(b));
+})();
+
+/* Izbor prostora u heroju: otvara isti jezičak u "Naše usluge" i vodi tamo. */
+document.querySelectorAll('[data-go-space]').forEach(link => link.addEventListener('click', event => {
+  const tab = document.querySelector(`.space-option[data-space="${link.dataset.goSpace}"]`);
+  if (!tab) return;
+  event.preventDefault();
+  tab.click();
+  document.querySelector('#usluge').scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+}));

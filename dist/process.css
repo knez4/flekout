@@ -17,7 +17,8 @@ main .eyebrow::before{content:"";display:inline-block;width:15px;height:7px;back
 .process-number span{position:relative;font-size:20px;font-weight:500}
 .process-panel{position:relative;min-height:146px;isolation:isolate;background:#eceff1}
 .process.is-ready .process-panel{background:transparent}
-.process-panel::before,.process-panel::after{content:"";position:absolute;left:-58px;top:54px;width:80px;height:2px;background:var(--process-gray);z-index:-1}
+.process-panel{--reach:58px}
+.process-panel::before,.process-panel::after{content:"";position:absolute;left:calc(-1 * var(--reach));top:54px;width:calc(var(--reach) + var(--edge-x,0px));height:2px;background:var(--process-gray);z-index:-1}
 .process-panel::after{background:var(--process-blue);transform:scaleX(var(--branch));transform-origin:left}
 .process-panel svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible;z-index:-1}
 .process-base{fill:#eceff1;stroke:var(--process-gray);stroke-width:1}
@@ -27,23 +28,25 @@ main .eyebrow::before{content:"";display:inline-block;width:15px;height:7px;back
 .process h3{font-size:clamp(23px,2.2vw,32px);font-weight:500;letter-spacing:-.035em;line-height:1.2;margin:0 0 12px;color:#202326}
 .process-panel p{font-size:17px;line-height:1.7;color:#202326;margin:0;max-width:58ch}
 @media(max-width:800px){
- .process{padding:72px 6vw 80px}
- .process h2{font-size:clamp(30px,6.6vw,42px);margin:28px 0 32px}
- .process-step{padding-left:70px;padding-bottom:26px;min-height:190px}
- .process-step::before,.process-step::after{left:23px}
- .process-number{width:48px;font-size:16px}
- .process-number span{font-size:16px}
- .process-panel::before,.process-panel::after{left:-35px;width:55px}
- .process-copy{padding:26px max(34px,calc(var(--panel-cut,30px) + 12px)) 30px}
- .process h3{font-size:24px}
- .process-panel p{font-size:16px}
+ /* telefon: ista linija i markeri, ali kompaktno — 4 kratke rečenice ne
+    smeju da traju tri ekrana */
+ .process{padding:64px 6vw 64px}
+ .process h2{font-size:clamp(30px,6.6vw,42px);margin:20px 0 26px}
+ .process-step{padding:10px 0 12px 62px;min-height:0;--node-y:45px}
+ .process-step::before,.process-step::after{left:21px}
+ .process-number{top:24px;width:44px;height:40px;clip-path:polygon(0 0,calc(100% - 12px) 0,100% 100%,12px 100%)}
+ .process-number span{font-size:15px}
+ .process-panel{min-height:0}
+ .process-panel{--reach:30px}
+ .process-panel::before,.process-panel::after{top:34px}
+ .process-copy{padding:18px max(26px,calc(var(--panel-cut,24px) + 10px)) 20px calc(var(--panel-cut,24px) + 10px)}
+ .process h3{font-size:20px;margin-bottom:6px}
+ .process-panel p{font-size:15px;line-height:1.55}
 }
 @media(max-width:480px){
- .process-step{padding-left:50px}
- .process-step::before,.process-step::after{left:17px}
- .process-number{width:36px;height:42px;top:58px;clip-path:polygon(0 0,calc(100% - 12px) 0,100% 100%,12px 100%)}
+ .process-step{padding-left:52px}
+ .process-step::before,.process-step::after{left:16px}
+ .process-number{width:34px;height:36px;top:26px;clip-path:polygon(0 0,calc(100% - 10px) 0,100% 100%,10px 100%)}
  .process-number span{font-size:14px}
- .process-panel::before,.process-panel::after{left:-28px;width:42px}
- .process-copy{padding:24px max(28px,calc(var(--panel-cut,30px) + 10px)) 28px}
- .process h3{font-size:22px}
+ .process-panel{--reach:24px}
 }

@@ -9,7 +9,7 @@
    bez obzira na ekran. Tri mesta su plafon — sve ostalo je strogo pravougaono,
    inače rez prestaje da bude sistem i postaje manir.
 ============================================================================ */
-.services.services-rail{--card-h:300px;--tab-h:112px;padding:0;background:#fff;position:relative}
+.services.services-rail{--card-h:300px;--tab-h:84px;padding:0;background:#fff;position:relative}
 /* Naslov NIJE u lepljivom bloku — odskroluje pošto je odradio posao. Time se
    zakačeni režim pali i na niskim ekranima, umesto da tiho otkazuje. */
 .rail-intro{padding:48px 6vw 0}
@@ -19,11 +19,11 @@
 /* --- naslov: prvi red uvod (siv), drugi red obećanje (crn, veći) --- */
 .rail-heading{display:flex;justify-content:space-between;align-items:flex-end;gap:32px;margin-bottom:24px}
 .services-rail .rail-heading h2{font-size:clamp(42px,4.8vw,72px);font-weight:500;letter-spacing:-.05em;line-height:1.06;margin:16px 0 0}
-.h2-lead{display:block;font-size:.62em;letter-spacing:-.04em;color:#828b91;margin-bottom:.1em}
+.h2-lead{display:block;font-size:.62em;letter-spacing:-.04em;color:var(--lead);margin-bottom:.1em}
 .h2-punch{display:block;color:#1b2226}
 
 /* --- jezičci: izbor prostora --- */
-.choose-label{display:block;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#8b9398;margin:0 0 11px}
+.choose-label{display:block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#8b9398;margin:0 0 11px}
 .space-options{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;align-items:start;margin-bottom:0}
 .space-option{
   --h:var(--tab-h);
@@ -36,15 +36,15 @@
 /* Kosina je na unutrašnjoj ploči, ne na dugmetu — da outline za fokus ne bude odsečen. */
 .tab-face{position:absolute;inset:0;z-index:0;background:#eceff1;transition:background .25s;
   clip-path:polygon(0 0,calc(100% - var(--tab-cut)) 0,100% 100%,var(--tab-cut) 100%)}
-.space-number,.space-option strong{position:relative;z-index:1}
-.space-number{font-size:12px;opacity:.62}
+.space-option strong{position:relative;z-index:1}
 .space-option strong{font-weight:500;font-size:clamp(18px,1.9vw,28px);letter-spacing:-.035em;align-self:end}
 .space-option .short{display:none}
 .space-option:hover .tab-face{background:#e1e7ea}
+.space-option:active{transform:translateY(1px)}
 /* Aktivan jezičak je viši za tačno onoliko koliko je razmak — pa dodiruje tamnu
    traku i čita se kao da je zakačen za sadržaj koji je otvorio. */
 .space-option[aria-pressed=true]{--h:calc(var(--tab-h) + 14px);margin-bottom:0;color:#fff}
-.space-option[aria-pressed=true] .tab-face{background:#168ccd}
+.space-option[aria-pressed=true] .tab-face{background:var(--blue-ink)}
 .space-option:focus-visible{outline:2px solid #168ccd;outline-offset:4px}
 
 /* --- tamna traka --- */
@@ -52,22 +52,20 @@
 .rail-bottom{display:flex;justify-content:space-between;align-items:center;gap:24px}
 /* Oba natpisa levo — desna polovina gornje ivice pripada kadru. */
 .rail-top{position:absolute;top:20px;left:6vw;z-index:2;display:flex;gap:28px;align-items:baseline;font-size:13px;letter-spacing:.06em;color:#cfdde5}
-.rail-hint{color:#8ba4b2;letter-spacing:.04em;display:none}
-.is-cinematic .rail-hint{display:inline}
-.rail-window{overflow-x:auto;scrollbar-width:thin;scrollbar-color:#168ccd #263945;scroll-snap-type:x mandatory;padding-bottom:14px}
+.rail-window{overflow-x:auto;scrollbar-width:none;scroll-snap-type:x mandatory;padding-bottom:14px}
+.rail-window::-webkit-scrollbar{display:none}
 .rail-window:focus-visible{outline:2px solid #168ccd;outline-offset:6px}
 /* u zakačenom režimu traka ide do same desne ivice — kadar seče ekran */
-.is-cinematic .rail-window{overflow:hidden;scroll-snap-type:none;padding-bottom:0;margin-right:-6vw}
+.is-cinematic .rail-window{overflow:hidden;scroll-snap-type:none;padding-bottom:0;margin-right:-6vw;touch-action:pan-y}
 .rail-track{display:flex;gap:0;width:100%;will-change:transform}
 
 /* --- kartica podtipa: tekst levo, kadar desno --- */
-.rail-card{flex:0 0 100%;min-width:100%;min-height:var(--card-h);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.74fr);gap:clamp(22px,3.6vw,58px);align-items:stretch;padding:0;scroll-snap-align:start}
+.rail-card{flex:0 0 100%;min-width:100%;min-height:var(--card-h);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.9fr);gap:clamp(22px,3.6vw,58px);align-items:stretch;padding:0;scroll-snap-align:start}
 /* padding-top drži tekst ispod lebdećeg gornjeg reda */
-.rail-card-body{display:flex;flex-direction:column;justify-content:center;padding:58px 0 18px;transform:translate3d(calc(var(--o,0) * -4%),0,0)}
-.rail-card-number{font-size:13px;color:#6fabc9;letter-spacing:.06em}
-.rail-card h3{font-size:clamp(28px,3.5vw,54px);line-height:1.1;font-weight:500;letter-spacing:-.035em;margin:16px 0 14px;max-width:13ch}
+.rail-card-body{display:flex;flex-direction:column;justify-content:flex-start;padding:58px 0 22px;transform:translate3d(calc(var(--o,0) * -4%),0,0)}
+.rail-card h3{font-size:clamp(28px,3.5vw,54px);line-height:1.08;font-weight:500;letter-spacing:-.035em;margin:16px 0 14px;max-width:16ch}
 .rail-card p{font-size:17px;line-height:1.55;color:#d7e1e6;margin:0;max-width:46ch}
-.rail-card .rail-surfaces{font-size:13.5px;color:#91a6b4;margin-top:16px;letter-spacing:.03em}
+.rail-card .rail-surfaces{font-size:13.5px;color:#91a6b4;margin:16px 0 22px;letter-spacing:.03em}
 
 /* Kadar ide od same gornje ivice tamne trake do reda sa brojačem, i seče desnu
    ivicu ekrana. Pomeraj reza meri JS iz stvarne visine kadra — ugao ostaje 16.8°. */
@@ -86,6 +84,49 @@
   opacity:var(--edge,0);
   background:linear-gradient(to left,#17252e 0,#17252e 9%,rgba(23,37,46,0) 30%)}
 
+/* --- cena na kartici ---------------------------------------------------
+   Red sa cenom stoji na istom mestu na svakoj kartici. Iznos je beo, ne
+   plav: plava je poziv na akciju, a cena je informacija. "Sve cene" otvara
+   ploču koja (kao brisanje u "Zašto Flekout") prebriše kadar plavim sečivom.
+   Ploča deli ćeliju mreže sa kadrom, pa se visina kartice ne menja. */
+.rail-card-body{grid-column:1;grid-row:1}
+.rail-card-figure{grid-column:2;grid-row:1}
+/* naslov uvek na istoj visini, red sa cenom uvek na dnu: oko zna gde da gleda */
+.rail-price{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 16px;margin-top:auto;padding-top:14px;border-top:1px solid #344956;max-width:46ch}
+.rail-price-label{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#91a6b4}
+.rail-price-value{font-size:22px;font-weight:600;letter-spacing:-.02em;font-variant-numeric:tabular-nums;color:#fff}
+.rail-price-value small{font-size:14px;font-weight:500;color:#d7e1e6}
+.rail-price-value.is-quote{font-size:16px;font-weight:500;color:#d7e1e6;letter-spacing:0}
+.rail-price-more{margin-left:auto;border:0;background:none;color:#7bcef8;padding:6px 0;min-height:44px;font-size:14px;font-weight:600;display:inline-flex;align-items:center;gap:8px;transition:color .2s}
+.rail-price-more span{display:inline-block;transition:transform .25s}
+.rail-price-more:hover{color:#fff}
+.rail-price-more[aria-expanded=true] span{transform:translateX(3px)}
+.rail-price-more:focus-visible,.rail-prices-close:focus-visible{outline:2px solid #168ccd;outline-offset:3px}
+
+.rail-prices{--cut:var(--fig-cut,70px);grid-column:2;grid-row:1;align-self:stretch;position:relative;z-index:2;overflow:hidden;pointer-events:none}
+.rail-prices:before,.rail-prices:after{content:"";position:absolute;inset:0;
+  clip-path:polygon(0 0,100% 0,100% 100%,var(--cut) 100%);
+  transform:translateX(102%);transition:transform .9s cubic-bezier(.33,.9,.35,1)}
+.rail-prices:before{background:#168ccd}
+.rail-prices:after{left:3px;background:#0f1b22}
+.rail-prices-inner{position:absolute;inset:0;z-index:1;display:flex;flex-direction:column;justify-content:safe center;gap:8px;
+  padding:16px 6vw 16px calc(var(--cut) + 20px);overflow-y:auto;overscroll-behavior:contain;
+  opacity:0;transform:translateY(10px);transition:opacity .3s ease,transform .3s ease}
+.is-pricing .rail-prices{pointer-events:auto}
+.is-pricing .rail-prices:before,.is-pricing .rail-prices:after{transform:none}
+.is-pricing .rail-prices-inner{opacity:1;transform:none;transition-delay:.45s}
+.rail-prices-group{max-width:400px}
+.rail-prices h4{margin:0 0 2px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;color:#91a6b4}
+.rail-prices dl{margin:0}
+.rail-prices dl>div{display:flex;justify-content:space-between;align-items:baseline;gap:14px;padding:5px 0;border-top:1px solid #2b3f4b}
+.rail-prices dt{font-size:15px;color:#fff}
+.rail-prices dt small{font-size:13px;color:#91a6b4;margin-left:6px}
+.rail-prices dd{margin:0;font-size:15px;font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap;color:#fff}
+.rail-prices dd.is-quote{font-weight:500;color:#91a6b4}
+.rail-prices .rail-prices-foot{margin:0;font-size:13px;line-height:1.5;color:#91a6b4;max-width:400px}
+.rail-prices-close{align-self:flex-start;border:0;background:none;color:#7bcef8;padding:4px 0;min-height:40px;font-size:14px;font-weight:600;transition:color .2s}
+.rail-prices-close:hover{color:#fff}
+
 /* --- podnožje: brojač + četiri segmenta na koja se može skočiti --- */
 .rail-bottom{border-top:1px solid #344956;padding-top:16px;margin-top:0;font-size:14px}
 .rail-position{font-variant-numeric:tabular-nums;color:#c7d8e2;flex-shrink:0}
@@ -95,11 +136,34 @@
 .rail-step .track i{position:absolute;inset:0;background:#168ccd;transform-origin:left;transform:scaleX(var(--f,0))}
 .rail-step:hover .track{background:#587585}
 .rail-step:focus-visible{outline:2px solid #168ccd;outline-offset:3px}
+.rail-progress{display:flex;align-items:center;gap:24px;flex:1;min-width:0}
 .rail-bottom a{font-size:14px;flex-shrink:0}
+
+/* --- kompas -------------------------------------------------------------
+   Okvir kao dugmad za prostor u formi (tanka linija), ikonica miša ili ruke
+   prema uređaju, strelica koja pokazuje smer. Strelica blago poskakuje samo
+   dok treba naučiti pokret (start) i kad je vreme za izlaz (end). */
+.rail-cue{display:inline-flex;align-items:center;gap:10px;height:42px;padding:0 16px 0 12px;border:1px solid #3d5563;background:rgba(255,255,255,.04);
+  color:#e6eef2;font-size:14px;font-weight:600;white-space:nowrap;min-width:0;max-width:min(46ch,48vw);transition:border-color .2s,background .2s}
+.rail-cue:hover{border-color:#168ccd;background:rgba(22,140,205,.12)}
+.rail-cue:focus-visible{outline:2px solid #168ccd;outline-offset:3px}
+.rail-cue svg{width:20px;height:20px;flex:none}
+.rail-cue-icon,.rail-cue-arrow{display:inline-flex}
+.rail-cue-text{overflow:hidden;text-overflow:ellipsis;min-width:0}
+.rail-cue-arrow{color:#7bcef8}
+.cue-hand{display:none}
+@media(hover:none){.cue-mouse{display:none}.cue-hand{display:block}}
+.cue-right{display:none}
+.rail-cue[data-state=next] .cue-down,.rail-cue[data-state=swipe] .cue-down{display:none}
+.rail-cue[data-state=next] .cue-right,.rail-cue[data-state=swipe] .cue-right{display:block}
+.rail-cue[data-state=end] .rail-cue-icon{display:none}
+.rail-cue[data-state=start] .rail-cue-arrow,.rail-cue[data-state=end] .rail-cue-arrow{animation:cue-down 1.5s cubic-bezier(.45,0,.35,1) infinite}
+.rail-cue[data-state=start]{border-color:#5d7685}
+@keyframes cue-down{0%,100%{transform:translateY(-3px);opacity:.6}50%{transform:translateY(3px);opacity:1}}
 .rail-bottom a:hover{color:#7bcef8}
 
 /* --- .is-tight: JS ga pali kad izmeri da sadržaj ne staje u ekran --- */
-.services-rail.is-tight{--tab-h:92px}
+.services-rail.is-tight{--tab-h:72px}
 .is-tight .rail-heading h2{font-size:40px;margin-top:12px}
 .is-tight .rail-heading{margin-bottom:16px}
 .is-tight .choose-label{margin-bottom:9px}
@@ -112,43 +176,125 @@
 .is-tight .rail-card-body{padding-top:50px}
 .is-tight .rail-bottom{padding-top:12px;margin-top:10px}
 .is-tight .rail-step{padding:10px 0}
+.is-tight .rail-price{padding-top:10px}
+.is-tight .rail-price-value{font-size:19px}
+.is-tight .rail-price-more{min-height:40px}
+
+/* --- .is-compact: niski laptopi (oko 600px visine sa trakama pregledača) --- */
+.services-rail.is-compact{--tab-h:60px}
+.is-compact .space-option{padding-top:10px;padding-bottom:10px;gap:2px}
+.is-compact .space-option strong{font-size:clamp(17px,1.6vw,22px)}
+.is-compact .rail-sticky{padding-top:6px;padding-bottom:10px}
+.is-compact .rail-top{top:14px}
+.is-compact .rail-card-body{padding:42px 0 12px}
+.is-compact .rail-card h3{font-size:clamp(24px,2.4vw,32px);margin:6px 0 8px}
+.is-compact .rail-card p{font-size:15px}
+.is-compact .rail-card .rail-surfaces{margin-top:6px;font-size:13px}
+.is-compact .rail-price{padding-top:8px}
+.is-compact .rail-price-value{font-size:18px}
+.is-compact .rail-bottom{padding-top:8px;margin-top:6px}
+.is-compact .rail-step{padding:8px 0}
 
 @media(max-width:800px){
-.services.services-rail{--tab-h:78px}
-.services-rail.is-tight{--tab-h:66px}
+.services.services-rail{--tab-h:50px}
+.services-rail.is-tight{--tab-h:46px}
+.services-rail.is-compact{--tab-h:42px}
 .rail-intro{padding:44px 6vw 0}
 .rail-sticky{padding:16px 6vw 40px}
 .rail-heading{display:block}
 .services-rail .rail-heading h2{font-size:clamp(30px,6.6vw,46px)}
-.space-options{gap:8px}
-.space-option{padding:11px 8px 11px calc(var(--tab-cut) + 10px);gap:8px}
-.space-option strong{font-size:13px;letter-spacing:-.02em;line-height:1.25}
+/* telefon: tri jednaka jezička, natpis centriran u vidljivom delu ploče
+   (između dve kose ivice), isti raspored za aktivan i neaktivan */
+.space-options{gap:6px;align-items:end}
+.space-option,.is-tight .space-option,.is-compact .space-option{display:flex;align-items:center;justify-content:center;margin-bottom:6px;padding:0 calc(var(--tab-cut) / 2 + 4px)}
+.space-option[aria-pressed=true]{--h:calc(var(--tab-h) + 6px);margin-bottom:0;padding-bottom:6px}
+.space-option strong,.is-compact .space-option strong{align-self:center;font-size:14px;font-weight:600;letter-spacing:-.01em;line-height:1.2;text-align:center;white-space:nowrap}
 .space-option .long{display:none}
 .space-option .short{display:inline}
-.space-number{font-size:10px}
 .is-cinematic .rail-window{margin-right:-6vw}
 .rail-card{grid-template-columns:1fr;gap:14px;align-items:start;min-height:0;padding-bottom:4px}
 .rail-card-body{padding:44px 0 0}
 .rail-card h3{font-size:clamp(26px,5.6vw,38px);max-width:none;margin:12px 0 10px}
 .rail-card p{font-size:15.5px;max-width:none}
 .rail-card .rail-surfaces{margin-top:12px;font-size:12.5px}
-.rail-card-figure{height:clamp(120px,var(--card-h),200px);margin-right:0}
+.rail-card-figure{height:clamp(120px,var(--card-h),300px);margin-right:0}
+.rail-card-figure{grid-column:1;grid-row:2}
+.rail-price{margin-top:14px;padding-top:12px;max-width:none}
+.rail-price-value{font-size:20px}
+/* na telefonu je kadar nizak za listu: ploča prekriva celu karticu */
+.rail-prices{grid-column:1;grid-row:1 / span 2;--cut:0px}
+.rail-prices-inner{justify-content:flex-start;padding:40px 6vw 10px 4px;gap:8px}
+.rail-prices dl>div{padding:5px 0}
+.rail-prices:after{left:3px}
 .rail-card-figure:after{background:linear-gradient(104deg,#17252e 0,rgba(23,37,46,0) 20%)}
 .rail-card-figure:before{background:linear-gradient(to left,#17252e 0,#17252e 12%,rgba(23,37,46,0) 38%)}
 .is-cinematic .rail-sticky{padding-top:8px;padding-bottom:12px}
 .is-tight .rail-heading h2{font-size:30px;margin-top:10px}
 .is-cinematic .rail-heading{margin-bottom:14px}
 .is-cinematic .dark-rail{padding-bottom:14px}
-.rail-top{top:14px;font-size:11.5px;gap:14px}
+.rail-top{top:14px;font-size:12px;gap:14px}
 .is-tight .rail-card-body{padding-top:38px}
 .rail-bottom{gap:12px;padding-top:13px;margin-top:10px}
 .rail-bottom a{font-size:13px}
+/* telefon: poziv je već u headeru; mesto dobija kompas */
+.rail-cta{display:none}
+.rail-progress{gap:12px;flex:none}
+.rail-cue{flex:1;justify-content:center;max-width:none;height:40px;font-size:13px;padding:0 10px}
 .rail-steps{max-width:90px;gap:5px}
 .rail-step{padding:10px 0}
 }
 
 @media(prefers-reduced-motion:reduce){
+.rail-cue-arrow{animation:none!important}
 .tab-face{transition:none}
 .rail-track{will-change:auto;transform:none!important}
 .rail-card-body,.rail-card-figure img{transform:none}
+.rail-prices:before,.rail-prices:after,.rail-prices-inner,.rail-price-more span{transition:none}
 }
+.is-tight .rail-prices .rail-prices-foot{display:none}
+
+/* --- telefon: cene u donjem panelu ---------------------------------------
+   Tamna podloga kao traka usluga, plavo sečivo po gornjoj ivici, levi gornji
+   ugao zasečen pod 16.8° (porodica "kontejner sa tekstom", kao jezičci).
+   Ručka gore i prevlačenje nadole, kao u aplikacijama. */
+.price-sheet{position:fixed;inset:0;z-index:60}
+.price-sheet[hidden]{display:none}
+.price-sheet-backdrop{position:absolute;inset:0;background:rgba(10,18,23,.55);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);opacity:0;transition:opacity .3s ease}
+.price-sheet-panel{position:absolute;left:0;right:0;bottom:0;max-height:86svh;display:flex;flex-direction:column;
+  padding:0 6vw calc(20px + env(safe-area-inset-bottom,0px));background:#17252e;color:#fff;
+  border-top:3px solid #168ccd;clip-path:polygon(22px 0,100% 0,100% 100%,0 100%,0 74px);
+  transform:translateY(100%);transition:transform .34s cubic-bezier(.2,.8,.2,1)}
+.price-sheet.is-open .price-sheet-backdrop{opacity:1}
+.price-sheet.is-open .price-sheet-panel{transform:none}
+.price-sheet-grip{display:flex;justify-content:center;padding:10px 0 6px;touch-action:none}
+.price-sheet-grip span{width:44px;height:4px;border-radius:2px;background:#3d5563}
+.price-sheet-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;padding:4px 0 14px;border-bottom:1px solid #2c4250;touch-action:none}
+.price-sheet-kicker{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#91a6b4}
+.price-sheet-head h3{margin:4px 0 0;font-size:24px;font-weight:500;letter-spacing:-.03em;line-height:1.15}
+.price-sheet-close{flex:none;position:relative;width:44px;height:44px;margin:-4px -8px 0 0;border:0;background:none;color:#fff}
+.price-sheet-close span:before,.price-sheet-close span:after{content:"";position:absolute;left:12px;right:12px;top:21px;height:1.6px;background:currentColor;transform:rotate(45deg)}
+.price-sheet-close span:after{transform:rotate(-45deg)}
+.price-sheet-close:focus-visible,.price-sheet-cta:focus-visible{outline:2px solid #168ccd;outline-offset:3px}
+.price-sheet-body{overflow-y:auto;overscroll-behavior:contain;padding:6px 0 4px;display:grid;gap:18px}
+.price-sheet-body h4{margin:14px 0 2px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;color:#91a6b4}
+.price-sheet-body dl{margin:0}
+.price-sheet-body dl>div{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:12px 0;border-bottom:1px solid #2c4250}
+.price-sheet-body dt{font-size:16px;color:#fff}
+.price-sheet-body dt small{display:block;font-size:13px;color:#91a6b4;margin-top:2px}
+.price-sheet-body dd{margin:0;font-size:17px;font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap}
+.price-sheet-body dd.is-quote{font-weight:500;color:#91a6b4;font-size:15px}
+.price-sheet-body .rail-prices-foot{margin:0;font-size:13px;line-height:1.5;color:#91a6b4}
+.price-sheet-cta{position:relative;isolation:isolate;display:flex;justify-content:center;align-items:center;min-height:52px;margin-top:18px;padding:0 28px;color:#fff;font-size:15px;font-weight:600}
+.price-sheet-cta:before{content:"";position:absolute;inset:0;z-index:-1;background:#0f7ab5;clip-path:polygon(0 0,calc(100% - 16px) 0,100% 100%,16px 100%)}
+html.has-sheet{overflow:hidden}
+@media(min-width:801px){.price-sheet{display:none!important}}
+@media(max-width:800px){
+  .rail-prices{display:none}
+  /* tekst kartice ne sme do same ivice ekrana (traka ide do ivice) */
+  .rail-card-body{padding-right:6vw}
+  /* "Sve cene" kao dugme, isti okvir kao kompas */
+  .rail-price{align-items:center}
+  .rail-price-more{min-height:40px;padding:0 12px 0 14px;border:1px solid #3d5563;background:rgba(255,255,255,.04);color:#e6eef2;font-size:13px}
+  .rail-price-more span{color:#7bcef8}
+}
+@media(prefers-reduced-motion:reduce){.price-sheet-panel,.price-sheet-backdrop{transition:none}}
