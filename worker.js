@@ -10,6 +10,8 @@ export default {
 
     const headers = new Headers(asset.headers);
     headers.set('Accept-Ranges', 'bytes');
+    /* video se uvek traži sa ?v= oznakom, pa sme dugo u keš */
+    headers.set('Cache-Control', 'public, max-age=31536000, immutable');
     const range = /^bytes=(\d*)-(\d*)$/.exec(request.headers.get('Range') || '');
     if (!range) {
       return new Response(request.method === 'HEAD' ? null : asset.body, { status: 200, headers });

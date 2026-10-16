@@ -39,7 +39,9 @@
   const reduced  = matchMedia('(prefers-reduced-motion: reduce)');
 
   /* Oznaka verzije za fotografije: podići kad se slika zameni pod istim imenom. */
-  const IMG_V = '20261014n';
+  /* ista ?v= oznaka kao ovaj skript (index.html), pa se slike iz statičnog
+     HTML-a i ove koje pravi JS ne skidaju dva puta */
+  const IMG_V = new URL(document.currentScript?.src || location.href).searchParams.get('v') || '1';
 
   /* Četiri odobrena podtipa po nadtipu. Svaki ima svoju fotografiju. */
   const GROUPS = [
@@ -454,7 +456,6 @@
     cueKey = key;
     cue.dataset.state = state;
     cueText.textContent = text;
-    cue.setAttribute('aria-label', state === 'end' ? 'Nastavite na sledeću sekciju' : state === 'next' ? text : 'Sledeća usluga');
   }
 
   function paint(slide) {
