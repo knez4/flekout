@@ -166,7 +166,12 @@
   /* povratak posle slanja sa fotografijama */
   if (new URLSearchParams(location.search).get('upit') === 'poslat') {
     say('Hvala! Upit i fotografije su poslati. Javićemo Vam se što pre da dogovorimo procenu.', 'ok');
-    history.replaceState(null, '', location.pathname + '#kontakt');
+    history.replaceState(null, '', location.pathname);
+    /* posle ekrana sa logom spusti stranicu tačno do poruke, da je posetilac vidi */
+    const show = () => document.documentElement.classList.contains('is-loading')
+      ? requestAnimationFrame(show)
+      : requestAnimationFrame(() => status.scrollIntoView({ block: 'center' }));
+    show();
   }
 
   form.addEventListener('submit', async event => {
@@ -215,7 +220,7 @@
         native.hidden = true;
         const back = new URL(location.href);
         back.search = '?upit=poslat';
-        back.hash = 'kontakt';
+        back.hash = '';
         payload.append('_next', back.href);
         payload.forEach((value, key) => {
           const input = document.createElement('input');
