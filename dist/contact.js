@@ -5,8 +5,8 @@
    izbor upisuje vrednost u skriveno polje: space, contact_method, app. Kad se
    forma poveže sa servisom, new FormData(form) već sadrži sve što treba.
 
-   NAPOMENA ZA PRODUKCIJU: slanje nije povezano — submit samo prikazuje šta
-   bi bilo poslato. Fotografije se drže u nizu `photos` i nisu u FormData.
+   Slanje ide preko FormSubmit-a na flekout.clean@gmail.com (vidi dole).
+   Fotografije se drže u nizu `photos` i dodaju se u upit pri slanju.
 ============================================================================ */
 (() => {
   const root = document.getElementById('kontakt');
@@ -120,10 +120,38 @@
     showPhotos();
   });
 
-  /* --- slanje (demo) --- */
-  form.addEventListener('submit', event => {
+  /* --- slanje: FormSubmit šalje upit kao mejl na flekout.clean@gmail.com ---
+     Bez naloga i ključa. Prvi upit stiže kao mejl za aktivaciju: neko sa
+     pristupom tom inboksu mora jednom da klikne "Activate form", tek onda
+     stižu upiti. Fotografije se pre slanja smanje (najviše 1600 px, JPEG),
+     da ceo mejl ostane daleko ispod ograničenja Gmail-a. */
+  const ENDPOINT = 'https://formsubmit.co/ajax/flekout.clean@gmail.com';
+  const status = root.querySelector('.fc-status');
+  const submit = form.querySelector('.fc-submit');
+  const submitLabel = submit.textContent;
+
+  const shrink = file => new Promise(resolve => {
+    const img = new Image();
+    img.onload = () => {
+      const scale = Math.min(1, 1600 / Math.max(img.naturalWidth, img.naturalHeight));
+      const canvas = document.createElement('canvas');
+      canvas.width = Math.round(img.naturalWidth * scale);
+      canvas.height = Math.round(img.naturalHeight * scale);
+      canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);
+      canvas.toBlob(blob => resolve(blob ? new File([blob], file.name.replace(/\.\w+$/, '') + '.jpg', { type: 'image/jpeg' }) : file), 'image/jpeg', .82);
+    };
+    img.onerror = () => resolve(file);
+    img.src = URL.createObjectURL(file);
+  });
+
+  function say(text, kind) {
+    status.textContent = text;
+    status.dataset.kind = kind;
+    status.hidden = false;
+  }
+
+  form.addEventListener('submit', async event => {
     event.preventDefault();
-    const status = root.querySelector('.fc-demo-result');
     status.hidden = true;
     const contact = method === 'Email' ? emailInput.value.trim() : normalizePhone();
     if (method !== 'Email' && !/^\+?[1-9]\d{6,14}$/.test(contact)) {
@@ -133,10 +161,40 @@
       return;
     }
     const data = new FormData(form);
-    status.textContent =
-      'Probni prikaz, ništa nije poslato. Prostor: ' + data.get('space') +
-      '. Kontakt: ' + (data.get('app') || data.get('contact_method')) + ', ' + contact +
-      '. Fotografija: ' + photos.length + '.';
-    status.hidden = false;
+    if (data.get('_honey')) return;
+
+    const payload = new FormData();
+    payload.append('_subject', 'Novi upit sa sajta: ' + data.get('space'));
+    payload.append('_template', 'table');
+    payload.append('_captcha', 'false');
+    payload.append('Prostor', data.get('space'));
+    payload.append('Lokacija', data.get('location'));
+    payload.append('Ime', data.get('name') || '-');
+    payload.append('Opis', data.get('details'));
+    payload.append('Način kontakta', data.get('app') ? 'Poruka (' + data.get('app') + ')' : method);
+    payload.append(method === 'Email' ? 'Email' : 'Telefon', contact);
+    if (method === 'Email') payload.append('_replyto', contact);
+    payload.append('Broj fotografija', String(photos.length));
+
+    submit.disabled = true;
+    submit.textContent = 'Šaljemo...';
+    try {
+      const files = await Promise.all(photos.map(photo => shrink(photo.file)));
+      files.forEach(file => payload.append('attachment', file));
+      const response = await fetch(ENDPOINT, { method: 'POST', body: payload, headers: { Accept: 'application/json' } });
+      const result = await response.json().catch(() => ({}));
+      if (!response.ok || String(result.success) === 'false') throw new Error(result.message || response.status);
+      say('Hvala! Upit je poslat. Javićemo Vam se što pre da dogovorimo procenu.', 'ok');
+      form.reset();
+      photos.splice(0).forEach(photo => URL.revokeObjectURL(photo.url));
+      showPhotos();
+      root.querySelector('[data-space="Kuća / stan"]').click();
+      root.querySelector('[data-method="Poziv"]').click();
+    } catch (error) {
+      say('Upit nije poslat. Pokušajte ponovo ili nas pozovite na +381 61 298 3645.', 'error');
+    } finally {
+      submit.disabled = false;
+      submit.textContent = submitLabel;
+    }
   });
 })();

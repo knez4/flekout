@@ -217,7 +217,7 @@ cene određuje polje `prices` u `GROUPS`.
   2333; prljav pločnik i otpaci, suprotno od utiska čistoće). Fotografija dubinskog pranja nameštaja
   mašinom (ekstraktor, parni čistač) na Pixabay-u nema, pa stoji ručni usisivač. Jedan dan snimanja na terenu rešava oba.
 - **Politika privatnosti** (`dist/politika-privatnosti.html`) je nacrt: podaci
-  firme su upisani, ostaje rok čuvanja, servis za formu i pregled pravnika.
+  firme i servis za formu (FormSubmit) su upisani, ostaje rok čuvanja i pregled pravnika.
 - **"Garancija na uslugu"** treba konkretizovati (šta tačno klijent dobija).
 
 - **Cene** su od klijenta: garnitura 1.000 po sedećem mestu, fotelja 500,
@@ -227,9 +227,12 @@ cene određuje polje `prices` u `GROUPS`.
 - **Fotografije su privremene.** Svaki od dvanaest podtipova ima svoju stock
   fotografiju; treba ih zameniti pravim snimcima sa terena (isti nazivi fajlova,
   pa se kod ne menja).
-- **Slanje forme nije povezano.** Svi izbori su već u `FormData` (`space`,
-  `contact_method`, `app`); treba servis ili backend koji prima upit i
-  fotografije.
+- **Forma šalje upite preko FormSubmit-a** (`dist/contact.js`, `ENDPOINT`) na
+  flekout.clean@gmail.com, sa fotografijama smanjenim na najviše 1600 px.
+  **Prvi upit stiže kao mejl za aktivaciju**: neko sa pristupom tom inboksu mora
+  jednom da klikne "Activate form"; do tada upiti ne stižu. Posle aktivacije
+  FormSubmit nudi skrivenu adresu (niz slova umesto mejla) koju vredi upisati
+  u `ENDPOINT`, da se mejl ne vidi u kodu.
 - **Podaci firme** (CompanyWall, 15.10.): Vladimir Vasiljković PR Agencija za
   čišćenje Flekout Clean Barajevo, PIB 115064189, MB 68065461, Obrada Lazića 85,
   11460 Boždarevac; mejl flekout.clean@gmail.com, telefon +381 61 298 3645 (od klijenta),
