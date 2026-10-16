@@ -1,12 +1,21 @@
 /* Flekout: Cloudflare Worker ispred statičnih fajlova iz dist/.
-   Jedini posao: video (.mp4) služi u delovima (HTTP 206 na zahtev "Range").
-   Safari na iPhone-u video pušta samo ako server to podržava, a statični
-   fajlovi na Workers-u uvek vraćaju ceo fajl. Sve ostalo ide pravo iz dist/. */
+   1) www.flekoutclean.com trajno (301) preusmerava na flekoutclean.com: jedna
+      adresa za Google, a FormSubmit forma je aktivirana samo za nju.
+   2) Video (.mp4) služi u delovima (HTTP 206 na zahtev "Range"). Safari na
+      iPhone-u video pušta samo ako server to podržava, a statični fajlovi na
+      Workers-u uvek vraćaju ceo fajl.
+   Sve ostalo ide pravo iz dist/ (sa zaglavljima iz dist/_headers). */
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
+    if (url.hostname.startsWith('www.')) {
+      url.hostname = url.hostname.slice(4);
+      return Response.redirect(url.toString(), 301);
+    }
+    if (!url.pathname.endsWith('.mp4')) return env.ASSETS.fetch(request);
+
     const asset = await env.ASSETS.fetch(new Request(url, { method: 'GET' }));
-    if (!url.pathname.endsWith('.mp4') || asset.status !== 200) return asset;
+    if (asset.status !== 200) return asset;
 
     const headers = new Headers(asset.headers);
     headers.set('Accept-Ranges', 'bytes');

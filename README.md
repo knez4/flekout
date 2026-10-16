@@ -246,7 +246,11 @@ cene određuje polje `prices` u `GROUPS`.
   kancelarijske stolice su po istoj ceni kao obične (250). Potvrditi sa klijentom.
 - **Politika privatnosti** — forma prima lične podatke, pa treba stranica i
   link u futeru.
-- **Domen.** Bez njega nema `og:image`, `og:url`, `canonical` ni `sitemap.xml`.
+- **Domen: flekoutclean.com** (Loopia, DNS na Cloudflare-u). Adresa stoji u
+  `canonical`, `og:url`, `og:image` (`dist/og-image.jpg`, 1200×630), JSON-LD,
+  `dist/robots.txt` i `dist/sitemap.xml`. Ako se domen promeni, menja se na tim
+  mestima (`grep -r flekoutclean.com dist`). FormSubmit traži jedan klik na
+  "Activate Form" za novu adresu.
 - **Sadržaj za proveru sa klijentom:** "48 h", "garancija", "ista ekipa".
 
 ## Izvori fotografija i videa
