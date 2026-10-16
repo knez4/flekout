@@ -75,8 +75,12 @@
 #kontakt .fc-submit:before{content:'';position:absolute;inset:0;z-index:-1;background:var(--blue-ink);transition:background .2s;clip-path:polygon(0 0,calc(100% - 16px) 0,100% 100%,16px 100%)}
 #kontakt .fc-submit:hover:before{background:#0b6a9e}
 #kontakt .fc-submit:active{transform:translateY(1px)}
-#kontakt .fc-prototype{font-size:12px;color:#b8c9d3;line-height:1.6;margin:20px 0 0}
-#kontakt .fc-demo-result{margin:22px 0 0;padding:15px;background:#203e50;color:#a2dfff;font-size:13px;line-height:1.6}
+#kontakt .fc-status{margin:22px 0 0;padding:15px;background:#203e50;color:#a2dfff;font-size:14px;line-height:1.6;border-left:3px solid #46b7f1}
+#kontakt .fc-status[data-kind=error]{background:#3a2a2c;color:#ffc7bf;border-left-color:#ff9d8f}
+#kontakt .fc-status-mail{color:#fff;font-weight:600;text-decoration:underline;text-underline-offset:3px}
+#kontakt .fc-submit:disabled{cursor:progress;opacity:.75}
+/* zamka za botove: polje koje čovek ne vidi */
+#kontakt .fc-hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
 #kontakt .fc-intro a{color:var(--ink);font-weight:600;text-decoration:underline;text-decoration-color:var(--blue);text-underline-offset:4px;white-space:nowrap}
 #kontakt .fc-consent{display:flex;gap:12px;align-items:flex-start;margin:6px 0 0;font-size:13px;line-height:1.55;color:#c9d6dd;cursor:pointer}
 #kontakt .fc-consent input{flex:none;width:20px;height:20px;margin:1px 0 0;padding:0;accent-color:var(--blue-ink)}

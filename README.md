@@ -27,9 +27,9 @@ dist/            sajt koji se servira
   services.js      detaljan katalog usluga (postupak, površine, oprema)
                    NIJE učitan u trenutnoj verziji, čuva se za sledeću fazu
   *.jpg / *.mp4    fotografije i video (privremeni, vidi "Izvori fotografija i videa");
-                   hero-1080.mp4 (računar, 2560×1440, ~4.4 MB, H.264 High 5.0)
+                   hero-1080.mp4 (računar, 2560×1440, ~5.5 MB, H.264 High 5.0)
                    i hero-mobile.mp4 (telefon, uspravni isečak 1080×1620 iz 4K
-                   izvora, ~2.7 MB, H.264 High 4.0); petlja od 12 s, ključni
+                   izvora, ~2.3 MB, H.264 High 4.0); petlja od 7,1 s, ključni
                    kadar na 2 s, ograničen protok, faststart, bez zvuka;
                    pregledač bira preko <source media>. Poster
                    cleaning-poster.webp/.jpg je prvi kadar.
@@ -211,13 +211,12 @@ cene određuje polje `prices` u `GROUPS`.
   posle Usluga. Recenzije se NE izmišljaju.
 - **Obraćanje je na "Vi"** (odluka 15.10.): Vi, Vas, Vam, Vaš velikim slovom,
   dugmad u obliku "Zatražite procenu". Novi tekst pisati isto.
-- **Hero video i fotografije usluga** su stock sa Pixabay-a (vidi tabelu ispod).
-  Pixabay nema snimak mašine za pranje podova, pa video privremeno pokazuje
-  mop i kofu (4K). Probani i odbačeni: perač pod pritiskom na ulici (Pixabay
-  2333; prljav pločnik i otpaci, suprotno od utiska čistoće). Fotografija dubinskog pranja nameštaja
+- **Hero video je stock sa Pexels-a** (parno dubinsko čišćenje tepiha, 4K), a
+  fotografije usluga sa Pixabay-a (vidi tabelu ispod). Probani i odbačeni: mop
+  i kofa (Pixabay 34822), perač pod pritiskom na ulici (Pixabay 2333). Fotografija dubinskog pranja nameštaja
   mašinom (ekstraktor, parni čistač) na Pixabay-u nema, pa stoji ručni usisivač. Jedan dan snimanja na terenu rešava oba.
 - **Politika privatnosti** (`dist/politika-privatnosti.html`) je nacrt: podaci
-  firme su upisani, ostaje rok čuvanja, servis za formu i pregled pravnika.
+  firme i servis za formu (FormSubmit) su upisani, ostaje rok čuvanja i pregled pravnika.
 - **"Garancija na uslugu"** treba konkretizovati (šta tačno klijent dobija).
 
 - **Cene** su od klijenta: garnitura 1.000 po sedećem mestu, fotelja 500,
@@ -227,14 +226,17 @@ cene određuje polje `prices` u `GROUPS`.
 - **Fotografije su privremene.** Svaki od dvanaest podtipova ima svoju stock
   fotografiju; treba ih zameniti pravim snimcima sa terena (isti nazivi fajlova,
   pa se kod ne menja).
-- **Slanje forme nije povezano.** Svi izbori su već u `FormData` (`space`,
-  `contact_method`, `app`); treba servis ili backend koji prima upit i
-  fotografije.
+- **Forma šalje upite preko FormSubmit-a** (`dist/contact.js`, `ENDPOINT`) na
+  flekout.clean@gmail.com, sa fotografijama smanjenim na najviše 1600 px.
+  **Prvi upit stiže kao mejl za aktivaciju**: neko sa pristupom tom inboksu mora
+  jednom da klikne "Activate form"; do tada upiti ne stižu. Posle aktivacije
+  FormSubmit nudi skrivenu adresu (niz slova umesto mejla) koju vredi upisati
+  u `ENDPOINT`, da se mejl ne vidi u kodu.
 - **Podaci firme** (CompanyWall, 15.10.): Vladimir Vasiljković PR Agencija za
   čišćenje Flekout Clean Barajevo, PIB 115064189, MB 68065461, Obrada Lazića 85,
-  11460 Boždarevac; mejl flekout.clean@gmail.com. **Telefon i radno vreme su i
-  dalje PRIVREMENI** (CompanyWall nema telefon) i nose `data-placeholder`
-  (`grep data-placeholder`), i u JSON-LD bloku u `<head>`.
+  11460 Boždarevac; mejl flekout.clean@gmail.com, telefon +381 61 298 3645 (od klijenta),
+  radno vreme pon - sub 08-20, nedelja neradna. Stoje u `dist/index.html`
+  (kontakt, futer, dugme "Pozovite" i JSON-LD u `<head>`) i u politici privatnosti.
 - **Potpis u futeru** ("Dizajn i izrada @knez4") vodi na GitHub profil;
   zameniti linkom ka portfoliju kad bude gotov.
 - **Itison** je u listi cena kao "na proceni" (tepih je 350 po m²);
@@ -258,7 +260,7 @@ blago uvećani na 1400.
 
 | fajl | sadržaj | Pixabay ID | stranica |
 |---|---|---|---|
-| `hero-1080.mp4`, `hero-mobile.mp4`, `cleaning-poster.*` | mop i kofa na pločicama, 4K; obezbojeni plavi i crveni tonovi, petlja 1,3-13,3 s sa pretapanjem | 34822 | https://pixabay.com/videos/id-34822/ |
+| `hero-1080.mp4`, `hero-mobile.mp4`, `cleaning-poster.*` | parno dubinsko čišćenje krem tepiha, 4K, Pexels (licenca Pexels: besplatno i za komercijalnu upotrebu); usporeno na 0,8x, -20% zasićenja, petlja 7,1 s sa pretapanjem | Pexels 4201960 | https://www.pexels.com/video/housework-carpet-living-room-steam-4201960/ |
 | `service-home-deep` | ručni usisivač u svetloj sobi | 2537319 | https://pixabay.com/photos/the-push-rod-cleaner-wireless-2537319/ |
 | `service-home-floors` | usisivač na svetlom podu | 2799464 | https://pixabay.com/photos/cleanliness-maid-maintains-cleaning-2799464/ |
 | `service-home-windows` | svetla soba sa velikim prozorom | 2591358 | https://pixabay.com/photos/white-room-table-chairs-window-2591358/ |
