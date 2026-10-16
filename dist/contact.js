@@ -144,11 +144,24 @@
     img.src = URL.createObjectURL(file);
   });
 
-  function say(text, kind) {
+  function say(text, kind, mailto) {
     status.textContent = text;
+    if (mailto) {
+      const link = document.createElement('a');
+      link.href = mailto;
+      link.className = 'fc-status-mail';
+      link.textContent = 'pošaljite upit mejlom';
+      status.append(' ', link, '.');
+    }
     status.dataset.kind = kind;
     status.hidden = false;
   }
+
+  /* Rezerva kad slanje ne uspe: mejl sa već popunjenim upitom, da se upit
+     ne izgubi (fotografije posetilac dodaje sam). */
+  const mailtoFor = fields => 'mailto:flekout.clean@gmail.com?subject=' +
+    encodeURIComponent('Upit sa sajta: ' + fields.Prostor) + '&body=' +
+    encodeURIComponent(Object.entries(fields).map(([k, v]) => k + ': ' + v).join('\n'));
 
   form.addEventListener('submit', async event => {
     event.preventDefault();
@@ -164,17 +177,20 @@
     if (data.get('_honey')) return;
 
     const payload = new FormData();
-    payload.append('_subject', 'Novi upit sa sajta: ' + data.get('space'));
+    const fields = {
+      'Prostor': data.get('space'),
+      'Lokacija': data.get('location'),
+      'Ime': data.get('name') || '-',
+      'Opis': data.get('details'),
+      'Način kontakta': data.get('app') ? 'Poruka (' + data.get('app') + ')' : method,
+      [method === 'Email' ? 'Email' : 'Telefon']: contact,
+      'Broj fotografija': String(photos.length)
+    };
+    payload.append('_subject', 'Novi upit sa sajta: ' + fields.Prostor);
     payload.append('_template', 'table');
     payload.append('_captcha', 'false');
-    payload.append('Prostor', data.get('space'));
-    payload.append('Lokacija', data.get('location'));
-    payload.append('Ime', data.get('name') || '-');
-    payload.append('Opis', data.get('details'));
-    payload.append('Način kontakta', data.get('app') ? 'Poruka (' + data.get('app') + ')' : method);
-    payload.append(method === 'Email' ? 'Email' : 'Telefon', contact);
+    Object.entries(fields).forEach(([key, value]) => payload.append(key, value));
     if (method === 'Email') payload.append('_replyto', contact);
-    payload.append('Broj fotografija', String(photos.length));
 
     submit.disabled = true;
     submit.textContent = 'Šaljemo...';
@@ -191,7 +207,10 @@
       root.querySelector('[data-space="Kuća / stan"]').click();
       root.querySelector('[data-method="Poziv"]').click();
     } catch (error) {
-      say('Upit nije poslat. Pokušajte ponovo ili nas pozovite na +381 61 298 3645.', 'error');
+      /* "This form needs Activation" = FormSubmit čeka klik na link u mejlu
+         za aktivaciju na flekout.clean@gmail.com (samo prvi put). */
+      console.warn('[Flekout forma] slanje nije uspelo:', error.message);
+      say('Upit nije poslat. Pozovite nas na +381 61 298 3645 ili', 'error', mailtoFor(fields));
     } finally {
       submit.disabled = false;
       submit.textContent = submitLabel;

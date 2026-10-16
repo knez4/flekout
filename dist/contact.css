@@ -77,6 +77,7 @@
 #kontakt .fc-submit:active{transform:translateY(1px)}
 #kontakt .fc-status{margin:22px 0 0;padding:15px;background:#203e50;color:#a2dfff;font-size:14px;line-height:1.6;border-left:3px solid #46b7f1}
 #kontakt .fc-status[data-kind=error]{background:#3a2a2c;color:#ffc7bf;border-left-color:#ff9d8f}
+#kontakt .fc-status-mail{color:#fff;font-weight:600;text-decoration:underline;text-underline-offset:3px}
 #kontakt .fc-submit:disabled{cursor:progress;opacity:.75}
 /* zamka za botove: polje koje čovek ne vidi */
 #kontakt .fc-hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
