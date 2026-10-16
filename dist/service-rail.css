@@ -68,13 +68,14 @@
 .rail-card .rail-surfaces{font-size:13.5px;color:#91a6b4;margin:16px 0 22px;letter-spacing:.03em}
 
 /* Kadar ide od same gornje ivice tamne trake do reda sa brojačem, i seče desnu
-   ivicu ekrana. Pomeraj reza meri JS iz stvarne visine kadra — ugao ostaje 16.8°. */
+   ivicu ekrana. Desna 2 px se odsecaju: inače pri pomeranju trake (zaokruživanje
+   piksela) desna ivica prethodnog kadra proviri kao tanka linija levo od slike. Pomeraj reza meri JS iz stvarne visine kadra — ugao ostaje 16.8°. */
 .rail-card-figure{position:relative;margin:0;overflow:hidden;min-height:0;background:#1d2f39;
-  clip-path:polygon(0 0,100% 0,100% 100%,var(--fig-cut,70px) 100%)}
+  clip-path:polygon(0 0,calc(100% - 2px) 0,calc(100% - 2px) 100%,var(--fig-cut,70px) 100%)}
 /* Slika je izvučena iz toka: da je u toku, njena prirodna visina (širina ×
    1050/1400) diktirala bi visinu reda i na širokim ekranima obarala zakačeni
    režim. Ovako kadar prati red, a ne obrnuto. */
-.rail-card-figure img{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:cover;transform:translate3d(calc(var(--o,0) * 7%),0,0) scale(1.14);will-change:transform}
+.rail-card-figure img{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:cover;object-position:var(--fx,50%) 50%;transform-origin:var(--fx,50%) 50%;transform:translate3d(calc(var(--o,0) * 7%),0,0) scale(1.14);will-change:transform}
 /* kadar se stapa sa trakom umesto da stoji kao zalepljen pravougaonik */
 .rail-card-figure:after{content:"";position:absolute;inset:0;background:linear-gradient(107deg,#17252e 0,rgba(23,37,46,0) 26%)}
 /* Pri prelazu kadar prethodnog podtipa dođe tik uz naslov sledećeg. Ova meka
@@ -255,14 +256,14 @@
 
 /* --- telefon: cene u donjem panelu ---------------------------------------
    Tamna podloga kao traka usluga, plavo sečivo po gornjoj ivici, levi gornji
-   ugao zasečen pod 16.8° (porodica "kontejner sa tekstom", kao jezičci).
+   pune širine, sa plavom linijom gore (bez zaseka, do same ivice ekrana).
    Ručka gore i prevlačenje nadole, kao u aplikacijama. */
 .price-sheet{position:fixed;inset:0;z-index:60}
 .price-sheet[hidden]{display:none}
 .price-sheet-backdrop{position:absolute;inset:0;background:rgba(10,18,23,.55);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);opacity:0;transition:opacity .3s ease}
 .price-sheet-panel{position:absolute;left:0;right:0;bottom:0;max-height:86svh;display:flex;flex-direction:column;
   padding:0 6vw calc(20px + env(safe-area-inset-bottom,0px));background:#17252e;color:#fff;
-  border-top:3px solid #168ccd;clip-path:polygon(22px 0,100% 0,100% 100%,0 100%,0 74px);
+  border-top:3px solid #168ccd;
   transform:translateY(100%);transition:transform .34s cubic-bezier(.2,.8,.2,1)}
 .price-sheet.is-open .price-sheet-backdrop{opacity:1}
 .price-sheet.is-open .price-sheet-panel{transform:none}

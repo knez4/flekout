@@ -54,6 +54,8 @@
           surfaces: 'Nameštaj / Dušeci / Tepisi',
           prices: ['furnitureHome', 'mattresses'],
           image: 'service-home-deep.jpg',
+          /* motiv je uz levu ivicu: kosi rez kadra ga ne sme preseći */
+          focus: '0%',
           alt: 'Ručni usisivač u svetloj sobi'
         },
         {
@@ -245,6 +247,7 @@
       img.srcset = `${base}-800.webp?v=${IMG_V} 800w, ${base}-1400.webp?v=${IMG_V} 1400w`;
       img.sizes = '(max-width: 800px) 100vw, 50vw';
       img.alt = item.alt;
+      if (item.focus) img.style.setProperty('--fx', item.focus);
       img.width = 1400;
       img.height = 1050;
       /* prvi kadar odmah, ostali kad zatrebaju */
