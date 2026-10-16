@@ -232,9 +232,9 @@ cene određuje polje `prices` u `GROUPS`.
   fotografije.
 - **Podaci firme** (CompanyWall, 15.10.): Vladimir Vasiljković PR Agencija za
   čišćenje Flekout Clean Barajevo, PIB 115064189, MB 68065461, Obrada Lazića 85,
-  11460 Boždarevac; mejl flekout.clean@gmail.com. **Telefon i radno vreme su i
-  dalje PRIVREMENI** (CompanyWall nema telefon) i nose `data-placeholder`
-  (`grep data-placeholder`), i u JSON-LD bloku u `<head>`.
+  11460 Boždarevac; mejl flekout.clean@gmail.com, telefon +381 61 298 3645 (od klijenta),
+  radno vreme pon - sub 08-20, nedelja neradna. Stoje u `dist/index.html`
+  (kontakt, futer, dugme "Pozovite" i JSON-LD u `<head>`) i u politici privatnosti.
 - **Potpis u futeru** ("Dizajn i izrada @knez4") vodi na GitHub profil;
   zameniti linkom ka portfoliju kad bude gotov.
 - **Itison** je u listi cena kao "na proceni" (tepih je 350 po m²);
