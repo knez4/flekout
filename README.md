@@ -227,7 +227,10 @@ cene određuje polje `prices` u `GROUPS`.
   fotografiju; treba ih zameniti pravim snimcima sa terena (isti nazivi fajlova,
   pa se kod ne menja).
 - **Forma šalje upite preko FormSubmit-a** (`dist/contact.js`, `ENDPOINT`) na
-  flekout.clean@gmail.com, sa fotografijama smanjenim na najviše 1600 px.
+  flekout.clean@gmail.com, sa fotografijama smanjenim na najviše 1600 px. Bez fotografija
+  šalje AJAX-om (ostaje na stranici); sa fotografijama šalje klasičnu formu, jer
+  FormSubmit priloge prima samo tako, i vraća na `?upit=poslat#kontakt`.
+  Aktivacija važi po adresi sajta: novi domen traži jedan novi klik na "Activate Form".
   **Prvi upit stiže kao mejl za aktivaciju**: neko sa pristupom tom inboksu mora
   jednom da klikne "Activate form"; do tada upiti ne stižu. Posle aktivacije
   FormSubmit nudi skrivenu adresu (niz slova umesto mejla) koju vredi upisati
