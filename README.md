@@ -215,6 +215,10 @@ cene određuje polje `prices` u `GROUPS`.
   fotografije usluga sa Pixabay-a (vidi tabelu ispod). Probani i odbačeni: mop
   i kofa (Pixabay 34822), perač pod pritiskom na ulici (Pixabay 2333). Fotografija dubinskog pranja nameštaja
   mašinom (ekstraktor, parni čistač) na Pixabay-u nema, pa stoji ručni usisivač. Jedan dan snimanja na terenu rešava oba.
+- **Statistika poseta:** Cloudflare Web Analytics, uključen na Cloudflare tabli
+  (automatsko ubacivanje skripta, bez koda u repou i bez kolačića); navedeno u
+  politici privatnosti. Ako se sajt ikad seli sa Cloudflare-a, ubaciti njihov
+  JS snippet ili ukloniti pasus iz politike.
 - **Politika privatnosti** (`dist/politika-privatnosti.html`) je objavljena i
   indeksira se (u sitemap-u). Rok čuvanja podataka je opisan uopšteno: kad klijent
   potvrdi tačan rok, upisati ga. Preporuka: neka je pregleda pravnik.
