@@ -252,6 +252,10 @@ cene određuje polje `prices` u `GROUPS`.
   `dist/robots.txt` i `dist/sitemap.xml`. Ako se domen promeni, menja se na tim
   mestima (`grep -r flekoutclean.com dist`). FormSubmit traži jedan klik na
   "Activate Form" za novu adresu.
+- **SEO (24.10.):** naslov, opis i H1 ciljaju "čišćenje ... Beograd". Domen je nov,
+  pa je za vrh pretrage za "čišćenje Beograd" najvažniji Google profil firme
+  (oblast usluge Beograd, recenzije, fotografije) i linkovi sa drugih sajtova.
+  Sledeći korak na sajtu: posebne stranice po usluzi (mokap prvo u `mockups/`).
 - **Sadržaj za proveru sa klijentom:** "48 h", "garancija", "ista ekipa".
 
 ## Izvori fotografija i videa
