@@ -60,7 +60,9 @@
 .rail-track{display:flex;gap:0;width:100%;will-change:transform}
 
 /* --- kartica podtipa: tekst levo, kadar desno --- */
-.rail-card{flex:0 0 100%;min-width:100%;min-height:var(--card-h);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.9fr);gap:clamp(22px,3.6vw,58px);align-items:stretch;padding:0;scroll-snap-align:start}
+/* širina kartice u celim pikselima (--slide-w meri JS): traka se pomera za
+   cele piksele, pa ivica prethodnog kadra ne proviri kao tanka linija */
+.rail-card{flex:0 0 var(--slide-w,100%);min-width:var(--slide-w,100%);min-height:var(--card-h);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.9fr);gap:clamp(22px,3.6vw,58px);align-items:stretch;padding:0;scroll-snap-align:start}
 /* padding-top drži tekst ispod lebdećeg gornjeg reda */
 .rail-card-body{display:flex;flex-direction:column;justify-content:flex-start;padding:58px 0 22px;transform:translate3d(calc(var(--o,0) * -4%),0,0)}
 .rail-card h3{font-size:clamp(28px,3.5vw,54px);line-height:1.08;font-weight:500;letter-spacing:-.035em;margin:16px 0 14px;max-width:16ch}
@@ -68,10 +70,9 @@
 .rail-card .rail-surfaces{font-size:13.5px;color:#91a6b4;margin:16px 0 22px;letter-spacing:.03em}
 
 /* Kadar ide od same gornje ivice tamne trake do reda sa brojačem, i seče desnu
-   ivicu ekrana. Desna 2 px se odsecaju: inače pri pomeranju trake (zaokruživanje
-   piksela) desna ivica prethodnog kadra proviri kao tanka linija levo od slike. Pomeraj reza meri JS iz stvarne visine kadra — ugao ostaje 16.8°. */
+   ivicu ekrana. Pomeraj reza meri JS iz stvarne visine kadra — ugao ostaje 16.8°. */
 .rail-card-figure{position:relative;margin:0;overflow:hidden;min-height:0;background:#1d2f39;
-  clip-path:polygon(0 0,calc(100% - 2px) 0,calc(100% - 2px) 100%,var(--fig-cut,70px) 100%)}
+  clip-path:polygon(0 0,100% 0,100% 100%,var(--fig-cut,70px) 100%)}
 /* Slika je izvučena iz toka: da je u toku, njena prirodna visina (širina ×
    1050/1400) diktirala bi visinu reda i na širokim ekranima obarala zakačeni
    režim. Ovako kadar prati red, a ne obrnuto. */
@@ -212,7 +213,7 @@
 .space-option strong,.is-compact .space-option strong{align-self:center;font-size:14px;font-weight:600;letter-spacing:-.01em;line-height:1.2;text-align:center;white-space:nowrap}
 .space-option .long{display:none}
 .space-option .short{display:inline}
-.is-cinematic .rail-window{margin-right:-6vw}
+.rail-window{margin-right:-6vw}
 .rail-card{grid-template-columns:1fr;gap:14px;align-items:start;min-height:0;padding-bottom:4px}
 .rail-card-body{padding:44px 0 0}
 .rail-card h3{font-size:clamp(26px,5.6vw,38px);max-width:none;margin:12px 0 10px}

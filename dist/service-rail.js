@@ -37,6 +37,11 @@
   const cueText  = cue?.querySelector('.rail-cue-text');
   const touch    = matchMedia('(hover: none)');
   const reduced  = matchMedia('(prefers-reduced-motion: reduce)');
+  /* Telefon i tablet na dodir: traka se ne zakačinje (vertikalni skrol koji
+     postaje horizontalni deluje neprirodno pod prstom). Usluge se listaju
+     prevlačenjem ili dugmetom, a skrol nadole ide pravo u sledeću sekciju.
+     Zakačena traka ostaje za računare i laptopove. */
+  const handheld = matchMedia('(max-width: 800px), (hover: none) and (pointer: coarse)');
 
   /* Oznaka verzije za fotografije: podići kad se slika zameni pod istim imenom. */
   /* ista ?v= oznaka kao ovaj skript (index.html), pa se slike iz statičnog
@@ -563,13 +568,15 @@
        is-tight (manja tipografija), pa is-compact (niski laptopi, ~600px). */
     section.classList.add('is-cinematic');
     section.classList.remove('is-tight', 'is-compact');
+    const slideW = () => section.style.setProperty('--slide-w', viewport.clientWidth + 'px');
+    slideW();
     section.style.removeProperty('--card-h');
 
     grow();
     if (!fits()) { section.classList.add('is-tight'); grow(); }
     if (!fits()) { section.classList.add('is-compact'); grow(); }
 
-    cinematic = !reduced.matches && fits();
+    cinematic = !reduced.matches && !handheld.matches && fits();
     section.classList.toggle('is-cinematic', cinematic);
     if (!cinematic) {
       section.classList.remove('is-tight', 'is-compact');
@@ -586,6 +593,7 @@
     total = LEAD + step * LAST + step * TAIL;
     section.style.height = cinematic ? (introH + total + sticky.offsetHeight) + 'px' : 'auto';
 
+    slideW();
     measureCut();
     viewport.scrollLeft = 0;
     shown = target = cinematic ? targetSlide() : 0;
@@ -755,5 +763,6 @@
   document.addEventListener('visibilitychange', () => { if (!document.hidden) schedule(); });
   addEventListener('resize', layout);
   reduced.addEventListener('change', layout);
+  handheld.addEventListener('change', layout);
   document.fonts.ready.then(layout);
 })();
