@@ -215,8 +215,9 @@ cene određuje polje `prices` u `GROUPS`.
   fotografije usluga sa Pixabay-a (vidi tabelu ispod). Probani i odbačeni: mop
   i kofa (Pixabay 34822), perač pod pritiskom na ulici (Pixabay 2333). Fotografija dubinskog pranja nameštaja
   mašinom (ekstraktor, parni čistač) na Pixabay-u nema, pa stoji ručni usisivač. Jedan dan snimanja na terenu rešava oba.
-- **Politika privatnosti** (`dist/politika-privatnosti.html`) je nacrt: podaci
-  firme i servis za formu (FormSubmit) su upisani, ostaje rok čuvanja i pregled pravnika.
+- **Politika privatnosti** (`dist/politika-privatnosti.html`) je objavljena i
+  indeksira se (u sitemap-u). Rok čuvanja podataka je opisan uopšteno: kad klijent
+  potvrdi tačan rok, upisati ga. Preporuka: neka je pregleda pravnik.
 - **"Garancija na uslugu"** treba konkretizovati (šta tačno klijent dobija).
 
 - **Cene** su od klijenta: garnitura 1.000 po sedećem mestu, fotelja 500,
@@ -243,8 +244,6 @@ cene određuje polje `prices` u `GROUPS`.
 - **Potpis u futeru** (@knez4) vodi na portfolio https://knez4.github.io.
 - **Itison** je u listi cena kao "na proceni" (tepih je 350 po m²);
   kancelarijske stolice su po istoj ceni kao obične (250). Potvrditi sa klijentom.
-- **Politika privatnosti** — forma prima lične podatke, pa treba stranica i
-  link u futeru.
 - **Domen: flekoutclean.com** (Loopia, DNS na Cloudflare-u). Adresa stoji u
   `canonical`, `og:url`, `og:image` (`dist/og-image.jpg`, 1200×630), JSON-LD,
   `dist/robots.txt` i `dist/sitemap.xml`. Ako se domen promeni, menja se na tim
