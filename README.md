@@ -241,7 +241,7 @@ cene određuje polje `prices` u `GROUPS`.
   u `ENDPOINT`, da se mejl ne vidi u kodu.
 - **Podaci firme** (CompanyWall, 15.10.): Vladimir Vasiljković PR Agencija za
   čišćenje Flekout Clean Barajevo, PIB 115064189, MB 68065461, Obrada Lazića 85,
-  11460 Boždarevac; mejl flekout.clean@gmail.com, telefon +381 61 298 3645 (od klijenta),
+  11460 Boždarevac; mejl flekout.clean@gmail.com, telefon +381 61 2983645 (od klijenta),
   radno vreme pon - sub 08-20, nedelja neradna. Stoje u `dist/index.html`
   (kontakt, futer, dugme "Pozovite" i JSON-LD u `<head>`) i u politici privatnosti.
 - **Potpis u futeru** (@knez4) vodi na portfolio https://knez4.github.io.

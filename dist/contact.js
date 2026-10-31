@@ -254,7 +254,7 @@
       /* "This form needs Activation" = FormSubmit čeka klik na link u mejlu
          za aktivaciju na flekout.clean@gmail.com (samo prvi put). */
       console.warn('[Flekout forma] slanje nije uspelo:', error.message);
-      say('Upit nije poslat. Pozovite nas na +381 61 298 3645 ili', 'error', mailtoFor(fields));
+      say('Upit nije poslat. Pozovite nas na +381 61 2983645 ili', 'error', mailtoFor(fields));
     } finally {
       if (leaving) return;
       submit.disabled = false;
